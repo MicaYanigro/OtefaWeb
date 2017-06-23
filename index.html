@@ -1,0 +1,156 @@
+<html ng-app="torneoFutbol">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>OTEFA</title>
+
+	<link href="css/roboto-fontface.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/droid-serif.css" rel="stylesheet">
+	<!-- <link href="css/font-awesome.min.css" rel="stylesheet"> -->
+	<link href="css/style.css" rel="stylesheet">
+	<!-- <link href="css/poncho.min.css" rel="stylesheet"> -->
+
+	<link rel="shortcut icon" href="img/favicon-futbol.png">
+
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+
+	<!-- Libraries -->
+	<script src="js/lib/jquery.dataTables.min.js"></script>
+	<script src="js/lib/dataTables.tableTools.js"></script>
+	<script src="js/lib/dataTables.columnFilter.js"></script> 
+	<script src="js/lib/angular/angular.js"></script>
+	<script src="js/lib/angular/angular-route.js"></script>
+	<script src="js/lib/angular/angular-cookies.min.js"></script>
+	<script src="js/lib/angular/angular-translate.min.js"></script>
+	<script src="js/lib/angular/angular-sanitize.min.js"></script>
+	<script src="js/lib/angular/angular-translate-loader-static-files.min.js"></script>		
+	<script src="js/lib/angular-datatables.js"></script>
+	<script src="js/lib/angular-datatables.tabletools.js"></script>
+	<script src="js/lib/angular-datatables.columnfilter.js"></script>
+	<script src="js/lib/angular-datatables.bootstrap.min.js"></script>
+	<script src="js/lib/angular-datatables.bootstrap.tabletools.js"></script>
+	<script src="js/lib/typeahead/typeahead.js"></script>
+
+	<script src="js/lib/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+	<script src="js/lib/alasql.min.js"></script>
+	<script src="js/lib/xlsx.core.min.js"></script>
+	<script src="js/lib/highcharts.src.js"></script>
+	<script src="js/lib/highcharts-ng.js"></script>
+	<script src="js/lib/angular/ocLazyLoad.js"></script>
+
+	<!-- Application -->
+	<script src="js/app.js"></script>
+
+	<!-- Controllers -->
+	<script src="js/controllers/AppController.js"></script>
+	<script src="js/controllers/HomeController.js"></script>
+	<script src="js/controllers/LoginController.js"></script>
+	<script src="js/controllers/ContactoController.js"></script>
+	<script src="js/controllers/JugadoresController.js"></script>
+	<script src="js/controllers/SedesController.js"></script>
+
+	<!-- Filters and Directives -->
+	<script src="js/filters/completed.js"></script>
+	<script src="js/directives/nullToEmpty.js"></script>
+
+	<!-- Services -->
+	<script src="js/services/restApi.js"></script>
+	<script src="js/services/dataService.js"></script>
+	<script src="js/services/AuthenticationService.js"></script>
+
+</head>
+<body ng-controller="AppCtrl" class="background sticky-footer">
+		<!-- <div class="headerTop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <img src="img/icono-mail.png" border="0">
+                        <a href="mailto:torneodefutbol@hotmail.com">torneodefutbol@hotmail.com</a>
+                        &nbsp;&nbsp;
+                        <img src="img/icono-telefono.png" border="0">
+                        15-6652-6820                        
+					</div>
+                </div>
+            </div>
+        </div> -->
+        <header>
+        	<nav class="navbar navbar-inverse">
+        		<div class="container-fluid">
+        			<div class="navbar-header">
+        				<a class="navbar-brand" href="">OTEFA</a>
+        			</div>
+        			<ul class="nav navbar-nav">
+        				<li class="active"><a href="#/">INICIO</a></li>
+        				<li><a href="#/jugadores">Jugadores</a></li>
+        				<li><a href="">Equipos</a></li>
+        				<li><a href="">Torneos</a></li>
+        				<li><a href="#/sedes">Sedes</a></li>
+        				<li class="dropdown">
+        					<a class="dropdown-toggle" data-toggle="dropdown" href="">Page 4
+        						<span class="caret"></span>
+        					</a>
+        					<ul class="dropdown-menu">
+        						<li><a href="">Page 4-1</a></li>
+        						<li><a href="">Page 4-2</a></li>
+        						<li><a href="">Page 4-3</a></li>
+        					</ul>
+        				</li>
+        				<li><a href="#/contacto">Contacto</a></li>
+        			</ul>
+        			<form class="navbar-form navbar-left">
+        				<div class="form-group">
+        					<input type="text" class="form-control" placeholder="Search">
+        				</div>
+        				<button type="submit" class="btn btn-default">Submit</button>
+        			</form>
+        			<a href="" target="_blank" class="pull-right hidden-xs" style="margin-left:10px; margin-top:10px;">
+        				<img src="img/icono-insta.png" border="0">
+        			</a>&nbsp;
+        			<a href="" target="_blank" class="pull-right hidden-xs" style=" margin-top:10px;">
+        				<img src="img/icono-fb.png" border="0">
+        			</a>
+        		</div>
+        	</nav>
+        </header>
+
+        <main role="main">
+        	<div class="container">
+        		<section>
+        			<!-- Views -->
+        			<div class="mainView" ng-view></div>
+        		</section>
+        	</div>			
+        </main>
+
+    	<!-- <footer class="main-footer sticky-footer">
+      		<div class="container">
+        		<div class="row">
+          			<div class="col-sm-6">
+            			<img class="image-responsive" alt="Argentina.gob.ar - Presidencia de la Nación" src="img/argentinagob.svg">
+            			<br>
+            			<p class="text-muted small">Los contenidos de Argentina.gob.ar están licenciados bajo <a href="https://creativecommons.org/licenses/by/2.5/ar/">Creative Commons Reconocimiento 2.5 Argentina License</a></p>
+          			</div>
+          			<div class="col-md-3 col-sm-6">
+			            <ul>
+			              <li><a href="http://argob.github.io/poncho/ejemplos/pagina.html">Página</a></li>
+			              <li><a href="http://argob.github.io/poncho/ejemplos/pagina-area.html">Página de área</a></li>
+			              <li><a href="http://argob.github.io/poncho/ejemplos/pagina-navegacion.html">Página con navegación</a></li>
+			              <li><a href="http://argob.github.io/poncho/ejemplos/noticia.html">Noticia</a></li>
+			            </ul>
+          			</div>
+          			<div class="col-md-3 col-sm-6">
+            			<ul>
+			              <li><a href="http://argob.github.io/poncho/ejemplos/pagina-sticky-footer.html#">Términos y condiciones</a></li>
+			              <li><a href="http://argob.github.io/poncho/ejemplos/pagina-sticky-footer.html#">Mapa del sitio</a></li>
+            			</ul>
+          			</div>
+        		</div>
+      		</div>
+      	</footer> -->
+      </body>
+      </html>

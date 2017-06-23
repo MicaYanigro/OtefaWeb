@@ -1,0 +1,23 @@
+﻿<div class="row">
+	<div class="text-center">
+    	<h1>Torneo Futbol</h1>
+        	<p id="step_1">Torneo</p>
+    </div>
+</div>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+        <form>
+            <div class="form-group">
+                <label class="control-label">{{ 'app.login.user' | translate }}</label>
+                <input ng-model="user" type="text" class="form-control input-lg" id="user" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">{{ 'app.login.password' | translate }}</label>
+                <input ng-model="pass" type="password" class="form-control input-lg" id="pass" required />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-lg btn-block" ng-click='login()'>{{ 'app.aceptar ' | translate}}</button>
+            </div>
+        </form>
+	</div>
+</div>
