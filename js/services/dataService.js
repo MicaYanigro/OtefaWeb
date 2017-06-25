@@ -13,41 +13,77 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postTicketState: function (data, fnSuccess, fnError) {
+	        postJugador: function (data, fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'POST',
-	                url: 'v1/ticketstates',
+	                url: 'v1/jugadores',
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postTicket: function (data, fnSuccess, fnError) {
+	        postEquipo: function (data, fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'POST',
-	                url: 'v1/tickets',
+	                url: 'v1/equipos',
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postComment: function (data, fnSuccess, fnError) {
+	        postTorneo: function (data, fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'POST',
-	                url: 'v1/ticketcomments',
+	                url: 'v1/torneos',
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        getTicket: function (data, fnSuccess, fnError) {
+	        postSede: function (data, fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'POST',
+	                url: 'v1/sedes',
+	                data: data,
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+	        getJugadores: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
-	                url: 'v1/tickets/' + data,
-	                data: data,
+	                url: 'v1/jugadores',
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+	        getTorneos: function (fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'GET',
+	                url: 'v1/torneos',
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+	        getEquipos: function (fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'GET',
+	                url: 'v1/equipos',
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+	        getSedes: function (fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'GET',
+	                url: 'v1/sedes',
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
