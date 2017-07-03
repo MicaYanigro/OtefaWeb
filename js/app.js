@@ -29,6 +29,11 @@ var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSa
 	                templateUrl: './views/sedes.html',
 	               	controller: 'SedesCtrl'
 	            })
+
+	            .when('/torneos', {
+	                templateUrl: './views/torneos.html',
+	               	controller: 'SedesCtrl'
+	            })
 			   
 	            .otherwise({
 	                templateUrl: './views/404.html',
