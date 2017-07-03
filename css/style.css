@@ -180,3 +180,8 @@ body {
 .carousel-inner{
   height: 250
 }
+
+.headerEquipo{
+  font-weight: 800;
+  padding: 25px 0px;
+}

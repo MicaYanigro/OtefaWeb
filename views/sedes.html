@@ -1,17 +1,25 @@
+<style>
+    #map {
+        height: 100%;
+      }
+</style>
+
+
 <div class="row">
-	<h1 class="page-title">Sedes</h1>
+    <h1 class="page-title">Sedes</h1>
 </div>
 
 <br/>
 
 <div class="row">
-	
-	<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+    
+    <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th class="columnCenter">Nombre</th>
                 <th class="columnCenter">Dirección</th>
                 <th class="columnCenter">Localidad</th>
+                <th class="columnCenter">Torneo</th>
                 <th class="columnCenter">Ver en Mapa</th>
             </tr>
         </thead>
@@ -20,6 +28,7 @@
                 <td class="columnCenter">{{sede.Nombre}}</td>
                 <td class="columnCenter">{{sede.Direccion}}</td>
                 <td class="columnCenter">{{sede.Localidad}}</td>
+                <td class="columnCenter">{{!sede.Torneo ? '-' : sede.Torneo}}</td>
                 <td class="columnCenter"><button class="botonMapa" ng-click="verMapa(sede)"></button></td>
             </tr>
         </tbody>
@@ -29,24 +38,28 @@
 
 
 <script type="text/ng-template" id="ubicacion.html">
+   
+
+
     <form>
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
                     <span>Ubicación de Sede</span>
                 </div>
+
                 <br />
+                
                 <div id="map"></div>
-                <br/>
                 
                 <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
                 <br />
                 <div class="modal-footer">
-                    <button class="btn btn-success" ng-click="" ng-show="!saving">Confirmar</button>
-                    <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Confirmar</button>
+                    <!-- <button class="btn btn-success" ng-click="" ng-show="!saving">Confirmar</button>
+                    <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Confirmar</button> -->
 
-                    <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                    <button class="btn btn-default" ng-click="cancel()">Salir</button>
                 </div>
             </div>
             <div class="row error">
@@ -54,4 +67,9 @@
             </div>
         </div>
     </form>
+    
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxU9cTtBI5Pt1cz8pVi63cXoFJRSs-n4c&callback=initMap" async defer></script>
+   
 </script>
+    
