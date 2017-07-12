@@ -4,14 +4,15 @@
       }
 </style>
 
+<title>Sedes</title>
 
 <div class="row">
-    <h1 class="page-title">Sedes</h1>
+    <h1 class="page-title page-title-font">Sedes</h1>
 </div>
 
 <br/>
 
-<div class="row">
+<div class="container containerMain">
     
     <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
         <thead>
@@ -20,7 +21,8 @@
                 <th class="columnCenter">Dirección</th>
                 <th class="columnCenter">Localidad</th>
                 <th class="columnCenter">Torneo</th>
-                <th class="columnCenter">Ver en Mapa</th>
+                <th class="columnCenter">Imágenes</th>
+                <th class="columnCenter">Ubicación</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +31,8 @@
                 <td class="columnCenter">{{sede.Direccion}}</td>
                 <td class="columnCenter">{{sede.Localidad}}</td>
                 <td class="columnCenter">{{!sede.Torneo ? '-' : sede.Torneo}}</td>
-                <td class="columnCenter"><button class="botonMapa" ng-click="verMapa(sede)"></button></td>
+                <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-camera" ng-click="openImages(sede)"></button></td>
+                <td class="columnCenter"><button class="botonMapa" ng-click="openMap(sede)"></button></td>
             </tr>
         </tbody>
     </table>
@@ -37,7 +40,7 @@
 </div>
 
 
-<script type="text/ng-template" id="ubicacion.html">
+<script type="text/ng-template" id="location.html">
    
 
 
@@ -73,3 +76,39 @@
    
 </script>
     
+
+<script type="text/ng-template" id="sedeImages.html">
+   
+
+
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Galería de Imágenes</span>
+                </div>
+
+                <br />
+                
+                <div class="row">
+                    
+                </div>
+                
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" ng-click="cancel()">Salir</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+    
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxU9cTtBI5Pt1cz8pVi63cXoFJRSs-n4c&callback=initMap" async defer></script>
+   
+</script>

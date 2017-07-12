@@ -1,4 +1,4 @@
-torneoFutbol.controller('JugadoresCtrl', function ($scope, $rootScope, $location, $cookieStore, $filter, $translate, DataService, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
+torneoFutbol.controller('PlayersCtrl', function ($scope, $rootScope, $modal, $location, $cookieStore, $filter, $translate, DataService, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
 
 	$scope.dtOptions = DTOptionsBuilder.newOptions()
                                             .withDOM('frltpi')
@@ -7,7 +7,7 @@ torneoFutbol.controller('JugadoresCtrl', function ($scope, $rootScope, $location
                                             .withOption('info', false)
                                             .withOption('autoWidth', false)
                                             .withOption('scrollY', 300)
-                                            .withOption('fnDrawCallback', function (oSettings) {
+                                            /*.withOption('fnDrawCallback', function (oSettings) {
 													            var api = this.api();
 													            var rows = api.rows( {page:'current'} ).nodes();
 													            var last=null;
@@ -19,12 +19,11 @@ torneoFutbol.controller('JugadoresCtrl', function ($scope, $rootScope, $location
 													                    last = group;
 													                }
 													            } );
-													})
+													})*/
                                             .withLanguageSource("js/i18n/datatable/Spanish.json")
                                             .withBootstrap();
 
-
-	$scope.jugadores = [
+	/*$scope.jugadores = [
 							{
 								"Nombre" : "Javier",
 								"Apellido" : "Gonzales",
@@ -79,6 +78,86 @@ torneoFutbol.controller('JugadoresCtrl', function ($scope, $rootScope, $location
 								"Celular" : "2251908254",
 								"ObraSocial" : "MEDIFE" 
 							}
-	]
+	];
+*/
+
+	$scope.getPlayers = function(){
+		DataService.getPlayers(function(response){
+			$scope.players = response;
+		}, function(response, status){
+
+		})
+	}
+
+	$scope.getPlayers();
+	
+	$scope.newPlayer = function(){
+		var modalInstance = $modal.open ({
+
+			templateUrl: 'newPlayer.html',
+			controller: NewPlayerCtrl,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+			
+			}
+      	});
+
+	    modalInstance.result.then(function () {
+      		$scope.getPlayers();
+        },function(){
+
+        });
+	}
 
 });
+
+var NewPlayerCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate) {
+	
+	$scope.errorMsg = null;
+	
+	$scope.newPlayer = function(){
+		$scope.errorMsg = null;
+
+		if($scope.name == '' || $scope.name == undefined){
+			$scope.errorMsg = 'Ingrese el nombre del jugador';
+			return;
+		}
+
+		if($scope.lastName == '' || $scope.lastName == undefined){
+			$scope.errorMsg = 'Ingrese el apellido del jugador';
+			return;
+		}
+
+		if($scope.dni == '' || $scope.dni == undefined){
+			$scope.errorMsg = 'Ingrese el dni del jugador';
+			return;
+		}
+
+		if($scope.birthDate == '' || $scope.birthDate == undefined){
+			$scope.errorMsg = 'Ingrese la fecha de nacimiento del jugador';
+			return;
+		}
+
+		data = {
+			"Name" : $scope.name,
+			"LastName": $scope.lastName,
+			"Dni" : $scope.dni,
+			"BirthDate" : $scope.birthDate,
+			"Email" : $scope.email,
+			"CelNumber" : $scope.celNumber,
+			"MedicalInsurance" : $scope.medicalInsurance
+		}
+
+		DataService.postPlayer(data, function(response){
+			$modalInstance.close();
+		}, function(response, status){
+			$scope.errorMsg = "Invalid-Player-Dni";
+		})
+	}
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};

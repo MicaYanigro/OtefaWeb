@@ -13,10 +13,10 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postJugador: function (data, fnSuccess, fnError) {
+	        postPlayer: function (data, fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'POST',
-	                url: 'v1/jugadores',
+	                url: 'v1/players',
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
@@ -43,20 +43,21 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postSede: function (data, fnSuccess, fnError) {
+	        manageHeadquarter: function (method, url, data, fnSuccess, fnError) {
 	            restApi.call({
-	                method: 'POST',
-	                url: 'v1/sedes',
+	                method: method,
+	                url: url,
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        getJugadores: function (fnSuccess, fnError) {
+
+	        getPlayers: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
-	                url: 'v1/jugadores',
+	                url: 'v1/players',
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
@@ -80,10 +81,21 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
+
 	        getSedes: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
 	                url: 'v1/sedes',
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+
+	        getHeadquarters: function (fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'GET',
+	                url: 'v1/headquarters',
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },

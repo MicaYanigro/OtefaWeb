@@ -4,7 +4,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>OTEFA</title>
+	
 
 	<link href="css/roboto-fontface.css" rel="stylesheet">
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -50,10 +50,16 @@
 	<script src="js/controllers/AppController.js"></script>
 	<script src="js/controllers/HomeController.js"></script>
 	<script src="js/controllers/LoginController.js"></script>
-	<script src="js/controllers/ContactoController.js"></script>
-	<script src="js/controllers/JugadoresController.js"></script>
+	<script src="js/controllers/ContactController.js"></script>
+	<script src="js/controllers/PlayersController.js"></script>
 	<script src="js/controllers/SedesController.js"></script>
-    <script src="js/controllers/TorneosController.js"></script>
+  <script src="js/controllers/HeadquarterManagementController.js"></script>
+  <script src="js/controllers/TournamentsController.js"></script>
+  <script src="js/controllers/TournamentsManagementController.js"></script>
+  <script src="js/controllers/TeamController.js"></script>
+  <script src="js/controllers/TeamsController.js"></script>
+  <script src="js/controllers/TeamsManagementController.js"></script>
+  <script src="js/controllers/ConfigurationController.js"></script>
 
 	<!-- Filters and Directives -->
 	<script src="js/filters/completed.js"></script>
@@ -65,8 +71,40 @@
 	<script src="js/services/AuthenticationService.js"></script>
 
 </head>
+
+<style>
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+</style>
 <body ng-controller="AppCtrl" class="background sticky-footer">
-		<!-- <div class="headerTop">
+		  
+    <script type="text/ng-template" id="generic-popup.html">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="modal-title" ng-bind-html="title"></span>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td style="vertical-align: middle;">
+                <img ng-src="../img/spinner.gif" width="48" height="48" ng-if="showSpinner" />
+              </td>
+              <td>
+                <p ng-bind-html="message"></p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" ng-click="closePopupOk()" ng-if="showOkButton">{{ 'app.aceptar' | translate}}</button>
+          <button class="btn btn-default" ng-click="closePopupCancel()" ng-if="showCancelButton">{{ 'app.cancelar' | translate}}</button>
+        </div>
+      </div>
+    </script>
+
+
+    <!-- <div class="headerTop">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -80,47 +118,60 @@
             </div>
         </div> -->
         <header>
-        	<nav class="navbar navbar-inverse">
+        	<nav class="navbar navbar-inverse" style="margin-bottom: 0;">
         		<div class="container-fluid">
         			<div class="navbar-header">
         				<a class="navbar-brand" href=""><img style="margin-top: -40;" src="img/logo-otefa.png"></a>
         			</div>
-        			<ul class="nav navbar-nav">
+
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed text-center" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="width:100%; padding:0px 10px; margin:20px 0px;">MENU</button>
+                    </div>
+
+                    <div id="navbar" class="navbar-collapse collapse">
+                     
+
+        			<ul class="nav navbar-nav text-center">
         				<li class="active"><a href="#/">INICIO</a></li>
-        				<li><a href="#/jugadores">Jugadores</a></li>
-        				<li><a href="">Equipos</a></li>
+        				<!-- <li><a href="#/jugadores">Jugadores</a></li> -->
+        				<li><a href="#/equipos">Equipos</a></li>
         				<li><a href="#/torneos">Torneos</a></li>
         				<li><a href="#/sedes">Sedes</a></li>
+                <li><a href="#/contacto">Contacto</a></li>
         				<li class="dropdown">
-        					<a class="dropdown-toggle" data-toggle="dropdown" href="">Page 4
+        					<a class="dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Configuración
         						<span class="caret"></span>
         					</a>
         					<ul class="dropdown-menu">
-        						<li><a href="">Page 4-1</a></li>
-        						<li><a href="">Page 4-2</a></li>
-        						<li><a href="">Page 4-3</a></li>
+        						<li><a href="#/gestion-equipos">Equipos</a></li>
+                    <li><a href="#/jugadores">Jugadores</a></li>
+                    <li><a href="#/gestion-sedes">Sedes</a></li>
+        						<li><a href="#/gestion-torneos">Torneos</a></li>
+                    <li><a href="">Partidos</a></li>
         					</ul>
         				</li>
-        				<li><a href="#/contacto">Contacto</a></li>
         			</ul>
-        			<form class="navbar-form navbar-left">
+        			<!-- <form class="navbar-form navbar-left">
         				<div class="form-group">
         					<input type="text" class="form-control" placeholder="Search">
         				</div>
         				<button type="submit" class="btn btn-default">Submit</button>
-        			</form>
+        			</form> -->
         			<a href="" target="_blank" class="pull-right hidden-xs" style="margin-left:10px; margin-top:10px;">
         				<img src="img/icono-insta.png" border="0">
         			</a>&nbsp;
-        			<a href="" target="_blank" class="pull-right hidden-xs" style=" margin-top:10px;">
+        			<a href="https://www.facebook.com/futbolotefa/" target="_blank" class="pull-right hidden-xs" style=" margin-top:10px;">
         				<img src="img/icono-fb.png" border="0">
         			</a>
         		</div>
-        	</nav>
+                    </div><!--/.nav-collapse -->
+        	
+            </nav>
+
         </header>
 
         <main role="main">
-        	<div class="container containerMain">
+        	<div>
         		<section>
         			<!-- Views -->
         			<div class="mainView" ng-view></div>
@@ -128,10 +179,13 @@
         	</div>			
         </main>
 
-    	<!-- <footer class="main-footer sticky-footer">
+        <br/>
+
+    	<footer style="background: #222" class="main-footer sticky-footer">
       		<div class="container">
         		<div class="row">
-          			<div class="col-sm-6">
+
+          			<!-- <div class="col-sm-6">
             			<img class="image-responsive" alt="Argentina.gob.ar - Presidencia de la Nación" src="img/argentinagob.svg">
             			<br>
             			<p class="text-muted small">Los contenidos de Argentina.gob.ar están licenciados bajo <a href="https://creativecommons.org/licenses/by/2.5/ar/">Creative Commons Reconocimiento 2.5 Argentina License</a></p>
@@ -149,9 +203,16 @@
 			              <li><a href="http://argob.github.io/poncho/ejemplos/pagina-sticky-footer.html#">Términos y condiciones</a></li>
 			              <li><a href="http://argob.github.io/poncho/ejemplos/pagina-sticky-footer.html#">Mapa del sitio</a></li>
             			</ul>
-          			</div>
+          			</div> -->
         		</div>
       		</div>
-      	</footer> -->
+      	</footer>
       </body>
-      </html>
+          </html>
+
+          <script type="text/javascript">
+              window.addEventListener('resize', function(){
+                 $($.fn.dataTable.tables(true)).DataTable()
+                 .columns.adjust().draw();
+              }, true);
+          </script>

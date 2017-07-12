@@ -1,0 +1,148 @@
+<title>Torneos - OTEFA</title>
+
+<div class="row">
+	<h1 class="page-title page-title-font">Torneos</h1>
+</div>
+
+<br/><br/>
+
+<div class="container containerMain">
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="" data-toggle="collapse" data-parent="#accordion" data-target="#vigentes">
+                        Torneos Vigentes
+                    </a>
+                </h4>
+            </div>
+            <div id="vigentes" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div >
+                        <!-- <button type="button" class="btn btn-primary pull-right m-bottom10" ng-click="nuevoTorneo()">Nuevo Torneo</button> -->
+                        <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="columnCenter">Nombre</th>
+                                    <th class="columnCenter">Días</th>
+                                    <th class="columnCenter">Sedes</th>
+                                    <th class="columnCenter">Formato</th>
+                                    <th class="columnCenter">Formato de Clasificación</th>
+                                    <th class="columnCenter">Reglamento</th>
+                                    <th class="columnCenter">Premios</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="tournament in tournaments">
+                                    <td class="columnCenter">{{tournament.Name}}</td>
+                                    <td class="columnCenter">{{tournament.Dias}}</td>
+                                    <td class="columnCenter">{{tournament.Sedes}}</td>
+                                    <td class="columnCenter">{{tournament.Formato}}</td>
+                                    <td class="columnCenter">{{tournament.FormatoClasificacion}}</td>
+                                    <td class="columnCenter"><button ng-click="verReglamento(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
+                                    <td class="columnCenter">
+                                        <ul>
+                                            <li ng-repeat="premio in tournament.Premios | orderBy: 'Puesto'">
+                                                {{premio.Puesto}}° Puesto: {{premio.Premio}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="" data-toggle="collapse" data-parent="#accordion" data-target="#noVigentes">
+                        Torneos Fuera de Vigencia
+                    </a>
+                </h4>
+            </div>
+            <div id="noVigentes" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div >
+                        <div class="panel-group" id="accordion2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="" data-toggle="collapse" data-parent="#accordion2" data-target="#target1">
+                                            2014
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="target1" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div >
+                                            <h4>Torneos del 2014</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="" data-toggle="collapse" data-parent="#accordion2" data-target="#target2">
+                                            2015
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="target2" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div >
+                                            <h4>Torneos del 2015</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="" data-toggle="collapse" data-parent="#accordion2" data-target="#target3">
+                                            2016
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="target3" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div >
+                                            <h4>Torneos del 2016</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="" data-toggle="collapse" data-parent="#accordion2" data-target="#target4">
+                                            2017
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="target4" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <div >
+                                            <h4>Torneos del 2017</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    

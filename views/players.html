@@ -1,0 +1,147 @@
+<title>Jugadores - OTEFA</title>
+
+<div class="row">
+	<h1 class="page-title page-title-font">Gestión de Jugadores</h1>
+</div>
+
+<br/><br/>
+
+<div class="container containerMain">
+	
+    <button type="button" class="btn btn-primary pull-right m-bottom10" ng-click="newPlayer()">Nuevo Jugador</button>
+    <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <!-- <th ng-show="false" class="columnCenter">Equipo</th> -->
+                <th class="columnCenter">Nombre</th>
+                <th class="columnCenter">Apellido</th>
+                <th class="columnCenter">Email</th>
+                <th class="columnCenter">Celular</th>
+                <th class="columnCenter">Obra Social</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="player in players | orderBy:'Name'">
+                <!-- <td ng-show="false" class="columnCenter">{{!jugador.Team ? '-' : player.Team}}</td> -->
+                <td class="columnCenter">{{player.Name}}</td>
+                <td class="columnCenter">{{player.LastName}}</td>
+                <td class="columnCenter">{{!player.Email ? '-' : player.Email}}</td>
+                <td class="columnCenter">{{!player.CelNumber ? '-' : player.CelNumber}}</td>
+                <td class="columnCenter">{{!player.MedicalInsurance ? '-' : player.MedicalInsurance}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<script type="text/ng-template" id="newPlayer.html">
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Agregar Jugador</span>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="name" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Apellido</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="lastName" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>DNI</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="dni" maxlength="8" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Fecha de Nacimiento</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="birthDate" type="date" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="email" type="email" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Celular</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="celNumber" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Obra Social</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="medicalInsurance" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-click="newPlayer()" ng-show="!saving">Agregar</button>
+                    <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Agregar</button>
+
+                    <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+</script>
