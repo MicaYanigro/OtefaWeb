@@ -1,66 +1,26 @@
 torneoFutbol.controller('TeamsCtrl', function ($scope, $rootScope, $location, $cookieStore, $filter, $translate, DataService) {
 	
-	
-	$scope.teams = [
-					{
-						"ID" : 1,
-						"Shield:" :"escudoEquipo1.png",
-						"TeamImage" : "fotoEquipo1.jpg", 
-						"Name" : "Equipo 1",
-						"Players" : [
-										{
-											"Name" : "Jose",
-											"LastName" : "Perez"
-										},
-										{
-											"Name" : "Mario",
-											"LastName" : "Gonzalez"
-										},
-										{
-											"Name" : "Lucas",
-											"LastName" : "Parla"
-										},
-										{
-											"Name" : "Pablo",
-											"LastName" : "Tapia"
-										},
-										{
-											"Name" : "Mariano",
-											"LastName" : "Volker"
-										}
-						],
-						"Delegate" : "Cristian Gamarra"
-					},
-					{
-						"ID" : 2,
-						"Name" : "Equipo 2",
-						"Shield:" :"escudoEquipo2.png",
-						"TeamImage" : "fotoEquipo2.jpg",
-						"Players" : [
-										{
-											"Name" : "Lucas",
-											"LastName" : "Oroz"
-										},
-										{
-											"Name" : "Ramiro",
-											"LastName" : "Perla"
-										},
-										{
-											"Name" : "Luciano",
-											"LastName" : "Giraudo"
-										},
-										{
-											"Name" : "Santiago",
-											"LastName" : "Donoso"
-										},
-										{
-											"Name" : "Franco",
-											"LastName" : "Ocaña"
-										}
-						],
-						"Delegate" : "Marcelo Jaque"
-					}
-	];
+	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
+    $scope.folderUploads = $rootScope.urlApi + "/Files/Uploads/";
 
+    //Ruta donde se almacenan los adjuntos para los tickets
+    $scope.folderPathTeams = "Teams/";
+
+    //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
+    $scope.folderPathJurisdictions = "logos/jurisdictions/";
+
+	$scope.getTeams = function(){
+		DataService.getTeams(function(response){
+			$scope.teams = response;
+			for (var i = 0; i < $scope.teams.length; i++) {
+				if($scope.teams[i].TeamImage)
+					$scope.teams[i].TeamImage = $scope.folderUploads + $scope.folderPathTeams + $scope.teams[i].Id + '/' + $scope.teams[i].TeamImage;
+			}
+		}, function(response, status){
+
+		});
+	}
+
+	$scope.getTeams();
 	
 });

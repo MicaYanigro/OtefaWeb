@@ -1,79 +1,8 @@
 torneoFutbol.controller('TeamsManagementCtrl', function ($scope, $rootScope, $location, $modal, $cookieStore, $filter, $translate, DataService, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
 
-	// $scope.teams = [
-	// 				{
-	// 					"ID" : 1,
-	// 					"Shield:" :"escudoEquipo1.png",
-	// 					"TeamImage" : "fotoEquipo1.jpg", 
-	// 					"Name" : "Equipo 1",
-	// 					"Players" : [
-	// 									{
-	// 										"ID" : 1,
-	// 										"Name" : "Jose",
-	// 										"LastName" : "Perez"
-	// 									},
-	// 									{
-	// 										"ID" : 2,
-	// 										"Name" : "Mario",
-	// 										"LastName" : "Gonzalez"
-	// 									},
-	// 									{
-	// 										"ID" : 3,
-	// 										"Name" : "Lucas",
-	// 										"LastName" : "Parla"
-	// 									},
-	// 									{
-	// 										"ID" : 4,
-	// 										"Name" : "Pablo",
-	// 										"LastName" : "Tapia"
-	// 									},
-	// 									{
-	// 										"ID" : 5,
-	// 										"Name" : "Mariano",
-	// 										"LastName" : "Volker"
-	// 									}
-	// 					],
-	// 					"Delegate" : "Cristian Gamarra"
-	// 				},
-	// 				{
-	// 					"ID" : 2,
-	// 					"Name" : "Equipo 2",
-	// 					"Shield:" :"escudoEquipo2.png",
-	// 					"TeamImage" : "fotoEquipo2.jpg",
-	// 					"Players" : [
-	// 									{
-	// 										"ID" : 7,
-	// 										"Name" : "Lucas",
-	// 										"LastName" : "Oroz"
-	// 									},
-	// 									{
-	// 										"ID" : 8,
-	// 										"Name" : "Ramiro",
-	// 										"LastName" : "Perla"
-	// 									},
-	// 									{
-	// 										"ID" : 9,
-	// 										"Name" : "Luciano",
-	// 										"LastName" : "Giraudo"
-	// 									},
-	// 									{
-	// 										"ID" : 10,
-	// 										"Name" : "Santiago",
-	// 										"LastName" : "Donoso"
-	// 									},
-	// 									{
-	// 										"ID" : 11,
-	// 										"Name" : "Franco",
-	// 										"LastName" : "Ocaña"
-	// 									}
-	// 					],
-	// 					"Delegate" : "Marcelo Jaque"
-	// 				}
-	// ];
-
 
 	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
-    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";//$rootScope.urlApi + "/Files/Uploads/";
+    $scope.folderUploads = $rootScope.urlApi + "/Files/Uploads/";
 
     //Ruta donde se almacenan los adjuntos para los tickets
     $scope.folderPathTeams = "Teams/";
