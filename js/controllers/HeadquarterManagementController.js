@@ -81,7 +81,7 @@ var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalIns
 		$scope.address = headquarter.Address;
 		$scope.city = headquarter.City;
 		method = 'PUT';
-		url += headquarter.ID;
+		url += headquarter.Id;
 	}
 
 
@@ -111,7 +111,7 @@ var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalIns
 		DataService.manageHeadquarter(method, url, data, function(response){
 			$modalInstance.close();
 		}, function(response, status){
-			$scope.errorMsg = response;
+			$scope.errorMsg = response.Message;
 		});
 	}
 

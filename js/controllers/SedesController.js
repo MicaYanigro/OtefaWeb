@@ -10,31 +10,16 @@ torneoFutbol.controller('SedesCtrl', function ($scope, $rootScope, $modal, $loca
                                             .withLanguageSource("js/i18n/datatable/Spanish.json")
                                             .withBootstrap();
 
-	$scope.sedes = [
-						{
-							"Nombre" : "Avellaneda FC",
-							"Direccion" : "Salta 2243",
-							"Localidad" : "Avellaneda",
-							"Torneo" : "Torneo 1"
-						},
-						{
-							"Nombre" : "Caballito FC",
-							"Direccion" : "Yerbal 1252",
-							"Localidad" : "CABA",
-							"Torneo" : ""
-						},
-						{
-							"Nombre" : "La Plata FC",
-							"Direccion" : "Calle 12 521",
-							"Localidad" : "La Plata",
-							"Torneo" : "Torneo 3"
-						}
-	];
+	$scope.getHeadquarters = function(){
 
+		DataService.getHeadquarters(function(response){
+			$scope.headquarters = response;
+		}, function(response, status){
 
-	$scope.initMap = function(){
-		
+		});
 	}
+
+	$scope.getHeadquarters();
 
 	$scope.openImages = function(sede){
 		var modalInstance = $modal.open ({
@@ -105,22 +90,29 @@ var LocationCtrl = function ($scope, $window, $filter, DataService, $modalInstan
 	var map;
 	var loc = {lat: 34.063311, lng: -118.236825};
 
-	$window.initMap = function(){
-		var markers = [];
-		var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: {lat: -34.397, lng: 150.644}
-        });
-        google.maps.event.trigger(map, "resize");
-        var geocoder = new google.maps.Geocoder();
-        $scope.geocodeAddress(geocoder, map, markers);
-	}
+	// $window.initMap = function(){
+	// 	var markers = [];
+	// 	// var map = new google.maps.Map(document.getElementById('map'), {
+ //  //         zoom: 15,
+ //  //         center: {lat: -34.397, lng: 150.644}
+ //  //       });
+ //        // google.maps.event.trigger(map, "resize");
+ //        var geocoder = new google.maps.Geocoder();
+ //        $scope.geocodeAddress(geocoder, markers);
+	// }
 
-	$scope.geocodeAddress = function (geocoder, resultsMap, markers) {
+	$window.geocodeAddress = function (geocoder, markers) {
+		var markers = [];
+		var geocoder = new google.maps.Geocoder();
         var infowindow = new google.maps.InfoWindow();
-        var address = sede.Direccion + ' ' + sede.Localidad;
+        var address = sede.Address + ' ' + sede.City + ' Argentina';
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
+            	resultsMap = new google.maps.Map(document.getElementById('map'), {
+		        	zoom: 15,
+		          	center: {lat: -34.397, lng: 150.644}
+		        });
+		        google.maps.event.trigger(resultsMap, "resize");
                 resultsMap.setCenter(results[0].geometry.location);
                 for (i = 0; i < markers.length; i++) {
                     markers[i].setMap(null);
