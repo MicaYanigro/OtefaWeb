@@ -23,7 +23,7 @@
   "app.si": "Si",
   "app.usuario": "Usuario",
   "app.volver": "Volver",
-  "Invalid-Player-Dni" : "DNI de jugador inválido",
+  "Invalid-Player-Dni" : "El DNI del jugador es inválido",
   "Null-Delegate" : "Nombre de Delegado Nulo",
   "Empty-Delegate" : "Ingrese el nombre del delegado",
   "Empty-Name" : "Por favor, ingrese el nombre",

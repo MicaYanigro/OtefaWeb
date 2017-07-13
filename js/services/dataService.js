@@ -13,10 +13,10 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postPlayer: function (data, fnSuccess, fnError) {
+	        managePlayer: function (method, url, data, fnSuccess, fnError) {
 	            restApi.call({
-	                method: 'POST',
-	                url: 'v1/players',
+	                method: method,
+	                url: url,
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
