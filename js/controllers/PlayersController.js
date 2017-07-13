@@ -23,63 +23,6 @@ torneoFutbol.controller('PlayersCtrl', function ($scope, $rootScope, $modal, $lo
                                             .withLanguageSource("js/i18n/datatable/Spanish.json")
                                             .withBootstrap();
 
-	/*$scope.jugadores = [
-							{
-								"Nombre" : "Javier",
-								"Apellido" : "Gonzales",
-								"Equipo": "Equipo 1",
-								"DNI" : "34901875",
-								"FechaNacimiento" : new Date(1987, 4, 25),
-								"Email" : "jgonzales@hotmail.com",
-								"Celular" : "1198251092",
-								"ObraSocial" : "OSDE"
-							},
-
-							{
-								"Nombre" : "Lucas",
-								"Apellido" : "Loria",
-								"Equipo": "Equipo 1",
-								"DNI" : "39152918",
-								"FechaNacimiento" : new Date(2000, 2, 11),
-								"Email" : "",
-								"Celular" : "",
-								"ObraSocial" : "OSECAC" 
-							},
-
-							{
-								"Nombre" : "Mariano",
-								"Apellido" : "Farias",
-								"Equipo": "Equipo 1",
-								"DNI" : "33109252",
-								"FechaNacimiento" : new Date(1997, 7, 20),
-								"Email" : "",
-								"Celular" : "2964872398",
-								"ObraSocial" : "Swiss Medical"
-							},
-
-							{
-								"Nombre" : "Lautaro",
-								"Apellido" : "Riva",
-								"Equipo": "Equipo 2",
-								"DNI" : "30120952",
-								"FechaNacimiento" : new Date(1988, 9, 12),
-								"Email" : "lriva@hotmail.com",
-								"Celular" : "35193862983",
-								"ObraSocial" : "GALENO" 
-							},
-
-							{
-								"Nombre" : "Marcos",
-								"Apellido" : "Sara",
-								"Equipo": "Equipo 3",
-								"DNI" : "32358630",
-								"FechaNacimiento" : new Date(1983, 8, 4),
-								"Email" : "msara@hotmail.com",
-								"Celular" : "2251908254",
-								"ObraSocial" : "MEDIFE" 
-							}
-	];
-*/
 
 	$scope.getPlayers = function(){
 		DataService.getPlayers(function(response){
@@ -92,6 +35,10 @@ torneoFutbol.controller('PlayersCtrl', function ($scope, $rootScope, $modal, $lo
 	$scope.getPlayers();
 	
 	$scope.newPlayer = function(){
+		$scope.editPlayer();
+	}
+
+	$scope.editPlayer = function(player){
 		var modalInstance = $modal.open ({
 
 			templateUrl: 'newPlayer.html',
@@ -99,7 +46,9 @@ torneoFutbol.controller('PlayersCtrl', function ($scope, $rootScope, $modal, $lo
 			size: 'lg',
 			backdrop: 'static',
 			resolve: {
-			
+				player: function(){
+					return player;
+				}
 			}
       	});
 
@@ -112,11 +61,38 @@ torneoFutbol.controller('PlayersCtrl', function ($scope, $rootScope, $modal, $lo
 
 });
 
-var NewPlayerCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate) {
+var NewPlayerCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, player) {
 	
 	$scope.errorMsg = null;
+	$scope.saving = false;
+	$scope.player = player;
+	var method = 'POST';
+	var url = 'v1/players/'
+
+	if(player){
+		$scope.name = player.Name;
+		$scope.lastName = player.LastName;
+		$scope.dni = player.Dni;
+		$scope.birthDate = new Date(player.BirthDate);
+		
+		if(player.Email){
+			$scope.email = player.Email;
+		}
+		
+		if(player.CelNumber){
+			$scope.celNumber = player.CelNumber;
+		}
+		
+		if(player.MedicalInsurance){
+			$scope.medicalInsurance = player.MedicalInsurance;
+		}
+
+		url += player.Id;
+		method = 'PUT';
+
+	}
 	
-	$scope.newPlayer = function(){
+	$scope.managePlayer = function(){
 		$scope.errorMsg = null;
 
 		if($scope.name == '' || $scope.name == undefined){
@@ -149,9 +125,12 @@ var NewPlayerCtrl = function ($scope, $window, $filter, DataService, $modalInsta
 			"MedicalInsurance" : $scope.medicalInsurance
 		}
 
-		DataService.postPlayer(data, function(response){
+		$scope.saving = true;
+		DataService.managePlayer(method, url, data, function(response){
+			$scope.saving = false;
 			$modalInstance.close();
 		}, function(response, status){
+			$scope.saving = false;
 			$scope.errorMsg = "Invalid-Player-Dni";
 		})
 	}

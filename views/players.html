@@ -19,6 +19,7 @@
                 <th class="columnCenter">Email</th>
                 <th class="columnCenter">Celular</th>
                 <th class="columnCenter">Obra Social</th>
+                <th class="columnCenter">Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@
                 <td class="columnCenter">{{!player.Email ? '-' : player.Email}}</td>
                 <td class="columnCenter">{{!player.CelNumber ? '-' : player.CelNumber}}</td>
                 <td class="columnCenter">{{!player.MedicalInsurance ? '-' : player.MedicalInsurance}}</td>
+                <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-pencil" ng-click="editPlayer(player)"></button></td>
             </tr>
         </tbody>
     </table>
@@ -135,7 +137,7 @@
 
                 <br />
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" ng-click="newPlayer()" ng-show="!saving">Agregar</button>
+                    <button type="submit" class="btn btn-success" ng-click="managePlayer()" ng-show="!saving">Agregar</button>
                     <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Agregar</button>
 
                     <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
