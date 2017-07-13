@@ -1,83 +1,111 @@
 torneoFutbol.controller('TeamsManagementCtrl', function ($scope, $rootScope, $location, $modal, $cookieStore, $filter, $translate, DataService, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
 
-	$scope.teams = [
-					{
-						"ID" : 1,
-						"Shield:" :"escudoEquipo1.png",
-						"TeamImage" : "fotoEquipo1.jpg", 
-						"Name" : "Equipo 1",
-						"Players" : [
-										{
-											"ID" : 1,
-											"Name" : "Jose",
-											"LastName" : "Perez"
-										},
-										{
-											"ID" : 2,
-											"Name" : "Mario",
-											"LastName" : "Gonzalez"
-										},
-										{
-											"ID" : 3,
-											"Name" : "Lucas",
-											"LastName" : "Parla"
-										},
-										{
-											"ID" : 4,
-											"Name" : "Pablo",
-											"LastName" : "Tapia"
-										},
-										{
-											"ID" : 5,
-											"Name" : "Mariano",
-											"LastName" : "Volker"
-										}
-						],
-						"Delegate" : "Cristian Gamarra"
-					},
-					{
-						"ID" : 2,
-						"Name" : "Equipo 2",
-						"Shield:" :"escudoEquipo2.png",
-						"TeamImage" : "fotoEquipo2.jpg",
-						"Players" : [
-										{
-											"ID" : 7,
-											"Name" : "Lucas",
-											"LastName" : "Oroz"
-										},
-										{
-											"ID" : 8,
-											"Name" : "Ramiro",
-											"LastName" : "Perla"
-										},
-										{
-											"ID" : 9,
-											"Name" : "Luciano",
-											"LastName" : "Giraudo"
-										},
-										{
-											"ID" : 10,
-											"Name" : "Santiago",
-											"LastName" : "Donoso"
-										},
-										{
-											"ID" : 11,
-											"Name" : "Franco",
-											"LastName" : "Ocaña"
-										}
-						],
-						"Delegate" : "Marcelo Jaque"
-					}
-	];
+	// $scope.teams = [
+	// 				{
+	// 					"ID" : 1,
+	// 					"Shield:" :"escudoEquipo1.png",
+	// 					"TeamImage" : "fotoEquipo1.jpg", 
+	// 					"Name" : "Equipo 1",
+	// 					"Players" : [
+	// 									{
+	// 										"ID" : 1,
+	// 										"Name" : "Jose",
+	// 										"LastName" : "Perez"
+	// 									},
+	// 									{
+	// 										"ID" : 2,
+	// 										"Name" : "Mario",
+	// 										"LastName" : "Gonzalez"
+	// 									},
+	// 									{
+	// 										"ID" : 3,
+	// 										"Name" : "Lucas",
+	// 										"LastName" : "Parla"
+	// 									},
+	// 									{
+	// 										"ID" : 4,
+	// 										"Name" : "Pablo",
+	// 										"LastName" : "Tapia"
+	// 									},
+	// 									{
+	// 										"ID" : 5,
+	// 										"Name" : "Mariano",
+	// 										"LastName" : "Volker"
+	// 									}
+	// 					],
+	// 					"Delegate" : "Cristian Gamarra"
+	// 				},
+	// 				{
+	// 					"ID" : 2,
+	// 					"Name" : "Equipo 2",
+	// 					"Shield:" :"escudoEquipo2.png",
+	// 					"TeamImage" : "fotoEquipo2.jpg",
+	// 					"Players" : [
+	// 									{
+	// 										"ID" : 7,
+	// 										"Name" : "Lucas",
+	// 										"LastName" : "Oroz"
+	// 									},
+	// 									{
+	// 										"ID" : 8,
+	// 										"Name" : "Ramiro",
+	// 										"LastName" : "Perla"
+	// 									},
+	// 									{
+	// 										"ID" : 9,
+	// 										"Name" : "Luciano",
+	// 										"LastName" : "Giraudo"
+	// 									},
+	// 									{
+	// 										"ID" : 10,
+	// 										"Name" : "Santiago",
+	// 										"LastName" : "Donoso"
+	// 									},
+	// 									{
+	// 										"ID" : 11,
+	// 										"Name" : "Franco",
+	// 										"LastName" : "Ocaña"
+	// 									}
+	// 					],
+	// 					"Delegate" : "Marcelo Jaque"
+	// 				}
+	// ];
 
-	$scope.getTeams = function(){
+
+	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
+    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";//$rootScope.urlApi + "/Files/Uploads/";
+
+    //Ruta donde se almacenan los adjuntos para los tickets
+    $scope.folderPathTeams = "Teams/";
+
+    //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
+    $scope.folderPathJurisdictions = "logos/jurisdictions/";
+
+    $scope.getTeams = function(){
 		DataService.getTeams(function(response){
 			$scope.teams = response;
+			for (var i = 0; i < $scope.teams.length; i++) {
+				if($scope.teams[i].TeamImage)
+					$scope.teams[i].TeamImage = $scope.folderUploads + $scope.folderPathTeams + $scope.teams[i].Id + '/' + $scope.teams[i].TeamImage;
+			}
+			
 		}, function(response, status){
 
 		})
 	}
+
+	$scope.getTeams();
+	
+	// $scope.getFilesByFolder = function(teamId) {
+ //        //Obtengo los archivos asociados al ticket
+ //        var path = $scope.folderPathTeams + teamId;
+ //        DataService.getFilesByFolder(path, function (data) {
+ //        }, function (response, status) {
+ //            $scope.teamFiles = response.Files;
+ //            //$scope.filePath = "uploads/tickets/docs/" + $scope.idTicket + "/";
+ //            $scope.filePath = $scope.folderUploads + $scope.folderPathTeams + teamId + "/" + $scope.teamFiles.Name;
+ //        });
+ //    }
 
 	$scope.newTeam = function(){
 		$scope.editTeam();
@@ -110,30 +138,46 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
 	$scope.saving = false;
 	$scope.errorMsg = null;
 	$scope.selection = [];
-	var url = 'v1/teams';
+	var url = 'v1/teams/';
 	var method = 'POST';
 
-	$scope.team = team;
-	if(team){
-		$scope.name = team.Name;
-		
-		if(team.TeamDelegate){
-			$scope.teamDelegate = team.Delegate;
-		}
-
-		url += team.Id;
-		method = 'PUT'
-
-	}
-
-	 //Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
-    // $scope.folderUploads = $rootScope.urlApi + "/Files/Uploads/";
+	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
+    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";//$rootScope.urlApi + "/Files/Uploads/";
 
     //Ruta donde se almacenan los adjuntos para los tickets
     $scope.folderPathTeams = "Teams/";
 
     //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
     $scope.folderPathJurisdictions = "logos/jurisdictions/";
+
+	$scope.getFilesByFolder = function(teamId) {
+        //Obtengo los archivos asociados al ticket
+        var path = $scope.folderPathTeams + teamId;
+        DataService.getFilesByFolder(path, function (data) {
+        }, function (response, status) {
+            $scope.teamFiles = response.Files[0];
+            //$scope.filePath = "uploads/tickets/docs/" + $scope.idTicket + "/";
+            if($scope.teamFiles)
+            	$scope.filePath = $scope.folderUploads + $scope.folderPathTeams + teamId + "/" + $scope.teamFiles.Name;
+        });
+    }
+
+	$scope.team = team;
+
+	if(team){
+		url += team.Id;
+		method = 'PUT';
+		$scope.name = team.Name;
+		$scope.teamDelegate = team.TeamDelegate;
+		if(team.PlayersList.length != 0){
+			for (var i = 0; i < team.PlayersList.length; i++) {
+				$scope.selection.push(team.PlayersList[i].Id);
+			}
+		}
+		$scope.getFilesByFolder(team.Id);
+	}
+
+	
 
 	$scope.getPlayers = function(){
 		DataService.getPlayers(function(response){
@@ -145,16 +189,18 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
 
 	$scope.getPlayers();
 
-	// $scope.getFilesByFolder = function() {
- //        //Obtengo los archivos asociados al ticket
- //        var path = $scope.folderPathTickets + $scope.idTicket;
- //        DataService.getFilesByFolder(path, function (data) {
- //        }, function (response, status) {
- //            $scope.ticketFiles = response.Files;
- //            //$scope.filePath = "uploads/tickets/docs/" + $scope.idTicket + "/";
- //            $scope.filePath = $scope.folderUploads + $scope.folderPathTickets + $scope.idTicket + "/";
- //        });
- //    }
+	
+
+    
+
+    $scope.deleteFile = function(fileName){
+        DataService.deleteFile($scope.folderPathTeams + team.Id + '/' + fileName, function (data) {
+          
+        }, function (response, status) {
+            $scope.teamFiles=undefined;
+            $scope.filePath=undefined;
+        });
+    }
 
     $scope.postFile = function(teamId) {
         var length = $scope.files.length;
@@ -169,7 +215,7 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
             //console.info(data);
             // $scope.getFilesByFolder();
         }, function (response, status) {
-        	$scope.errorMsg = response;
+        	$scope.errorMsg = response.Message;
             //console.info(response);
             // $scope.getFilesByFolder();
         });
@@ -212,18 +258,34 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
 			return;
 		}
 
+		var teamImage = "";
+		var shieldImage = "";
+
+		if($scope.files && $scope.files.length > 0){
+			var teamImage = $scope.files[0].name;
+		}
+
 		data = {
 			'Name' : $scope.name,
 			'TeamDelegate' : $scope.teamDelegate,
-			'PlayersList' : $scope.selection
+			'PlayersList' : $scope.selection,
+			'TeamImage' : teamImage
 		};
 
 		DataService.manageTeam(method, url, data, function(response){
-			if($scope.files.length > 0){
-				$scope.postFile(response)
+			if($scope.files && $scope.files.length > 0){
+
+				if(!team){
+					$scope.postFile(response)
+				}
+				else{
+					$scope.postFile(team.Id)
+				}
+
 			}
+			$modalInstance.close();
 		}, function(response, status){
-			$scope.errorMsg = response;
+			$scope.errorMsg = response.Message;
 		});
 
 	}

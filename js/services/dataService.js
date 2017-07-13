@@ -72,10 +72,10 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        getEquipos: function (fnSuccess, fnError) {
+	        getTeams: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
-	                url: 'v1/equipos',
+	                url: 'v1/teams',
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
@@ -121,6 +121,51 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 					transformRequest: angular.identity,
 					headers: {
 						'Content-Type': undefined
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+			getFiles: function (fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/files',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+
+			getFileByTeamId: function (fullNamePath, data, fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/files/GetByFolderPath?FolderPath=' + fullNamePath,
+					data: data,
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+			getFilesByFolder: function (folderPath, data, fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/files/GetByFolderPath?FolderPath=' + folderPath,
+					data: data,
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+			deleteFile: function (fullNamePath, data, fnSuccess, fnError) {
+				restApi.call({
+					method: 'DELETE',
+					url: 'v1/files?FileNamePath=' + fullNamePath,
+					data : data,
+
+					headers: { 
+						'Content-Type': 'application/json'
 					},
 				}, fnSuccess, fnError, true);
 			}
