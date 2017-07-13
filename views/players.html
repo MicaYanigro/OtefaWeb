@@ -15,6 +15,7 @@
                 <!-- <th ng-show="false" class="columnCenter">Equipo</th> -->
                 <th class="columnCenter">Nombre</th>
                 <th class="columnCenter">Apellido</th>
+                <th class="columnCenter">DNI</th>
                 <th class="columnCenter">Email</th>
                 <th class="columnCenter">Celular</th>
                 <th class="columnCenter">Obra Social</th>
@@ -25,6 +26,7 @@
                 <!-- <td ng-show="false" class="columnCenter">{{!jugador.Team ? '-' : player.Team}}</td> -->
                 <td class="columnCenter">{{player.Name}}</td>
                 <td class="columnCenter">{{player.LastName}}</td>
+                <td class="columnCenter">{{player.Dni}}</td>
                 <td class="columnCenter">{{!player.Email ? '-' : player.Email}}</td>
                 <td class="columnCenter">{{!player.CelNumber ? '-' : player.CelNumber}}</td>
                 <td class="columnCenter">{{!player.MedicalInsurance ? '-' : player.MedicalInsurance}}</td>
@@ -144,4 +146,11 @@
             </div>
         </div>
     </form>
+</script>
+
+<script>
+    $(document).ready(function(){
+        $($.fn.dataTable.tables(true)).DataTable()
+        .columns.adjust().draw();
+    });
 </script>

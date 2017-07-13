@@ -23,9 +23,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="headquarter in headquarters | orderBy:'Name'">
-                <td class="columnCenter">{{headquarter.Nombre}}</td>
-                <td class="columnCenter">{{headquarter.Direccion}}</td>
-                <td class="columnCenter">{{headquarter.Localidad}}</td>
+                <td class="columnCenter">{{headquarter.Name}}</td>
+                <td class="columnCenter">{{headquarter.Address}}</td>
+                <td class="columnCenter">{{headquarter.City}}</td>
                 <!-- <td class="columnCenter">{{!headquarter.Torneo ? '-' : headquarter.Torneo}}</td>
                 <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-camera" ng-click="openImages(headquarter)"></button></td>
                 <td class="columnCenter"><button class="botonMapa" ng-click="openMap(headquarter)"></button></td> -->

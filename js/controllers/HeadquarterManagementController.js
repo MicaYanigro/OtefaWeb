@@ -60,7 +60,7 @@ torneoFutbol.controller('HeadquarterManagementCtrl', function ($scope, $rootScop
       	});
 
 	    modalInstance.result.then(function () {
-      		
+      		$scope.getHeadquarters();
         },function(){
 
         });
@@ -74,7 +74,7 @@ var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalIns
 	$scope.errorMsg = null;
 	$scope.headquarter = headquarter
 	var method = 'POST';
-	var url = 'v1/headquarter/';
+	var url = 'v1/headquarters/';
 
 	if(headquarter){
 		$scope.name = headquarter.Name;
