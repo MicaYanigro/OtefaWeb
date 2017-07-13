@@ -36,12 +36,33 @@ torneoFutbol.controller('SedesCtrl', function ($scope, $rootScope, $modal, $loca
 		
 	}
 
-	$scope.verMapa = function(sede){
+	$scope.openImages = function(sede){
+		var modalInstance = $modal.open ({
+
+			templateUrl: 'sedeImages.html',
+			controller: SedeImagesCtrl,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+				sede : function(){
+					return sede;
+				}
+	        }
+      	});
+
+	    modalInstance.result.then(function () {
+      		
+        },function(){
+
+        });
+	}
+
+	$scope.openMap = function(sede){
 
 		var modalInstance = $modal.open ({
 
-			templateUrl: 'ubicacion.html',
-			controller: UbicacionCtrl,
+			templateUrl: 'location.html',
+			controller: LocationCtrl,
 			size: 'lg',
 			backdrop: 'static',
 			resolve: {
@@ -62,7 +83,7 @@ torneoFutbol.controller('SedesCtrl', function ($scope, $rootScope, $modal, $loca
 });
 
 
-var UbicacionCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, sede) {
+var LocationCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, sede) {
 	
 	// $window.checkScript = function(){
 
@@ -122,6 +143,18 @@ var UbicacionCtrl = function ($scope, $window, $filter, DataService, $modalInsta
             }
         });
     }
+
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+
+
+var SedeImagesCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, sede) {
+	
+	
 
 
     $scope.cancel = function () {

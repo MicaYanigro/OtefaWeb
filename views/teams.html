@@ -1,0 +1,42 @@
+<title>Equipos - OTEFA</title>
+
+<div class="row">
+	<h1 class="page-title page-title-font">Equipos</h1>
+</div>
+
+<br/><br/>
+
+<div class="container containerMain">
+
+	<div class="panel-group" id="accordion">
+		<div class="panel panel-default" ng-repeat="team in teams">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a href="" data-toggle="collapse" data-parent="#accordion" data-target="#child{{$index}}" ng-click="teams.selected = team">
+						{{team.Name}}
+					</a>
+				</h4>
+			</div>
+			<div id="child{{$index}}" class="panel-collapse collapse">
+				<div class="panel-body">
+					<div class="col-md-6">
+						<img class="teamImage" ng-src="img/equipos/{{team.Name}}/{{team.TeamImage}}"/>
+					</div>
+					<div class="col-md-6">
+						<h4 class="text-center">Jugadores</h4>
+						<ul class="list-group">
+						  <li class="list-group-item" ng-repeat="player in team.Players">{{player.LastName}}, {{player.Name}}</li>
+						</ul>
+						
+						<br/>
+
+						<div class="text-center">
+							<a ng-href="#/equipo/{{team.ID}}/{{team.Name}}">Ver Más</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

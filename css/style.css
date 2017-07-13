@@ -25,6 +25,7 @@
 
 section {
   padding: 35px 0;
+  padding-top: 0px;
 }
 
 section.section-no-spaced {
@@ -60,8 +61,13 @@ section.section-lg {
 body {
   background: #F9F9F9;
   color: #9d9d9d;
-  display: table;
+  /*display: table;*/
   width: 100%;
+  overflow-y:scroll;
+}
+
+body.modal-open {
+     overflow-y:scroll;
 }
 
 .containerMain{
@@ -77,6 +83,7 @@ body {
   padding: 0px;
   background-color: rgba(0,0,0,0.7);
   height: 250px;
+  margin: 0px -40px;
 }
 
 .table.table-spaced td,
@@ -113,7 +120,7 @@ body {
 
 .table tr{
   background: black;
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .table-hover > tbody > tr:hover {
@@ -122,22 +129,34 @@ body {
 
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #d9edf7;
-  opacity: 0.7;
+  opacity: 1;
   color: black;
 }
 
 .columnCenter{
-  text-align: center
+  text-align: center;
+  vertical-align: middle !important;
 }
 
 .page-title{
-  border-style: groove;
-  border-color: chocolate;
+  /*border-style: groove;
+  border-color: chocolate;*/
   border-left: none;
   border-right: none;
   text-align: center;
-  padding: 7px;
+  padding: 50px;
   margin: 0px -25px;
+  background-image: url(../img/soccer-banner.jpg);
+  background-size: cover;
+  background-repeat: no-repeat; 
+}
+
+.page-title-font{
+  color: rgba(255, 0, 0, 0.43);
+  text-shadow: 0 0 10px #fefcc9,5px -5px 15px #feec85, -10px -10px 20px #ffae34, 10px -20px 25px #ec760c, -10px -30px 30px #cd4606, 0 -40px 35px #973716, 5px -45px 40px #451b0e;
+  text-transform: uppercase;
+  font-family: fantasy;
+  font-size: 50;
 }
 
 .botonMapa{
@@ -184,4 +203,27 @@ body {
 .headerEquipo{
   font-weight: 800;
   padding: 25px 0px;
+}
+
+.redColor{
+  color: red;
+}
+
+.botonReglamento{
+    background: none;
+    border: none;
+    font-size: 25px;
+}
+
+.teamImage{
+  height: 250px;
+}
+
+.list-group-item{
+  padding : 3px 15px;
+}
+
+.scroll-list{
+  height: 200px;
+  overflow: auto;
 }

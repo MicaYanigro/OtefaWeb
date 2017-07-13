@@ -1,5 +1,14 @@
 ﻿torneoFutbol.controller('AppCtrl', function ($scope, $rootScope, $window, $http, restApi, $cookieStore, $location, $modal, $translate, AuthenticationService, DataService) {
 
+     //Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
+    $scope.folderUploads = $rootScope.urlApi + "/Files/Uploads/";
+
+    //Ruta donde se almacenan los adjuntos para los tickets
+    $scope.folderPathTickets = "tickets/docs/";
+
+    //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
+    $scope.folderPathJurisdictions = "logos/jurisdictions/";
+
     $scope.home = function () {
         $location.path('/home');
     };

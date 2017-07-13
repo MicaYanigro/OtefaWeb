@@ -1,0 +1,159 @@
+<title>OTEFA</title>
+
+<div class="row">
+	<h1 class="page-title page-title-font">Gestión de Equipos</h1>
+</div>
+
+<br/><br/>
+
+<div class="container containerMain">
+
+	<button type="button" class="btn btn-primary pull-right m-bottom10" ng-click="newTeam()">Nuevo Equipo</button>
+
+	<br/><br/>
+
+	<div class="panel-group" id="accordion">
+		<div class="panel panel-default" ng-repeat="team in teams">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a href="" data-toggle="collapse" data-parent="#accordion" data-target="#child{{$index}}" ng-click="teams.selected = team">
+						{{team.Name}}
+					</a>
+				</h4>
+			</div>
+			<div id="child{{$index}}" class="panel-collapse collapse">
+				<div class="panel-body">
+					<div class="col-md-6">
+						<img class="teamImage" ng-src="img/equipos/{{team.Name}}/{{team.TeamImage}}"/>
+					</div>
+					<div class="col-md-6">
+						<h4 class="text-center">Jugadores</h4>
+						<ul class="list-group">
+                            <li class="list-group-item" ng-repeat="player in team.Players">
+                                {{player.LastName}}, {{player.Name}}
+                            </li>
+                        </ul>
+
+                        <br/>
+
+                        <div class="text-center">
+                           <a ng-href="#/equipo/{{team.ID}}/{{team.Name}}">Ver Más</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+</div>
+
+<script type="text/ng-template" id="manageTeam.html">
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Gestionar Equipo</span>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="name" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Foto de Escudo</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="file" onchange="angular.element(this).scope().fileNameChanged(this)">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary btn-sm" ng-click="postFile()">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Foto de Equipo</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="file" onchange="angular.element(this).scope().fileNameChanged(this)">
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Jugadores</label>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group scroll-list">
+                                <li class="list-group-item" ng-repeat="player in players | orderBy: 'Name'">
+                                    <input 
+                                    id="{{player.Id}}"
+                                    type="checkbox"
+                                    value="{{player.Id}}"
+                                    ng-disabled="disableAll"
+                                    ng-checked="selection.indexOf(player.Id) > -1"
+                                    ng-click="toggleSelection(player.Id)" />
+                                    &nbsp;{{player.LastName}}, {{player.Name}} - {{player.Dni}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control input-sm"
+                            class="form-control input-sm" 
+                            type="search"
+                            ng-model="playerID"
+                            typeahead-on-select="setPlayerID($item)"
+                            typeahead="player.Dni + ' - ' + player.LastName + ' ' + player.Name for player in players | filter:$viewValue | filter: refreshData"
+                            typeahead-min-length="2"
+                            minlength="1" placeholder="Ingrese DNI">
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Delegado</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="teamDelegate" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                
+                <br/>
+
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-click="manageTeam()" ng-show="!saving">Agregar</button>
+                    <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Agregar</button>
+
+                    <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+</script>

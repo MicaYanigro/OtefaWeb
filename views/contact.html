@@ -1,0 +1,66 @@
+<title>Contacto - OTEFA</title>
+
+<div class="row">
+	<h1 class="page-title page-title-font">Contacto</h1>
+</div>
+
+<br/><br/>
+
+<div class="container containerMain">
+	<div class="row text-center">
+		<div class="col-md-12 col-sm-12">
+			<img src="img/icono-mail.png" border="0">
+			<a href="mailto:torneoedeba@gmail.com">
+				otefafutbol@gmail.com
+			</a>
+			&nbsp;&nbsp;
+			<img src="img/icono-telefono.png" border="0">
+			15-3600-5491                                    
+		</div>
+	</div>
+
+	<br/>
+
+	<div>
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				<label><span style="color: red">* </span>Nombre</label>
+				<input class="form-control input-sm" type="text" ng-model="name">
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<label><span style="color: red">* </span>Apellido</label>
+				<input class="form-control input-sm" type="text" ng-model="lastName">
+			</div>
+		</div>
+
+		<br/>
+
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				<label><span style="color: red">* </span>Telefono</label>
+				<input class="form-control input-sm" type="text" ng-model="phoneNumber">
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<label><span style="color: red">* </span>Email</label>
+				<input class="form-control input-sm" type="email" ng-model="email">
+			</div>
+		</div>
+
+		<br/>
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<label><span style="color: red">* </span>Mensaje</label>
+				<textarea class="form-control input-sm" rows="6" ng-model="message"></textarea>
+			</div>
+		</div>
+
+		<br/><br/>
+
+		<div class="row">
+			<div class="text-center">
+				<button type="button" class="btn btn-md btn-primary" ng-click="sendMessage()">Enviar Mensaje</button>
+			</div>
+		</div>
+	</div>
+</div>

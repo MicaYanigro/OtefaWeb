@@ -1,0 +1,110 @@
+<title>OTEFA</title>
+
+<div class="row">
+  <h1 class="page-title page-title-font">Gestión de Sedes</h1>
+</div>
+
+<br/><br/>
+
+<div class="container containerMain">
+    
+    <button type="button" class="btn btn-primary pull-right m-bottom10" ng-click="newHeadquarter()">Nueva Sede</button>
+    <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="columnCenter">Nombre</th>
+                <th class="columnCenter">Dirección</th>
+                <th class="columnCenter">Localidad</th>
+                <!-- <th class="columnCenter">Torneo</th>
+                <th class="columnCenter">Imágenes</th>
+                <th class="columnCenter">Ubicación</th> -->
+                <th class="columnCenter">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="headquarter in headquarters | orderBy:'Name'">
+                <td class="columnCenter">{{headquarter.Name}}</td>
+                <td class="columnCenter">{{headquarter.Address}}</td>
+                <td class="columnCenter">{{headquarter.City}}</td>
+                <!-- <td class="columnCenter">{{!headquarter.Torneo ? '-' : headquarter.Torneo}}</td>
+                <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-camera" ng-click="openImages(headquarter)"></button></td>
+                <td class="columnCenter"><button class="botonMapa" ng-click="openMap(headquarter)"></button></td> -->
+                <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-pencil" ng-click="editHearquearter(headquarter)"></button></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script type="text/ng-template" id="Hearquearter.html">
+   
+
+
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Editar Sede</span>
+                </div>
+
+                <br />
+                
+                 <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="name" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                
+                 <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Dirección</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="address" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                
+                 <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Localidad</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="city" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" ng-click="accept()" ng-show="!saving">Aceptar</button>
+                    <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Aceptar</button>
+                    <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+
+</script>

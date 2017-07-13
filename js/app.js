@@ -16,13 +16,13 @@ var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSa
 	            })
 
 	            .when('/contacto', {
-	                templateUrl: './views/contacto.html',
-	               	controller: 'ContactoCtrl'
+	                templateUrl: './views/contact.html',
+	               	controller: 'ContactCtrl'
 	            })
 
 	            .when('/jugadores', {
-	                templateUrl: './views/jugadores.html',
-	               	controller: 'JugadoresCtrl'
+	                templateUrl: './views/players.html',
+	               	controller: 'PlayersCtrl'
 	            })
 
 	            .when('/sedes', {
@@ -31,13 +31,38 @@ var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSa
 	            })
 
 	            .when('/torneos', {
-	                templateUrl: './views/torneos.html',
-	               	controller: 'SedesCtrl'
+	                templateUrl: './views/tournaments.html',
+	               	controller: 'TournamentsCtrl'
+	            })
+
+	            .when('/equipos', {
+	                templateUrl: './views/teams.html',
+	               	controller: 'TeamsCtrl'
+	            })
+
+	            .when('/equipo/:teamID/:teamName*', {
+	                templateUrl: './views/team.html',
+	               	controller: 'TeamCtrl'
+	            })
+
+	            .when('/gestion-equipos', {
+	                templateUrl: './views/teamsManagement.html',
+	               	controller: 'TeamsManagementCtrl'
+	            })
+
+	            .when('/gestion-sedes', {
+	                templateUrl: './views/headquarterManagement.html',
+	               	controller: 'HeadquarterManagementCtrl'
+	            })
+
+	            .when('/gestion-torneos', {
+	                templateUrl: './views/tournamentsManagement.html',
+	               	controller: 'TournamentsManagementCtrl'
 	            })
 			   
 	            .otherwise({
-	                templateUrl: './views/404.html',
-	                controller: 'Error404Ctrl'
+	                templateUrl: './views/404.html'
+	                // controller: 'Error404Ctrl'
 	            })
 		  
 			$translateProvider.preferredLanguage('es');

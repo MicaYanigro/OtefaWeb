@@ -13,20 +13,20 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postJugador: function (data, fnSuccess, fnError) {
+	        postPlayer: function (data, fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'POST',
-	                url: 'v1/jugadores',
+	                url: 'v1/players',
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postEquipo: function (data, fnSuccess, fnError) {
+	        manageTeam: function (method, url, data, fnSuccess, fnError) {
 	            restApi.call({
-	                method: 'POST',
-	                url: 'v1/equipos',
+	                method: method,
+	                url: url,
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
@@ -43,20 +43,21 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postSede: function (data, fnSuccess, fnError) {
+	        manageHeadquarter: function (method, url, data, fnSuccess, fnError) {
 	            restApi.call({
-	                method: 'POST',
-	                url: 'v1/sedes',
+	                method: method,
+	                url: url,
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        getJugadores: function (fnSuccess, fnError) {
+
+	        getPlayers: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
-	                url: 'v1/jugadores',
+	                url: 'v1/players',
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
@@ -80,6 +81,7 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
+
 	        getSedes: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
@@ -88,7 +90,40 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                	'Content-Type': 'application/json'
 	                },
 	            }, fnSuccess, fnError, true);
-	        }
+	        },
+
+	        getHeadquarters: function (fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'GET',
+	                url: 'v1/headquarters',
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+
+	        postFiles: function (data, fnSuccess, fnError) {
+				restApi.call({
+					method: 'POST',
+					url: 'v1/files',
+					headers: { 
+						'Content-Type': 'text/plain'
+					},
+					data : data
+				}, fnSuccess, fnError, true);	
+			},
+
+			postFile: function (fullNamePath, fileData, fnSuccess, fnError) {
+				restApi.call({
+					method: "POST",
+					url: "v1/files?UploadsFolder=" + fullNamePath,
+					data: fileData,
+					transformRequest: angular.identity,
+					headers: {
+						'Content-Type': undefined
+					},
+				}, fnSuccess, fnError, true);
+			}
       };
 	}
 ]);
