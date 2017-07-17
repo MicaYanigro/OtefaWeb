@@ -33,10 +33,10 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        postTorneo: function (data, fnSuccess, fnError) {
+	        manageTournament: function (method, url, data, fnSuccess, fnError) {
 	            restApi.call({
-	                method: 'POST',
-	                url: 'v1/torneos',
+	                method: method,
+	                url: url,
 	                data: data,
 	               	headers: { 
 	                	'Content-Type': 'application/json'
@@ -63,10 +63,10 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
-	        getTorneos: function (fnSuccess, fnError) {
+	        getTournaments: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
-	                url: 'v1/torneos',
+	                url: 'v1/tournaments',
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },

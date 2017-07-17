@@ -7,5 +7,219 @@
 <br/><br/>
 
 <div class="container containerMain">
+	
+	<div class="row">
+	    <ul style="margin: 20px 0px 22px; visibility: visible;" class="test1 nav nav-tabs">
+	        <li ng-selected="vigentes" ng-click='tabSelect("vigentes")' data-toggle="tab" class="active"><a href="">Vigentes</a></li>
+	        <li ng-selected="noVigentes" ng-click='tabSelect("noVigentes")' data-toggle="tab"><a href="">Fuera de Vigencia</a></li>
+	    </ul>
+	</div>
+
+	<div class="row">
+		<button type="button" class="btn btn-primary pull-right m-bottom10" ng-click="newTournament()">Nuevo Torneo</button>
+	    <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+	        <thead>
+	            <tr>
+	                <th class="columnCenter">Nombre</th>
+	                <th class="columnCenter">Días</th>
+	                <th class="columnCenter">Sedes</th>
+	                <th class="columnCenter">Formato</th>
+	                <th class="columnCenter">Formato de Clasificación</th>
+	                <th class="columnCenter">Reglamento</th>
+	                <th class="columnCenter">Premios</th>
+                    <th class="columnCenter">Editar</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        <tr ng-repeat="tournament in tournaments">
+	                <td class="columnCenter">{{tournament.Name}}</td>
+	                <td class="columnCenter">{{tournament.Dates}}</td>
+	                <td class="columnCenter">{{tournament.Headquarters}}</td>
+	                <td class="columnCenter">{{tournament.TournamentFormat}}</td>
+	                <td class="columnCenter">{{tournament.ClasificationFormat}}</td>
+	                <td class="columnCenter"><button ng-click="verReglamento(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
+	                <td class="columnCenter">{{price.Prices}}</td>
+                    <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-pencil" ng-click="editTournament(tournament)"></button></td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</div>
 
 </div>
+
+
+<script type="text/ng-template" id="manageTournament.html">
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Agregar Torneo</span>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input ng-model="name" type="text" class="form-control input-sm"  />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Formato</label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control input-sm" ng-model="tournamentFormat">
+                            	<option value="1">Fútbol 5</option>
+                            	<option value="2">Fútbol 6</option>
+                            	<option value="3">Fútbol 7</option>
+                            	<option value="4">Fútbol 8</option>
+                            	<option value="5">Fútbol 9</option>
+                            	<option value="7">Fútbol 11</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Formato de Clasificación</label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control input-sm" ng-model="clasificationFormat">
+                            	<option value="1">Liga (Zona Clasificacion + Zona Definicion)</option>
+                            	<option value="2">Liga (Zona Clasificacion + PlayOff)</option>
+                            	<option value="3">Liga</option>
+                            	<option value="4">Play Off</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Reglamento</label>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea ng-model="rules" style="resize: none" class="form-control input-sm" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Premios</label>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea ng-model="prices" style="resize: none" class="form-control input-sm" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Sedes</label>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group scroll-list">
+                                <li class="list-group-item" ng-repeat="headquarter in headquarters | orderBy: 'Name'">
+                                    <input 
+                                    id="{{headquarter.Id}}"
+                                    type="checkbox"
+                                    value="{{headquarter.Id}}"
+                                    ng-checked="selection.indexOf(headquarter.Id) > -1"
+                                    ng-click="toggleSelection(headquarter.Id)" />
+                                    &nbsp;{{headquarter.Name}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Fechas</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="date" ng-model="dates" class="form-control input-sm"/>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-6 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Equipos</label>
+                            <br/>
+                             <ul class="list-group scroll-list">
+                                <li class="list-group-item" ng-repeat="team in teams | orderBy: 'Name'">
+                                    <div class="row">
+                                    <input 
+                                    class="col-md-1 col-xs-1" 
+                                    id="{{team.Id}}"
+                                    type="checkbox"
+                                    value="{{team.Id}}"
+                                    ng-checked="teamSelection.indexOf(team.Id) > -1"
+                                    ng-click="toggleTeamSelection(team.Id)" />
+                                    &nbsp;<a href="" style="display: block" class="col-md-10 col-xs-10" ng-click="showPlayers(team)">{{team.Name}}</a></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Jugadores</label>
+                            <br/>
+                            <ul class="list-group scroll-list">
+                                <li class="list-group-item" ng-repeat="player in players | orderBy: 'Name'">
+                                    <input 
+                                    class="col-md-1 col-xs-1" 
+                                    id="{{player.Id}}"
+                                    type="checkbox"
+                                    value="{{player.Id}}"
+                                    ng-checked="playerSelection.indexOf(player.Id) > -1"
+                                    ng-click="togglePlayerSelection(player.Id)" />
+                                    &nbsp;{{player.Name}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" ng-click="manageTournament()" ng-show="!saving">Agregar</button>
+                    <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Agregar</button>
+
+                    <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+</script>

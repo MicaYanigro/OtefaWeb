@@ -20,7 +20,7 @@
 			<div id="child{{$index}}" class="panel-collapse collapse">
 				<div class="panel-body">
 					<div class="col-md-6">
-						<img ng-show="team.TeamImage" class="teamImage" ng-src="{{team.TeamImage}}"/>
+						<img ng-show="team.TeamImage" class="teamImage" ng-src="{{team.TeamImage}}" onerror="this.src='img/imageNotFound.png'"/>
 						<img ng-show="!team.TeamImage" class="teamImage" src="img/imageNotFound.png"/>
 					</div>
 					<div class="col-md-6">
@@ -40,7 +40,7 @@
                         <br/>
 
 						<div class="text-center">
-							<a ng-href="#/equipo/{{team.ID}}/{{team.Name}}">Ver Más</a>
+							<a ng-href="#/equipo/{{team.Id}}/{{team.Name}}">Ver Más</a>
 						</div>
 					</div>
 				</div>
