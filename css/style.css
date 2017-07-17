@@ -168,6 +168,7 @@ body.modal-open {
 .modal-content{
   background-image: url(../img/background-stadium.jpg);
   background-size: cover;
+  background-position: center;
 }
 
 .filet-bottom7, .thumbnails-block {
@@ -224,6 +225,10 @@ body.modal-open {
 }
 
 .scroll-list{
-  height: 200px;
+  max-height: 200px;
   overflow: auto;
+}
+
+.no-style{
+  
 }
