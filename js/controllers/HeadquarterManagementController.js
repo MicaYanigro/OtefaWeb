@@ -10,27 +10,6 @@ torneoFutbol.controller('HeadquarterManagementCtrl', function ($scope, $rootScop
                                             .withLanguageSource("js/i18n/datatable/Spanish.json")
                                             .withBootstrap();
 
-	// $scope.sedes = [
-	// 					{
-	// 						"Nombre" : "Avellaneda FC",
-	// 						"Direccion" : "Salta 2243",
-	// 						"Localidad" : "Avellaneda",
-	// 						"Torneo" : "Torneo 1"
-	// 					},
-	// 					{
-	// 						"Nombre" : "Caballito FC",
-	// 						"Direccion" : "Yerbal 1252",
-	// 						"Localidad" : "CABA",
-	// 						"Torneo" : ""
-	// 					},
-	// 					{
-	// 						"Nombre" : "La Plata FC",
-	// 						"Direccion" : "Calle 12 521",
-	// 						"Localidad" : "La Plata",
-	// 						"Torneo" : "Torneo 3"
-	// 					}
-	// ];
-
 	$scope.getHeadquarters = function(){
 		DataService.getHeadquarters(function(response){
 			$scope.headquarters = response;
@@ -76,12 +55,67 @@ var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalIns
 	var method = 'POST';
 	var url = 'v1/headquarters/';
 
+	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
+    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";
+
+    //Ruta donde se almacenan los adjuntos para los tickets
+    $scope.folderPathHeadquarters = "Headquarters/";
+
+    //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
+    $scope.folderPathJurisdictions = "logos/jurisdictions/";
+
+	$scope.getFilesByFolder = function(headquarterId) {
+        //Obtengo los archivos asociados al ticket
+        var path = $scope.folderPathHeadquarters + headquarterId;
+        DataService.getFilesByFolder(path, function (data) {
+        }, function (response, status) {
+            $scope.headquarterFiles = response.Files;
+            //$scope.filePath = "uploads/tickets/docs/" + $scope.idTicket + "/";
+        	$scope.filePath = $scope.folderUploads + $scope.folderPathHeadquarters + headquarterId + "/";
+        });
+    }
+
+    $scope.fileNameChanged = function(element){
+        $scope.files = element.files;
+     }
+
+    $scope.deleteFile = function(fileName){
+        DataService.deleteFile($scope.folderPathHeadquarters + $scope.headquarter.Id + '/' + fileName, function (data) {
+        	$scope.getFilesByFolder(headquarter.Id);
+        }, function (response, status) {
+        	$scope.getFilesByFolder(headquarter.Id);
+            // $scope.teamFiles=undefined;
+            // $scope.filePath=undefined;
+        });
+    }
+
+    $scope.postFile = function(headquarterId) {
+        var length = $scope.files.length;
+        if (length > 0) {
+          var fileData = new FormData();
+          for (i = 0; i < length; i++) {
+              fileData.append("file" + i, $scope.files[i]);
+          }
+        }
+
+        DataService.postFile($scope.folderPathHeadquarters + headquarterId, fileData, function (data) {
+            //console.info(data);
+            // $scope.getFilesByFolder();
+            $modalInstance.close();
+        }, function (response, status) {
+            //console.info(response);
+            $scope.errorMsg = response.Message;
+            // $scope.getFilesByFolder();
+        });
+    }
+
 	if(headquarter){
 		$scope.name = headquarter.Name;
 		$scope.address = headquarter.Address;
 		$scope.city = headquarter.City;
 		method = 'PUT';
 		url += headquarter.Id;
+		$scope.getFilesByFolder(headquarter.Id)
 	}
 
 
@@ -109,7 +143,16 @@ var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalIns
 		};
 
 		DataService.manageHeadquarter(method, url, data, function(response){
-			$modalInstance.close();
+			if($scope.files && $scope.files.length != 0){
+				
+				if(method == 'POST'){
+					$scope.postFile(response);
+				}else{
+					$scope.postFile(headquarter.Id);
+				}
+			}else{
+				$modalInstance.close();
+			}
 		}, function(response, status){
 			$scope.errorMsg = response.Message;
 		});
