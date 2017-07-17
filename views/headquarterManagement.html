@@ -90,6 +90,43 @@
                 </div>
 
                 <br/>
+
+                <div class="text-left" >
+                    <br/>
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;">Imágenes</label>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group scroll-list">
+                                <li class="list-group-item" ng-repeat="file in headquarterFiles">
+                                    <!-- <div class="col-md-7"> -->
+                                        <a href="{{filePath}}{{file.Name}}" download>{{file.Name}}</a>
+                                        <div class="pull-right">
+                                            <button class="button-no-style glyphicon glyphicon-remove" ng-click="deleteFile(file.Name)"></button>
+                                        </div>
+                                    <!-- </div>
+                                    <div class="col-md-2">
+                                        <button class="glyphicon glyphicon-remove" ng-click="deleteFile(file.Name)"></button>
+                                    </div> -->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input 
+                                type="file"
+                                onchange="angular.element(this).scope().fileNameChanged(this)" multiple/>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
                 
                 <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 

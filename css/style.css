@@ -229,6 +229,13 @@ body.modal-open {
   overflow: auto;
 }
 
-.no-style{
+.button-no-style{
+  border: none;
+  background: none;
+  color: black;
   
+}
+
+ul li:hover{
+  background-color: lightgrey;
 }

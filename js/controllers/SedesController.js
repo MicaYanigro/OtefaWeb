@@ -146,7 +146,27 @@ var LocationCtrl = function ($scope, $window, $filter, DataService, $modalInstan
 
 var SedeImagesCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, sede) {
 	
-	
+	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
+    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";
+
+    //Ruta donde se almacenan los adjuntos para los tickets
+    $scope.folderPathHeadquarters = "Headquarters/";
+
+    //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
+    $scope.folderPathJurisdictions = "logos/jurisdictions/";
+
+	$scope.getFilesByFolder = function(sedeId) {
+        //Obtengo los archivos asociados al ticket
+        var path = $scope.folderPathHeadquarters + sedeId;
+        DataService.getFilesByFolder(path, function (data) {
+        }, function (response, status) {
+            $scope.headquarterFiles = response.Files;
+            //$scope.filePath = "uploads/tickets/docs/" + $scope.idTicket + "/";
+        	$scope.filePath = $scope.folderUploads + $scope.folderPathHeadquarters + sedeId + "/";
+        });
+    }
+
+    $scope.getFilesByFolder(sede.Id)
 
 
     $scope.cancel = function () {
