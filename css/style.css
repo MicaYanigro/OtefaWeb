@@ -169,6 +169,7 @@ body.modal-open {
   background-image: url(../img/background-stadium.jpg);
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
 }
 
 .filet-bottom7, .thumbnails-block {
