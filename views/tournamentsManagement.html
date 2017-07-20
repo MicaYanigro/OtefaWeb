@@ -33,12 +33,20 @@
 	        <tbody>
 	        <tr ng-repeat="tournament in tournaments">
 	                <td class="columnCenter">{{tournament.Name}}</td>
-	                <td class="columnCenter">{{tournament.Dates}}</td>
-	                <td class="columnCenter">{{tournament.Headquarters}}</td>
-	                <td class="columnCenter">{{tournament.TournamentFormat}}</td>
-	                <td class="columnCenter">{{tournament.ClasificationFormat}}</td>
-	                <td class="columnCenter"><button ng-click="verReglamento(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
-	                <td class="columnCenter">{{price.Prices}}</td>
+	                <td class="columnCenter">
+                        <div ng-repeat="date in tournament.TournamentDatesList">
+                            {{date.Date | date: 'dd/MM/yyyy'}}
+                        </div>
+                    </td>
+	                <td class="columnCenter">
+                        <div ng-repeat="headquarter in tournament.HeadquartersList | orderBy:'Name'">
+                            {{headquarter.Name}}
+                        </div>
+                    </td>
+	                <td class="columnCenter">{{showFormatName(tournament.TournamentFormat)}}</td>
+	                <td class="columnCenter">{{showClasificationFormatName(tournament.ClasificationFormat)}}</td>
+	                <td class="columnCenter"><button ng-click="openRules(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
+	                <td class="columnCenter" style="white-space: pre;">{{tournament.Prices}}</td>
                     <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-pencil" ng-click="editTournament(tournament)"></button></td>
 	            </tr>
 	        </tbody>
@@ -76,12 +84,12 @@
                         </div>
                         <div class="col-md-6">
                             <select class="form-control input-sm" ng-model="tournamentFormat">
-                            	<option value="1">Fútbol 5</option>
-                            	<option value="2">Fútbol 6</option>
-                            	<option value="3">Fútbol 7</option>
-                            	<option value="4">Fútbol 8</option>
-                            	<option value="5">Fútbol 9</option>
-                            	<option value="7">Fútbol 11</option>
+                            	<option ng-selected="tournamentFormat == 1" value="1">Fútbol 5</option>
+                            	<option ng-selected="tournamentFormat == 2" value="2">Fútbol 6</option>
+                            	<option ng-selected="tournamentFormat == 3" value="3">Fútbol 7</option>
+                            	<option ng-selected="tournamentFormat == 4" value="4">Fútbol 8</option>
+                            	<option ng-selected="tournamentFormat == 5" value="5">Fútbol 9</option>
+                            	<option ng-selected="tournamentFormat == 6" value="6">Fútbol 11</option>
                             </select>
                         </div>
                     </div>
@@ -95,10 +103,10 @@
                         </div>
                         <div class="col-md-6">
                             <select class="form-control input-sm" ng-model="clasificationFormat">
-                            	<option value="1">Liga (Zona Clasificacion + Zona Definicion)</option>
-                            	<option value="2">Liga (Zona Clasificacion + PlayOff)</option>
-                            	<option value="3">Liga</option>
-                            	<option value="4">Play Off</option>
+                            	<option ng-selected="clasificationFormat == 1" value="1">Liga (Zona Clasificacion + Zona Definicion)</option>
+                            	<option ng-selected="clasificationFormat == 2" value="2">Liga (Zona Clasificacion + PlayOff)</option>
+                            	<option ng-selected="clasificationFormat == 3" value="3">Liga</option>
+                            	<option ng-selected="clasificationFormat == 4" value="4">Play Off</option>
                             </select>
                         </div>
                     </div>
@@ -180,7 +188,7 @@
                                     id="{{team.Id}}"
                                     type="checkbox"
                                     value="{{team.Id}}"
-                                    ng-checked="teamSelection.indexOf(team.Id) > -1"
+                                    ng-checked="playerTeamsSelection.values.hasOwnProperty(team.Id)"
                                     ng-click="toggleTeamSelection(team.Id)" />
                                     &nbsp;<a href="" style="display: block" class="col-md-10 col-xs-10" ng-click="showPlayers(team)">{{team.Name}}</a></div>
                                 </li>
@@ -196,7 +204,8 @@
                                     id="{{player.Id}}"
                                     type="checkbox"
                                     value="{{player.Id}}"
-                                    ng-checked="playerSelection.indexOf(player.Id) > -1"
+                                    ng-disabled="!playerTeamsSelection.values.hasOwnProperty(selectedTeam.Id)"
+                                    ng-checked="playerTeamsSelection.values[selectedTeam.Id].indexOf(player.Id) > -1"
                                     ng-click="togglePlayerSelection(player.Id)" />
                                     &nbsp;{{player.Name}}
                                 </li>
@@ -215,6 +224,36 @@
                     <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Agregar</button>
 
                     <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="rules.html">
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Reglamento del Torneo</span>
+                </div>
+                
+                <br />
+                
+                <pre>
+                    {{tournament.Rules}}
+                </pre>
+
+                <br />
+                
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+                <div class="modal-footer">
+                    <button class="btn btn-default" ng-click="cancel()">Salir</button>
                 </div>
             </div>
             <div class="row error">
