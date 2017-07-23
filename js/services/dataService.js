@@ -43,7 +43,19 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
+
 	        manageHeadquarter: function (method, url, data, fnSuccess, fnError) {
+	            restApi.call({
+	                method: method,
+	                url: url,
+	                data: data,
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+
+	        manageMatch: function (method, url, data, fnSuccess, fnError) {
 	            restApi.call({
 	                method: method,
 	                url: url,
@@ -63,6 +75,7 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
+
 	        getTournaments: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
@@ -72,10 +85,21 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
+
 	        getTeams: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
 	                url: 'v1/teams',
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+
+	        getMatches: function (fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'GET',
+	                url: 'v1/matches',
 	               	headers: { 
 	                	'Content-Type': 'application/json'
 	                },
