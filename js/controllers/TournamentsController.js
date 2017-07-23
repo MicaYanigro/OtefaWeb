@@ -9,137 +9,72 @@ torneoFutbol.controller('TournamentsCtrl', function ($scope, $rootScope, $locati
                                             .withLanguageSource("js/i18n/datatable/Spanish.json")
                                             .withBootstrap();
 
-	$scope.tournaments = [
-						{
-							"ID" : 1,
-							"Name": "Torneo 1",
-							"Dias" : "Lunes y Miércoles",
-							"Sedes" : "",
-							"Formato" : "futbol 5",
-							"FormatoClasificacion" : "Liga",
-							"Reglamento" : "ASDASDSADASDADASDA",
-							"Premios": [
-											{
-												"Puesto" : 1,
-												"Premio" : "$1000"
-											},
-											{
-												"Puesto" : 2,
-												"Premio" : "$600"
-											},
-											{
-												"Puesto" : 3,
-												"Premio" : "Foto de Recuerdo"
-											}
-										]
-						},
-						{
-							"ID" : 2,
-							"Name": "Torneo 2",
-							"Dias" : "Jueves y Sábado",
-							"Sedes" : "",
-							"Formato" : "futbol 11",
-							"FormatoClasificacion" : "Liga",
-							"Reglamento" : "ASDASDSADASDADASDA",
-							"Premios": [
-											{
-												"Puesto" : 1,
-												"Premio" : "$2450"
-											},
-											{
-												"Puesto" : 2,
-												"Premio" : "$200"
-											},
-											{
-												"Puesto" : 3,
-												"Premio" : "Llaveros"
-											}
-										]
-						},
-						{
-							"ID" : 3,
-							"Name": "Torneo 3",
-							"Dias" : "",
-							"Sedes" : "",
-							"Formato" : "futbol 7",
-							"FormatoClasificacion" : "Liga",
-							"Reglamento" : "ASDASDSADASDADASDA",
-							"Premios": [
-											{
-												"Puesto" : 1,
-												"Premio" : "$1000"
-											},
-											{
-												"Puesto" : 2,
-												"Premio" : "$600"
-											},
-											{
-												"Puesto" : 3,
-												"Premio" : "Foto de Recuerdo"
-											}
-										]
-						},
-						{
-							"ID" : 4,
-							"Name": "Torneo 4",
-							"Dias" : "",
-							"Sedes" : "",
-							"Formato" : "futbol 5",
-							"FormatoClasificacion" : "Liga",
-							"Reglamento" : "ASDASDSADASDADASDA",
-							"Premios": [
-											{
-												"Puesto" : 1,
-												"Premio" : "$1000"
-											},
-											{
-												"Puesto" : 2,
-												"Premio" : "$600"
-											},
-											{
-												"Puesto" : 3,
-												"Premio" : "Foto de Recuerdo"
-											}
-										]
-						},
-						{
-							"ID" : 5,
-							"Name": "Torneo 5",
-							"Dias" : "",
-							"Sedes" : "",
-							"Formato" : "futbol 11",
-							"FormatoClasificacion" : "Liga",
-							"Reglamento" : "ASDASDSADASDADASDA",
-							"Premios": [
-											{
-												"Puesto" : 1,
-												"Premio" : "$1000"
-											},
-											{
-												"Puesto" : 2,
-												"Premio" : "$600"
-											},
-											{
-												"Puesto" : 3,
-												"Premio" : "Foto de Recuerdo"
-											}
-										]
-						}
-					];
+	
 	////////////////////////////////////////////////////////////////
+	$scope.getTournaments = function(){
+		DataService.getTournaments(function(response){
+			$scope.tournaments = response;
+		}, function(response, status){
 
-	$scope.verReglamento = function(torneo){
+		});
+	}
+
+	$scope.getTournaments();
+
+	$scope.showFormatName = function(tournamentFormat){
+    	if(tournamentFormat){
+    		switch(tournamentFormat){
+    			case 1:
+    				return 'Fútbol 5';
+
+    			case 2:
+    				return 'Fútbol 6';
+
+    			case 3:
+    				return 'Fútbol 7';
+
+    			case 4:
+    				return 'Fútbol 8';
+
+    			case 5:
+    				return 'Fútbol 9';
+
+    			case 6:
+    				return 'Fútbol 11';
+    		}
+    	}
+    };
+
+    $scope.showClasificationFormatName = function(clasificationFormat){
+    	if(clasificationFormat){
+    		switch(clasificationFormat){
+    			case 1:
+    				return 'Liga (Zona Clasificacion + Zona Definicion)';
+
+    			case 2:
+    				return 'Liga (Zona Clasificacion + PlayOff)';
+
+    			case 3:
+    				return 'Liga';
+
+    			case 4:
+    				return 'Play Off';
+    		}
+    	}
+    };
+
+    $scope.openRules = function(tournament){
 		var modalInstance = $modal.open ({
 
-			templateUrl: 'reglamento.html',
-			controller: ReglamentoCtrl,
+			templateUrl: 'rules.html',
+			controller: RulesCtrl,
 			size: 'lg',
 			backdrop: 'static',
 			resolve: {
-				torneo: function(){
-					return torneo;
+				tournament : function(){
+					return tournament;
 				}
-			}
+	        }
       	});
 
 	    modalInstance.result.then(function () {
@@ -151,8 +86,13 @@ torneoFutbol.controller('TournamentsCtrl', function ($scope, $rootScope, $locati
 
 });
 
-
-var ReglamentoCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate) {
+var RulesCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament) {
+	
+	$scope.saving = false;
+	$scope.errorMsg = null;
+	$scope.selectedTeam = null;
+	$scope.tournament = tournament;
+	
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

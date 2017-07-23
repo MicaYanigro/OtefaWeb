@@ -34,20 +34,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="tournament in tournaments">
+                               <tr ng-repeat="tournament in tournaments">
                                     <td class="columnCenter">{{tournament.Name}}</td>
-                                    <td class="columnCenter">{{tournament.Dias}}</td>
-                                    <td class="columnCenter">{{tournament.Sedes}}</td>
-                                    <td class="columnCenter">{{tournament.Formato}}</td>
-                                    <td class="columnCenter">{{tournament.FormatoClasificacion}}</td>
-                                    <td class="columnCenter"><button ng-click="verReglamento(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
                                     <td class="columnCenter">
-                                        <ul>
-                                            <li ng-repeat="premio in tournament.Premios | orderBy: 'Puesto'">
-                                                {{premio.Puesto}}° Puesto: {{premio.Premio}}
-                                            </li>
-                                        </ul>
+                                        <div ng-repeat="date in tournament.TournamentDatesList">
+                                            {{date.Date | date: 'dd/MM/yyyy'}}
+                                        </div>
                                     </td>
+                                    <td class="columnCenter">
+                                        <div ng-repeat="headquarter in tournament.HeadquartersList | orderBy:'Name'">
+                                            {{headquarter.Name}}
+                                        </div>
+                                    </td>
+                                    <td class="columnCenter">{{showFormatName(tournament.TournamentFormat)}}</td>
+                                    <td class="columnCenter">{{showClasificationFormatName(tournament.ClasificationFormat)}}</td>
+                                    <td class="columnCenter"><button ng-click="openRules(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
+                                    <td class="columnCenter" style="white-space: pre;">{{tournament.Prices}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -145,4 +147,32 @@
 
 </div>
 
-    
+<script type="text/ng-template" id="rules.html">
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Reglamento del Torneo</span>
+                </div>
+                
+                <br />
+                
+                <pre>
+                    {{tournament.Rules}}
+                </pre>
+
+                <br />
+                
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+                <div class="modal-footer">
+                    <button class="btn btn-default" ng-click="cancel()">Salir</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+</script>
