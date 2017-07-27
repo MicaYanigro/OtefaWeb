@@ -2,14 +2,15 @@ torneoFutbol.controller('TeamCtrl', function ($scope, $rootScope, $routeParams, 
 
 	$scope.getTeam = function(){
 		
-	/*
 		DataService.getTeamByID($routeParams.teamID, function(response){
 			$scope.team = response;
 		}, function(response, status){
 			$location.path('404');
 		})
-	*/
 
+
+	
+	/*
 		DataService.getTeams(function(response){
 			$scope.teams = response;
 
@@ -20,6 +21,8 @@ torneoFutbol.controller('TeamCtrl', function ($scope, $rootScope, $routeParams, 
 		}, function(response, status){
 
 		});
+	*/
+
 
 	};
 
