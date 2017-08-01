@@ -8,4 +8,97 @@
 
 <div class="container containerMain">
 
+	<div class="col-md-8 col-xs-8">
+		
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
+				<img ng-show="team.ShieldImage" class="shieldImage" ng-src="{{path}}/{{team.ShieldImage}}"/>
+				<img ng-show="!team.ShieldImage" class="shieldImage" src="img/imageNotFound.png"/>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<img ng-show="team.TeamImage" class="shieldImage" ng-src="{{path}}/{{team.TeamImage}}"/>
+				<img ng-show="!team.TeamImage" class="shieldImage" src="img/imageNotFound.png"/>
+			</div>
+			
+		</div>
+
+		<br/><br/>
+
+		<div class="row">
+
+			<label>Historial</label>
+			
+			<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th class="columnCenter">PJ</th>
+						<th class="columnCenter">PG</th>
+						<th class="columnCenter">PE</th>
+						<th class="columnCenter">GF</th>
+						<th class="columnCenter">GC</th>
+						<th class="columnCenter">GD</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in historial">
+						<td class="columnCenter">{{data.PJ}}</td>
+						<td class="columnCenter">{{data.PG}}</td>
+						<td class="columnCenter">{{data.PE}}</td>
+						<td class="columnCenter">{{data.GF}}</td>
+						<td class="columnCenter">{{data.GC}}</td>
+						<td class="columnCenter">{{data.GD}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		<br/><br/>
+
+		<div class="row">
+
+			<label>Próximos Partidos</label>
+			
+			<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th class="columnCenter">Local</th>
+						<th class="columnCenter">Visitante</th>
+						<th class="columnCenter">Sede</th>
+						<th class="columnCenter">Fecha</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="match in nextMatches">
+						<td class="columnCenter">{{match.Local}}</td>
+						<td class="columnCenter">{{match.Visitor}}</td>
+						<td class="columnCenter">{{match.Headquarter}}</td>
+						<td class="columnCenter">{{match.Date | date:'dd/MM/yyyy'}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+
+	
+	<div class="col-md-4 col-xs-4 text-center">
+		
+		<b>Delegado:</b>
+		<span>
+			{{team.TeamDelegate}}
+		</span>
+
+		<br/><br/>
+
+		<label>Plantel</label>
+		<ul class="list-group">
+			<li class="list-group-item text-left" ng-repeat="player in team.PlayersList">
+				{{player.LastName}}, {{player.Name}}
+			</li>
+		</ul>
+
+	</div>
+
 </div>

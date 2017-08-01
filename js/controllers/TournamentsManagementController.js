@@ -216,12 +216,14 @@ var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $mod
 
 
 	if(tournament){
+		method = 'PUT';
+		url += tournament.Id
 		$scope.name = tournament.Name;
 		$scope.tournamentFormat = tournament.TournamentFormat;
 		$scope.clasificationFormat = tournament.ClasificationFormat;
 		$scope.rules = tournament.Rules;
 		$scope.prices = tournament.Prices;
-		
+		$scope.dates = new Date(tournament.TournamentDatesList[0].date);
 		if(tournament.HeadquartersList.length != 0){
 			
 			//Recorro la lista de sedes para guardarlas en las seleccionadas
@@ -236,16 +238,16 @@ var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $mod
 			//Recorro la lista de equipos y guardo los ID de los equipos
 			for (var i = 0; i < teams.length; i++) {
 				//Los guardo en el array que uso para
-				$scope.playerTeamsSelection.values[teams[i].Id] = []
+				$scope.playerTeamsSelection.values[teams[i].Team.Id] = []
 				for (var j = 0; j < teams[i].PlayersList.length; j++) {
 					var players = teams[i].PlayersList;
-					$scope.playerTeamsSelection.values[teams[i].Id].push(players[j].Id)
+					$scope.playerTeamsSelection.values[teams[i].Team.Id].push(players[j].Id)
 				}
 			}
 			// $scope.playerTeamsSelection.values[teamId] = []
 		}
 
-		$scope.dates = tournament.Dates;
+		//$scope.dates = tournament.Dates;
 	}
 	
 	$scope.manageTournament = function(){

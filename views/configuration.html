@@ -1,0 +1,45 @@
+<title>Configuración - OTEFA</title>
+
+<div class="row">
+	<h1 class="page-title page-title-font">Configuración Inicio</h1>
+</div>
+
+<br/><br/>
+
+<div class="container containerMain">
+
+	<div class="row">
+	    <ul style="margin: 20px 0px 22px; visibility: visible;" class="test1 nav nav-tabs">
+	        <li ng-selected="images" ng-click='tabSelect("images")' data-toggle="tab" class="active"><a href="">Imágenes</a></li>
+	    </ul>
+	</div>
+
+	<div class="row" ng-show="images">
+		<div class="col-md-6 col-xs-6">
+			<label ng-show="!homeImages">No hay imágenes cargadas</label>
+            <ul class="list-group scroll-list">
+                <li class="list-group-item" ng-repeat="file in homeImages">
+                    <!-- <div class="col-md-7"> -->
+                        <a href="{{filePath}}{{file.Name}}" download>{{file.Name}}</a>
+                        <div class="pull-right">
+                            <button class="button-no-style glyphicon glyphicon-remove" ng-click="deleteFile(file.Name)"></button>
+                        </div>
+                    <!-- </div>
+                    <div class="col-md-2">
+                        <button class="glyphicon glyphicon-remove" ng-click="deleteFile(file.Name)"></button>
+                    </div> -->
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-5 col-xs-5">
+            <input
+            	id="uploadFiles" 
+                type="file"
+                onchange="angular.element(this).scope().fileNameChanged(this)" multiple/>
+        </div>
+        <div class="col-md-1 col-xs-1">
+        	<button class="btn btn-primary" ng-click="postFile()">Aceptar</button>
+        </div>
+	</div>
+
+</div>

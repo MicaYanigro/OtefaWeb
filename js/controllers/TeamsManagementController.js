@@ -8,15 +8,20 @@ torneoFutbol.controller('TeamsManagementCtrl', function ($scope, $rootScope, $lo
     $scope.folderPathTeams = "Teams/";
 
     //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
-    $scope.folderPathJurisdictions = "logos/jurisdictions/";
+    $scope.path = $scope.folderUploads + $scope.folderPathTeams + '/';
 
     $scope.getTeams = function(){
 		DataService.getTeams(function(response){
 			$scope.teams = response;
-			for (var i = 0; i < $scope.teams.length; i++) {
-				if($scope.teams[i].TeamImage)
-					$scope.teams[i].TeamImage = $scope.folderUploads + $scope.folderPathTeams + $scope.teams[i].Id + '/' + $scope.teams[i].TeamImage;
-			}
+			// for (var i = 0; i < $scope.teams.length; i++) {
+			// 	if($scope.teams[i].TeamImage){
+			// 		$scope.teams[i].TeamImage = $scope.folderUploads + $scope.folderPathTeams + $scope.teams[i].Id + '/' + $scope.teams[i].TeamImage;
+			// 	}
+
+			// 	if($scope.teams[i].ShieldImage){
+			// 		$scope.teams[i].ShieldImage = $scope.folderUploads + $scope.folderPathTeams + $scope.teams[i].Id + '/' + $scope.teams[i].ShieldImage;
+			// 	}
+			// }
 			
 		}, function(response, status){
 
@@ -24,17 +29,6 @@ torneoFutbol.controller('TeamsManagementCtrl', function ($scope, $rootScope, $lo
 	}
 
 	$scope.getTeams();
-	
-	// $scope.getFilesByFolder = function(teamId) {
- //        //Obtengo los archivos asociados al ticket
- //        var path = $scope.folderPathTeams + teamId;
- //        DataService.getFilesByFolder(path, function (data) {
- //        }, function (response, status) {
- //            $scope.teamFiles = response.Files;
- //            //$scope.filePath = "uploads/tickets/docs/" + $scope.idTicket + "/";
- //            $scope.filePath = $scope.folderUploads + $scope.folderPathTeams + teamId + "/" + $scope.teamFiles.Name;
- //        });
- //    }
 
 	$scope.newTeam = function(){
 		$scope.editTeam();
@@ -69,6 +63,7 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
 	$scope.selection = [];
 	var url = 'v1/teams/';
 	var method = 'POST';
+	$scope.team = team;
 
 	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
     $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";//$rootScope.urlApi + "/Files/Uploads/";
@@ -77,21 +72,38 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
     $scope.folderPathTeams = "Teams/";
 
     //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
-    $scope.folderPathJurisdictions = "logos/jurisdictions/";
+    if(team){
+    	$scope.path =  $scope.folderUploads + $scope.folderPathTeams + team.Id + "/";
+    }
 
 	$scope.getFilesByFolder = function(teamId) {
         //Obtengo los archivos asociados al ticket
         var path = $scope.folderPathTeams + teamId;
         DataService.getFilesByFolder(path, function (data) {
         }, function (response, status) {
-            $scope.teamFiles = response.Files[0];
-            //$scope.filePath = "uploads/tickets/docs/" + $scope.idTicket + "/";
-            if($scope.teamFiles)
-            	$scope.filePath = $scope.folderUploads + $scope.folderPathTeams + teamId + "/" + $scope.teamFiles.Name;
+        	if(response.Files.length > 0){
+	            $scope.teamFiles = response.Files;
+
+	            for (var i = 0; i < $scope.teamFiles.length; i++) {
+		            
+		            if($scope.team.TeamImage == $scope.teamFiles[i].Name){
+		            	$scope.filePath = $scope.path + $scope.teamFiles[i].Name;
+		            	$scope.teamImageName = $scope.teamFiles[i].Name;
+		            }else{
+		            	if($scope.team.ShieldImage == $scope.teamFiles[i].Name){
+		            		$scope.imagePath = $scope.path + $scope.teamFiles[i].Name
+		            		$scope.shieldImageName = $scope.teamFiles[i].Name;
+		            	}
+		            }
+
+	            }
+
+	            
+	            
+        	}
         });
     }
 
-	$scope.team = team;
 
 	if(team){
 		url += team.Id;
@@ -126,8 +138,8 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
         DataService.deleteFile($scope.folderPathTeams + team.Id + '/' + fileName, function (data) {
           
         }, function (response, status) {
-            $scope.teamFiles=undefined;
             $scope.filePath=undefined;
+            $scope.imagePath=undefined;
         });
     }
 
@@ -148,6 +160,22 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
             //console.info(response);
             // $scope.getFilesByFolder();
         });
+
+        if($scope.shieldFile && $scope.shieldFile.length > 0){
+        	var fileData = new FormData();
+			for (i = 0; i < length; i++) {
+			  fileData.append("file" + i, $scope.shieldFile[i]);
+			}
+
+			DataService.postFile($scope.folderPathTeams + teamId, fileData, function (data) {
+	            //console.info(data);
+	            // $scope.getFilesByFolder();
+	        }, function (response, status) {
+	        	$scope.errorMsg = response.Message;
+	            //console.info(response);
+	            // $scope.getFilesByFolder();
+	        });
+        }
     }
 
 	$scope.refreshData = function(data){
@@ -192,13 +220,22 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
 
 		if($scope.files && $scope.files.length > 0){
 			var teamImage = $scope.files[0].name;
+		}else{
+			teamImage = $scope.teamImageName;
+		}
+
+		if($scope.shieldFile && $scope.shieldFile.length > 0){
+			var shieldImage = $scope.shieldFile[0].name;
+		}else{
+			shieldImage = $scope.shieldImageName;
 		}
 
 		data = {
 			'Name' : $scope.name,
 			'TeamDelegate' : $scope.teamDelegate,
 			'PlayersList' : $scope.selection,
-			'TeamImage' : teamImage
+			'TeamImage' : teamImage,
+			'ShieldImage' : shieldImage
 		};
 
 		DataService.manageTeam(method, url, data, function(response){
@@ -221,7 +258,11 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
 
 	$scope.fileNameChanged = function(element){
         $scope.files = element.files;
-     }
+ 	}
+
+ 	$scope.shieldFileNameChanged = function(element){
+        $scope.shieldFile = element.files;
+ 	}
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

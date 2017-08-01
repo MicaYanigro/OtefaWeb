@@ -25,7 +25,7 @@
 			<div id="child{{$index}}" class="panel-collapse collapse">
 				<div class="panel-body">
 					<div class="col-md-6">
-						<img ng-show="team.TeamImage" class="teamImage" ng-src="{{team.TeamImage}}"/>
+						<img ng-show="team.TeamImage" class="teamImage" ng-src="{{path}}{{team.Id}}/{{team.TeamImage}}"/>
                         <img ng-show="!team.TeamImage" class="teamImage" src="img/imageNotFound.png"/>
 					</div>
 					<div class="col-md-6">
@@ -45,7 +45,7 @@
                         <br/>
 
                         <div class="text-center">
-                           <a ng-href="#/equipo/{{team.ID}}/{{team.Name}}">Ver Más</a>
+                           <a ng-href="#/equipo/{{team.Id}}/{{team.Name}}">Ver Más</a>
                        </div>
                    </div>
                </div>
@@ -85,12 +85,12 @@
                             <input type="file" onchange="angular.element(this).scope().fileNameChanged(this)">
                         </div>
                         <div ng-show="filePath" class="col-md-5 text-left">
-                            <img ng-src="{{filePath}}" title="{{teamFiles.Name}}" width="250px" />
+                            <img ng-src="{{filePath}}" title="{{teamImageName}}" width="250px" />
                         </div>
                         <div ng-show="filePath" class="col-md-3">
                             <button 
                             class="btn btn-primary btn-sm"
-                            ng-click="deleteFile(teamFiles.Name)">Eliminar
+                            ng-click="deleteFile(teamImageName)">Eliminar
                             </button>
                         </div>
                     </div>
@@ -102,8 +102,17 @@
                         <div class="col-md-3 text-left">
                             <label style="padding-top: 1%;">Foto de Escudo</label>
                         </div>
-                        <div class="col-md-6">
-                            <input type="file" onchange="angular.element(this).scope().fileNameChanged(this)">
+                        <div ng-show="!imagePath" class="col-md-6">
+                            <input type="file" onchange="angular.element(this).scope().shieldFileNameChanged(this)">
+                        </div>
+                        <div ng-show="imagePath" class="col-md-5 text-left">
+                            <img ng-src="{{imagePath}}" title="{{shieldImageName}}" width="250px" />
+                        </div>
+                        <div ng-show="imagePath" class="col-md-3">
+                            <button 
+                            class="btn btn-primary btn-sm"
+                            ng-click="deleteFile(shieldImageName)">Eliminar
+                            </button>
                         </div>
                     </div>
                 </div>

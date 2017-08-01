@@ -79,6 +79,10 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 	if(match){
 		method = 'PUT';
 		url += match.Id;
+		$scope.team1 = match.MatchTeamList[0].Team.Id;
+		$scope.team2 = match.MatchTeamList[1].Team.Id;
+		$scope.headquarter = match.Headquarter.Id;
+		$scope.date = new Date(match.Date);
 		// $scope.name = tournament.Name;
 		// $scope.tournamentFormat = tournament.TournamentFormat;
 		// $scope.clasificationFormat = tournament.ClasificationFormat;
