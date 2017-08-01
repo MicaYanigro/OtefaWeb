@@ -35,6 +35,11 @@ var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSa
 	               	controller: 'TournamentsCtrl'
 	            })
 
+	            .when('/torneo/:tournamentID/:tournamentName*', {
+	                templateUrl: './views/tournamentDetails.html',
+	               	controller: 'TournamentDetailsCtrl'
+	            })
+
 	            .when('/equipos', {
 	                templateUrl: './views/teams.html',
 	               	controller: 'TeamsCtrl'
