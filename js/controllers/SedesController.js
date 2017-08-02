@@ -31,6 +31,9 @@ torneoFutbol.controller('SedesCtrl', function ($scope, $rootScope, $modal, $loca
 			resolve: {
 				sede : function(){
 					return sede;
+				},
+				urlApi : function(){
+					return $rootScope.urlApi;
 				}
 	        }
       	});
@@ -144,10 +147,10 @@ var LocationCtrl = function ($scope, $window, $filter, DataService, $modalInstan
 };
 
 
-var SedeImagesCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, sede) {
+var SedeImagesCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, sede, urlApi) {
 	
 	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
-    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";
+    $scope.folderUploads = urlApi + "/Files/Uploads/";
 
     //Ruta donde se almacenan los adjuntos para los tickets
     $scope.folderPathHeadquarters = "Headquarters/";

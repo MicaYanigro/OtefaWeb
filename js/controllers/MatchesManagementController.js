@@ -45,6 +45,27 @@ torneoFutbol.controller('MatchesManagementCtrl', function ($scope, $rootScope, $
         });
 	};
 
+	$scope.loadResults = function(match){
+		var modalInstance = $modal.open ({
+
+			templateUrl: 'loadResults.html',
+			controller: LoadResultsCtrl,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+				match : function(){
+					return match;
+				}
+	        }
+      	});
+
+	    modalInstance.result.then(function () {
+      		$scope.getMatches();
+        },function(){
+
+        });
+	};
+
 });
 
 var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, match) {
@@ -83,36 +104,6 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 		$scope.team2 = match.MatchTeamList[1].Team.Id;
 		$scope.headquarter = match.Headquarter.Id;
 		$scope.date = new Date(match.Date);
-		// $scope.name = tournament.Name;
-		// $scope.tournamentFormat = tournament.TournamentFormat;
-		// $scope.clasificationFormat = tournament.ClasificationFormat;
-		// $scope.rules = tournament.Rules;
-		// $scope.prices = tournament.Prices;
-		
-		// if(tournament.HeadquartersList.length != 0){
-			
-		// 	//Recorro la lista de sedes para guardarlas en las seleccionadas
-		// 	for (var i = 0; i < tournament.HeadquartersList.length; i++) {
-		// 		$scope.selection.push(tournament.HeadquartersList[i].Id);
-		// 	}
-		// }
-
-		// if(tournament.TeamPlayersList.length != 0){
-		// 	var teams = tournament.TeamPlayersList;
-
-		// 	//Recorro la lista de equipos y guardo los ID de los equipos
-		// 	for (var i = 0; i < teams.length; i++) {
-		// 		//Los guardo en el array que uso para
-		// 		$scope.playerTeamsSelection.values[teams[i].Id] = []
-		// 		for (var j = 0; j < teams[i].PlayersList.length; j++) {
-		// 			var players = teams[i].PlayersList;
-		// 			$scope.playerTeamsSelection.values[teams[i].Id].push(players[j].Id)
-		// 		}
-		// 	}
-		// 	// $scope.playerTeamsSelection.values[teamId] = []
-		// }
-
-		// $scope.dates = tournament.Dates;
 	}
 	
 	$scope.manageMatch = function(){
@@ -124,6 +115,10 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 
 		if($scope.team2 == undefined){
 			$scope.errorMsg = 'Por favor, seleccione el segundo equipo.';
+			return;
+		}
+		if($scope.team1 == $scope.team2){
+			$scope.errorMsg = 'El equipo local y el visitante no pueden ser el mismo equipo. Por favor, modifique uno de los equipos.';
 			return;
 		}
 
@@ -148,12 +143,91 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 		}
 
 
-
+		$scope.saving = true;
 		DataService.manageMatch(method, url, data, function(response){
 			$modalInstance.close();
 		}, function(response, status){
+			$scope.saving = false;
 			$scope.errorMsg = response.Message;
 		});
+	}
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+
+
+var LoadResultsCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, match) {
+	
+	$scope.saving = false;
+	$scope.errorMsg = null;
+	$scope.match = match;
+	$scope.team1 = match.MatchTeamList[0].Team;
+	$scope.team2 = match.MatchTeamList[1].Team;
+	$scope.playersList = $scope.team1.PlayersList.concat($scope.team2.PlayersList);
+	$scope.playersDetailsTeam1 = [];
+	$scope.playersDetailsTeam2 = [];
+
+	$scope.loadResults = function(){
+
+		var playersTeam1 = $scope.team1.PlayersList;
+		var playersTeam2 = $scope.team2.PlayersList;
+
+		for (var i = 0; i < playersTeam1.length; i++) {
+			var card = playersTeam1[i].yellowCard ? 1 : playersTeam1[i].redCard ? 2 : 0;
+			$scope.playersDetailsTeam1.push({
+										'PlayerID' : playersTeam1[i].Id,
+										'Goals' : playersTeam1[i].goals,
+										'Played' : playersTeam1[i].hasPlayed,
+										'Card' : card,
+										'Observation' : '' 
+										});
+		}
+
+		for (var j = 0; j < playersTeam2.length; j++) {
+			var card = playersTeam2[j].yellowCard ? 1 : playersTeam2[j].redCard ? 2 : 0;
+			$scope.playersDetailsTeam2.push({
+										'PlayerID' : playersTeam2[j].Id,
+										'Goals' : playersTeam2[j].goals,
+										'Played' : playersTeam2[j].hasPlayed,
+										'Card' : card,
+										'Observation' : '' 
+										});
+		}
+
+
+		var dataTeam1 = {
+			'MatchTeamID' : $scope.match.MatchTeamList[0].Id,
+			'Goals' : $scope.goalsTeam1,
+			'HasBonusPoint' : $scope.hasBonusTeam1,
+			'FigureID' : $scope.figure,
+			'PlayersDetails' : $scope.playersDetailsTeam1
+		}
+
+		var dataTeam2 = {
+			'MatchTeamID' : $scope.match.MatchTeamList[1].Id,
+			'Goals' : $scope.goalsTeam2,
+			'HasBonusPoint' : $scope.hasBonusTeam2,
+			'FigureID' : $scope.figure,
+			'PlayersDetails' : $scope.playersDetailsTeam2
+		}
+
+		DataService.loadResults($scope.match.MatchTeamList[0].Id, dataTeam1, function(response){
+			
+			DataService.loadResults($scope.match.MatchTeamList[1].Id, dataTeam2, function(response){
+				$modalInstance.close();
+			}, function(response, status){
+				$scope.errorMsg = response.Message;
+			});
+
+
+		}, function(response, status){
+			$scope.errorMsg = response.Message;
+		});
+
+
 	}
 
     $scope.cancel = function () {

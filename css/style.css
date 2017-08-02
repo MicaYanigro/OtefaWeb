@@ -222,8 +222,10 @@ body.modal-open {
 }
 
 .shieldImage{
-  height: 100%;
-  max-height: 200px;
+  /*height: 100%;*/
+  /*max-height: 200px;*/
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .list-group-item{
@@ -248,4 +250,46 @@ ul li:hover{
 
 table{
   font-size: 13px;
+}
+
+.itemSize{
+   padding: 0;
+   font-size: 1vw;
+   color: black
+}
+
+.state-loading {
+  position: relative;
+}
+
+.state-loading:before {
+  -webkit-animation: loader .6s linear;
+  -webkit-animation-iteration-count: infinite;
+  animation: loader .6s linear;
+  animation-iteration-count: infinite;
+  border-color: #767676 #F9F9F9 #F9F9F9;
+  border-radius: 600rem;
+  border-style: solid;
+  border-width: .2em;
+  box-shadow: 0 0 0 1px transparent;
+  content: '';
+  height: 2.2585em;
+  left: 50%;
+  margin: -1.12925em 0 0 -1.12925em;
+  position: absolute;
+  top: 50%;
+  width: 2.2585em;
+  z-index: 5;
+}
+
+.state-loading:after {
+  background-color: rgba(204, 204, 204, 0.7);
+  border-radius: 4px;
+  content: '';
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 4;
 }

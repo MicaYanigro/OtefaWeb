@@ -94,8 +94,39 @@
 
 		<label>Plantel</label>
 		<ul class="list-group">
-			<li class="list-group-item text-left" ng-repeat="player in team.PlayersList">
-				{{player.LastName}}, {{player.Name}}
+			<li class="list-group-item text-left row">
+				<div class="col-md-6 col-xs-6 itemSize">
+					<b>Nombre</b>
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					<img src="img/pelota.png">
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					<img src="img/tarjeta-amarilla.png">
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					<img src="img/tarjeta-roja.png">
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					<img src="img/trofeo.png">
+				</div>
+			</li>
+			<li class="list-group-item text-left row" ng-repeat="player in team.PlayersList">
+				<div class="col-md-6 col-xs-6 itemSize">
+					{{player.LastName}}, {{player.Name}}
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					4
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					1
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					1
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					1
+				</div>
 			</li>
 		</ul>
 

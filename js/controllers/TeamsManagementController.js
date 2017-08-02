@@ -44,6 +44,9 @@ torneoFutbol.controller('TeamsManagementCtrl', function ($scope, $rootScope, $lo
 			resolve: {
 				team : function(){
 					return team;
+				},
+				urlApi : function(){
+					return $rootScope.urlApi;
 				}
 			}
       	});
@@ -57,7 +60,7 @@ torneoFutbol.controller('TeamsManagementCtrl', function ($scope, $rootScope, $lo
 
 });
 
-var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, team) {
+var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, team, urlApi) {
 	$scope.saving = false;
 	$scope.errorMsg = null;
 	$scope.selection = [];
@@ -66,7 +69,7 @@ var ManageTeamCtrl = function ($scope, $window, $filter, DataService, $modalInst
 	$scope.team = team;
 
 	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
-    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";//$rootScope.urlApi + "/Files/Uploads/";
+    $scope.folderUploads = urlApi + "/Files/Uploads/";//$rootScope.urlApi + "/Files/Uploads/";
 
     //Ruta donde se almacenan los adjuntos para los tickets
     $scope.folderPathTeams = "Teams/";

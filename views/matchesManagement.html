@@ -17,6 +17,7 @@
 				<th class="columnCenter">Equipo 2</th>
 				<th class="columnCenter">Sede</th>
 				<th class="columnCenter">Fecha</th>
+				<th class="columnCenter">Cargar Resultado</th>
 				<th class="columnCenter">Editar</th>
 			</tr>
 		</thead>
@@ -27,6 +28,7 @@
 				<td class="columnCenter">{{match.MatchTeamList[1].Team.Name}}</td>
 				<td class="columnCenter">{{match.Headquarter.Name}}</td>
 				<td class="columnCenter">{{match.Date | date:'dd/MM/yyyy'}}</td>
+				<td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-upload" ng-click="loadResults(match)"></button></td>
 				<td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-pencil" ng-click="editMatch(match)"></button></td>
 			</tr>
 		</tbody>
@@ -97,6 +99,221 @@
 				<br />
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-success" ng-click="manageMatch()" ng-show="!saving">Aceptar</button>
+					<button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Aceptar</button>
+
+					<button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+				</div>
+			</div>
+			<div class="row error">
+				<div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+			</div>
+		</div>
+	</form>
+</script>
+
+
+<script type="text/ng-template" id="loadResults.html">
+	<form>
+		<div class="modal-body" style="margin: 0 auto; padding: 5%">
+			<div>
+				<div class="modal-header text-center">
+					<span>Resultados del Partido</span>
+				</div>
+				<br />
+
+				<div class="text-left">
+					<div class="row">
+
+						<div class="col-md-3 col-xs-3 text-left">
+							<label style="padding-top: 1%;">Jugador del Partido</label>
+						</div>
+						<div class="col-md-6 col-xs-6">
+							<select class="form-control input-sm" ng-model="figure" ng-options="player.Id as player.LastName + ' ' + player.Name for player in playersList"></select>
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+				<div class="row">
+					
+					<div class="col-md-6 col-xs-6">
+
+						<div class="text-left">
+							<div class="row">
+								<div class="text-center">
+									<label style="padding-top: 1%; font-size: 25px;">{{team1.Name}}</label>
+								</div>
+							</div>
+						</div>
+
+						<br/>
+
+						<div class="text-left">
+							<div class="row">
+
+								<div class="col-md-3 text-left">
+									<label style="padding-top: 1%;">Goles</label>
+								</div>
+								<div class="col-md-3">
+									<input class="input-sm form-control" type="number" min="0" ng-model="goalsTeam1">
+								</div>
+							</div>
+						</div>
+
+						<br/>
+
+						<div class="text-left">
+							<div class="row">
+
+								<div class="col-md-3 col-xs-3 text-left">
+									<label style="padding-top: 1%;">Punto Bonus</label>
+								</div>
+								<div class="col-md-3 col-xs-3">
+									<input type="checkbox" ng-model="hasBonusTeam1"/>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-md-6 col-xs-6">
+						
+						<div class="text-left">
+							<div class="row">
+								<div class="text-center">
+									<label style="padding-top: 1%; font-size: 25px;">{{team2.Name}}</label>
+								</div>
+							</div>
+						</div>
+
+						<br/>
+
+						<div class="text-left">
+							<div class="row">
+
+								<div class="col-md-3 col-xs-3 text-left">
+									<label style="padding-top: 1%;">Goles</label>
+								</div>
+								<div class="col-md-3 col-xs-3">
+									<input class="input-sm form-control" type="number" min="0" ng-model="goalsTeam2">
+								</div>
+							</div>
+						</div>
+
+						<br/>
+
+						<div class="text-left">
+							<div class="row">
+
+								<div class="col-md-3 col-xs-3 text-left">
+									<label style="padding-top: 1%;">Punto Bonus</label>
+								</div>
+								<div class="col-md-3 col-xs-3">
+									<input type="checkbox" ng-model="hasBonusTeam2"/>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				<br />
+					
+				<div class="row">
+					
+					<div class="col-md-6 col-xs-6">
+						
+						<ul class="list-group">
+							<li class="list-group-item text-left row">
+								<div class="col-md-4 col-xs-4 itemSize">
+									<b>Jugador</b>
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<img src="img/pelota.png">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<img src="img/tarjeta-amarilla.png">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<img src="img/tarjeta-roja.png">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<b>Jugó</b>
+								</div>
+							</li>
+							<li class="list-group-item text-left row" ng-repeat="player in team1.PlayersList">
+								<div class="col-md-4 col-xs-4 itemSize">
+									{{player.LastName}}, {{player.Name}}
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input class="input-sm form-control" type="number" min="0" ng-init="player.goals = 0" ng-model="player.goals">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input type="checkbox" min="0" ng-init="player.yellowCard = false" ng-disabled="player.redCard" ng-model="player.yellowCard">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input type="checkbox" min="0" ng-init="player.redCard = false" ng-disabled="player.yellowCard" ng-model="player.redCard">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input type="checkbox" min="0" ng-init="player.hasPlayed = true" ng-model="player.hasPlayed">
+								</div>
+							</li>
+						</ul>
+
+					</div>
+
+					<div class="col-md-6 col-xs-6">
+						
+						<ul class="list-group">
+							<li class="list-group-item text-left row">
+								<div class="col-md-4 col-xs-4 itemSize">
+									<b>Jugador</b>
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<img src="img/pelota.png">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<img src="img/tarjeta-amarilla.png">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<img src="img/tarjeta-roja.png">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<b>Jugó</b>
+								</div>
+							</li>
+							<li class="list-group-item text-left row" ng-repeat="player in team2.PlayersList">
+								<div class="col-md-4 col-xs-4 itemSize">
+									{{player.LastName}}, {{player.Name}}
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input class="input-sm form-control" type="number" min="0" ng-init="player.goals = 0" ng-model="player.goals">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input type="checkbox" min="0" ng-init="player.yellowCard = false" ng-disabled="player.redCard" ng-model="player.yellowCard">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input type="checkbox" min="0" ng-init="player.redCard = false" ng-disabled="player.yellowCard" ng-model="player.redCard">
+								</div>
+								<div class="col-md-2 col-xs-2 itemSize text-center">
+									<input type="checkbox" min="0" ng-init="player.hasPlayed = true" ng-model="player.hasPlayed">
+								</div>
+							</li>
+						</ul>
+
+					</div>
+
+				</div>
+
+				<br/>
+
+				<div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+				<br />
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" ng-click="loadResults()" ng-show="!saving">Aceptar</button>
 					<button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Aceptar</button>
 
 					<button class="btn btn-default" ng-click="cancel()">Cancelar</button>

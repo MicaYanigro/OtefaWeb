@@ -34,6 +34,9 @@ torneoFutbol.controller('HeadquarterManagementCtrl', function ($scope, $rootScop
 			resolve: {
 				headquarter : function(){
 					return headquarter;
+				},
+				urlApi : function(){
+					return $rootScope.urlApi;
 				}
 	        }
       	});
@@ -48,7 +51,7 @@ torneoFutbol.controller('HeadquarterManagementCtrl', function ($scope, $rootScop
 });
 
 
-var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, headquarter) {
+var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, headquarter, urlApi) {
 	$scope.saving = false;
 	$scope.errorMsg = null;
 	$scope.headquarter = headquarter
@@ -56,7 +59,7 @@ var HeadquarterCtrl = function ($scope, $window, $filter, DataService, $modalIns
 	var url = 'v1/headquarters/';
 
 	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
-    $scope.folderUploads = 'http://localhost:1111' + "/Files/Uploads/";
+    $scope.folderUploads = urlApi + "/Files/Uploads/";
 
     //Ruta donde se almacenan los adjuntos para los tickets
     $scope.folderPathHeadquarters = "Headquarters/";

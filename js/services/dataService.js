@@ -23,6 +23,7 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	                },
 	            }, fnSuccess, fnError, true);
 	        },
+	        
 	        manageTeam: function (method, url, data, fnSuccess, fnError) {
 	            restApi.call({
 	                method: method,
@@ -212,7 +213,20 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 						'Content-Type': 'application/json'
 					},
 				}, fnSuccess, fnError, true);
-			}
+			},
+
+			loadResults: function (matchID, data, fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'PUT',
+	                url: 'v1/matches/results/' + matchID,
+	                data: data,
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+
+
       };
 	}
 ]);
