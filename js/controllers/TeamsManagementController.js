@@ -8,7 +8,7 @@ torneoFutbol.controller('TeamsManagementCtrl', function ($scope, $rootScope, $lo
     $scope.folderPathTeams = "Teams/";
 
     //Ruta donde se almacenan las imagenes adjuntas para las jurisdicciones
-    $scope.path = $scope.folderUploads + $scope.folderPathTeams + '/';
+    $scope.path = $scope.folderUploads + $scope.folderPathTeams;
 
     $scope.getTeams = function(){
 		DataService.getTeams(function(response){

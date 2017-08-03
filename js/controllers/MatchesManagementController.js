@@ -214,9 +214,9 @@ var LoadResultsCtrl = function ($scope, $window, $filter, DataService, $modalIns
 			'PlayersDetails' : $scope.playersDetailsTeam2
 		}
 
-		DataService.loadResults($scope.match.MatchTeamList[0].Id, dataTeam1, function(response){
+		DataService.loadResults($scope.match.Id, dataTeam1, function(response){
 			
-			DataService.loadResults($scope.match.MatchTeamList[1].Id, dataTeam2, function(response){
+			DataService.loadResults($scope.match.Id, dataTeam2, function(response){
 				$modalInstance.close();
 			}, function(response, status){
 				$scope.errorMsg = response.Message;
