@@ -8,4 +8,82 @@
 
 <div class="container containerMain">
 
+	<div class="col-md-6 col-xs-6">
+		<div class="row text-center">
+			<label>FIXTURE</label>
+		</div>
+
+		<br/>
+		
+		<div class="row">
+			
+			<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
+		        <thead>
+		            <tr>
+		                <th>Local</th>
+		                <th class="columnCenter" width="35px"></th>
+		                <th class="columnCenter" width="35px"></th>
+		                <th>Visitante</th>
+		                <!-- <th>Sede</th> -->
+		                <th width="70px">Fecha</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="data in dataList">
+		                <td>{{data.Local}}</td>
+		                <td class="columnCenter" width="35px">{{data.GoalsLocal}}</td>
+		                <td class="columnCenter" width="35px">{{data.GoalsVisitor}}</td>
+		                <td>{{data.Visitor}}</td>
+		                <!-- <td>{{data.Headquarter}}</td> -->
+		                <td width="70px">{{data.Date | date:'dd/MM/yyyy'}}</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		
+		</div>
+
+	</div>
+	<div class="m-left80 col-md-5 col-xs-5">
+		
+		<div class="row text-center">
+			<label>POSICIONES</label>
+		</div>
+
+		<br/>
+		
+		<div class="row">
+			
+			<table datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered">
+		        <thead>
+		            <tr>
+		                <th class="columnCenter" width="35px">Pos</th>
+		                <th>Equipo</th>
+		                <th class="columnCenter" width="35px">Pts</th>
+		                <th class="columnCenter" width="35px">PJ</th>
+		                <th class="columnCenter" width="35px">PE</th>
+		                <th class="columnCenter" width="35px">PP</th>
+		                <th class="columnCenter" width="35px">GF</th>
+		                <th class="columnCenter" width="35px">GC</th>
+		                <th class="columnCenter" width="35px">GD</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="position in positions | orderBy: '-Points'">
+		                <td class="columnCenter" width="35px">{{$index + 1}}</td>
+		                <td>{{position.Team}}</td>
+		                <td class="columnCenter" width="35px">{{position.Points}}</td>
+		                <td class="columnCenter" width="35px">{{position.Ganados}}</td>
+		                <td class="columnCenter" width="35px">{{position.Empatados}}</td>
+		                <td class="columnCenter" width="35px">{{position.Perdidos}}</td>
+		                <td class="columnCenter" width="35px">{{position.Favor}}</td>
+		                <td class="columnCenter" width="35px">{{position.Contra}}</td>
+		                <td class="columnCenter" width="35px">{{position.Favor - position.Contra}}</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		
+		</div>
+
+	</div>
+
 </div>
