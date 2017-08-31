@@ -93,8 +93,17 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 		});
 	}
 
+	$scope.getTournaments = function(){
+		DataService.getTournaments(function(response){
+			$scope.tournaments = response;
+		}, function(response, status){
+
+		})
+	}
+
 	$scope.getHeadquarters();
 	$scope.getTeams();
+	$scope.getTournaments();
 
 
 	if(match){
@@ -132,11 +141,17 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 			return;
 		}
 
+		if($scope.tournament == undefined){
+			$scope.errorMsg = 'Por favor, seleccione el torneo.'
+			return;
+		}
+
 		$scope.teamsSelected.push($scope.team1);
 		$scope.teamsSelected.push($scope.team2);
 		
 
 		var data = {
+			"Tournament" : $scope.tournament,
 			'Date' : new Date($scope.date),
 			'Headquarter' : $scope.headquarter,
 			'Teams' : $scope.teamsSelected
@@ -162,13 +177,49 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 var LoadResultsCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, match) {
 	
 	$scope.saving = false;
+	$scope.init = false;
 	$scope.errorMsg = null;
 	$scope.match = match;
+	var results = match.MatchTeamList;
 	$scope.team1 = match.MatchTeamList[0].Team;
 	$scope.team2 = match.MatchTeamList[1].Team;
 	$scope.playersList = $scope.team1.PlayersList.concat($scope.team2.PlayersList);
-	$scope.playersDetailsTeam1 = [];
-	$scope.playersDetailsTeam2 = [];
+
+	if($scope.match.MatchTeamList[0].Goals == null)
+		$scope.init = true;
+	
+	if($scope.init == true){
+		$scope.playersDetailsTeam1 = [];
+		$scope.playersDetailsTeam2 = [];
+	}else{
+
+		$scope.figure = match.Figure.Id;
+
+		$scope.playersDetailsTeam1 = [];
+		$scope.playersDetailsTeam2 = [];
+		var playersTeam1 = $scope.team1.PlayersList;
+		var playersTeam2 = $scope.team2.PlayersList;
+
+		$scope.goalsTeam1 = results[0].Goals;
+		$scope.goalsTeam2 = results[1].Goals;
+		$scope.hasBonusTeam1 = results[0].HasBonusPoint;
+		$scope.hasBonusTeam2 = results[1].HasBonusPoint;
+
+		for (var i = 0; i < playersTeam1.length; i++) {
+			results[0].PlayersDetails[i].Card == 1 ? $scope.team1.PlayersList[i].yellowCard = true : $scope.team1.PlayersList[i].redCard = true;
+			$scope.team1.PlayersList[i].goals = results[0].PlayersDetails[i].Goals;
+			$scope.team1.PlayersList[i].hasPlayed = results[0].PlayersDetails[i].Played;
+
+
+
+		}
+
+		for (var i = 0; i < playersTeam2.length; i++) {
+			results[1].PlayersDetails[i].Card == 1 ? $scope.team2.PlayersList[i].yellowCard = true : $scope.team2.PlayersList[i].redCard = true;
+			$scope.team2.PlayersList[i].goals = results[1].PlayersDetails[i].Goals;
+			$scope.team2.PlayersList[i].hasPlayed = results[1].PlayersDetails[i].Played;
+		}
+	}
 
 	$scope.loadResults = function(){
 
@@ -201,6 +252,7 @@ var LoadResultsCtrl = function ($scope, $window, $filter, DataService, $modalIns
 		var dataTeam1 = {
 			'MatchTeamID' : $scope.match.MatchTeamList[0].Id,
 			'Goals' : $scope.goalsTeam1,
+			'AgainstGoals' : $scope.goalsTeam2,
 			'HasBonusPoint' : $scope.hasBonusTeam1,
 			'FigureID' : $scope.figure,
 			'PlayersDetails' : $scope.playersDetailsTeam1
@@ -209,6 +261,7 @@ var LoadResultsCtrl = function ($scope, $window, $filter, DataService, $modalIns
 		var dataTeam2 = {
 			'MatchTeamID' : $scope.match.MatchTeamList[1].Id,
 			'Goals' : $scope.goalsTeam2,
+			'AgainstGoals' : $scope.goalsTeam1,
 			'HasBonusPoint' : $scope.hasBonusTeam2,
 			'FigureID' : $scope.figure,
 			'PlayersDetails' : $scope.playersDetailsTeam2

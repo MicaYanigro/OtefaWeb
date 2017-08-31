@@ -93,6 +93,19 @@
 				</div>
 
 				<br />
+				<div class="text-left">
+					<div class="row">
+
+						<div class="col-md-3 text-left">
+							<label style="padding-top: 1%;"><span class="redColor">*</span>Torneo</label>
+						</div>
+						<div class="col-md-6">
+							<select class="form-control input-sm" ng-model="tournament" ng-options="tournament.Id as tournament.Name for tournament in tournaments"/></select>
+						</div>
+					</div>
+				</div>
+
+				<br />
 
 				<div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
@@ -248,16 +261,16 @@
 									{{player.LastName}}, {{player.Name}}
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input class="input-sm form-control" type="number" min="0" ng-init="player.goals = 0" ng-model="player.goals">
+									<input class="input-sm form-control" type="number" min="0" ng-init="init ? player.goals = 0 : player.goals = player.goals" ng-model="player.goals">
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input type="checkbox" min="0" ng-init="player.yellowCard = false" ng-disabled="player.redCard" ng-model="player.yellowCard">
+									<input type="checkbox" min="0" ng-init="init ? player.yellowCard = false : player.yellowCard = player.yellowCard" ng-disabled="player.redCard" ng-model="player.yellowCard">
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input type="checkbox" min="0" ng-init="player.redCard = false" ng-disabled="player.yellowCard" ng-model="player.redCard">
+									<input type="checkbox" min="0" ng-init="init ? player.redCard = false : player.redCard = player.redCard" ng-disabled="player.yellowCard" ng-model="player.redCard">
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input type="checkbox" min="0" ng-init="player.hasPlayed = true" ng-model="player.hasPlayed">
+									<input type="checkbox" min="0" ng-init="init ? player.hasPlayed = true : player.hasPlayed" ng-model="player.hasPlayed">
 								</div>
 							</li>
 						</ul>
@@ -289,16 +302,16 @@
 									{{player.LastName}}, {{player.Name}}
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input class="input-sm form-control" type="number" min="0" ng-init="player.goals = 0" ng-model="player.goals">
+									<input class="input-sm form-control" type="number" min="0" ng-init="init ? player.goals = 0 : player.goals = player.goals" ng-model="player.goals">
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input type="checkbox" min="0" ng-init="player.yellowCard = false" ng-disabled="player.redCard" ng-model="player.yellowCard">
+									<input type="checkbox" min="0" ng-init="init ? player.yellowCard = false : player.yellowCard = player.yellowCard" ng-disabled="player.redCard" ng-model="player.yellowCard">
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input type="checkbox" min="0" ng-init="player.redCard = false" ng-disabled="player.yellowCard" ng-model="player.redCard">
+									<input type="checkbox" min="0" ng-init="init ? player.redCard = false : player.redCard = player.redCard" ng-disabled="player.yellowCard" ng-model="player.redCard">
 								</div>
 								<div class="col-md-2 col-xs-2 itemSize text-center">
-									<input type="checkbox" min="0" ng-init="player.hasPlayed = true" ng-model="player.hasPlayed">
+									<input type="checkbox" min="0" ng-init="init ? player.hasPlayed = true : player.hasPlayed" ng-model="player.hasPlayed">
 								</div>
 							</li>
 						</ul>
