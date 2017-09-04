@@ -34,7 +34,25 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 		})
 	};
 
+	$scope.getPositions = function(){
+		DataService.getPositionsByTournamentId($routeParams.tournamentID, function(response){
+			$scope.positions = response;
+		}, function(response, status){
+
+		});
+	};
+
+	$scope.getMatches = function(){
+		DataService.getMatchesByTournamentId($routeParams.tournamentID, function(response){
+			$scope.matches = response;
+		}, function(response, status){
+
+		})		
+	}
+
 	$scope.getTournament();
+	$scope.getPositions();
+	$scope.getMatches();
 
 	$scope.dataList = [{
 							'Local' : 'Equipo 1',
@@ -120,6 +138,7 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 
 	];
 
+/*
 	$scope.positions = [{
 							'Team' : 'Equipo 1',
 							'Points' : 23,
@@ -175,5 +194,6 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 							'Contra' : 29
 						}
 	]
+*/
 
 });

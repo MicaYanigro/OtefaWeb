@@ -60,6 +60,7 @@
 		                <th>Equipo</th>
 		                <th class="columnCenter" width="35px">Pts</th>
 		                <th class="columnCenter" width="35px">PJ</th>
+		                <th class="columnCenter" width="35px">PG</th>
 		                <th class="columnCenter" width="35px">PE</th>
 		                <th class="columnCenter" width="35px">PP</th>
 		                <th class="columnCenter" width="35px">GF</th>
@@ -68,15 +69,16 @@
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr ng-repeat="position in positions | orderBy: '-Points'">
+		            <tr ng-repeat="position in positions | orderBy: '-FinalPoints'">
 		                <td class="columnCenter" width="35px">{{$index + 1}}</td>
 		                <td>{{position.Team}}</td>
-		                <td class="columnCenter" width="35px">{{position.Points}}</td>
-		                <td class="columnCenter" width="35px">{{position.Ganados}}</td>
-		                <td class="columnCenter" width="35px">{{position.Empatados}}</td>
-		                <td class="columnCenter" width="35px">{{position.Perdidos}}</td>
-		                <td class="columnCenter" width="35px">{{position.Favor}}</td>
-		                <td class="columnCenter" width="35px">{{position.Contra}}</td>
+		                <td class="columnCenter" width="35px">{{position.FinalPoints}}</td>
+		                <td class="columnCenter" width="35px">{{position.PlayedGames}}</td>
+		                <td class="columnCenter" width="35px">{{position.WonGames}}</td>
+		                <td class="columnCenter" width="35px">{{position.DrawGames}}</td>
+		                <td class="columnCenter" width="35px">{{position.LooseGames}}</td>
+		                <td class="columnCenter" width="35px">{{!position.Favor ? 0 : position.Favor}}</td>
+		                <td class="columnCenter" width="35px">{{!position.Contra ? 0 : position.Contra}}</td>
 		                <td class="columnCenter" width="35px">{{position.Favor - position.Contra}}</td>
 		            </tr>
 		        </tbody>

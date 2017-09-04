@@ -310,7 +310,15 @@ var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $mod
 
 
 		DataService.manageTournament(method, url, data, function(response){
-			$modalInstance.close();
+			if(tournament){
+				DataService.postFixture(tournament.Id, function(response){
+					$modalInstance.close();	
+				}, function(response, status){
+					$scope.errorMsg = response.Message;
+				})
+			}else{
+				$modalInstance.close();
+			}
 		}, function(response, status){
 			$scope.errorMsg = response.Message;
 		});

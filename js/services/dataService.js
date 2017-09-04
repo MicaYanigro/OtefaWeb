@@ -226,6 +226,45 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	            }, fnSuccess, fnError, true);
 	        },
 
+	        getPositionsByTournamentId: function (tournamentID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/tournaments/' + tournamentID + '/positions',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+	        getStadisticsByTeamId: function (teamID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/teams/' + teamID + '/stadistics',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+	        getMatchesByTournamentId: function (tournamentID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/tournaments/' + tournamentID + '/matches',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+	        postFixture: function (tournamentID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'POST',
+					url: 'v1/tournaments/' + tournamentID + '/fixture',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			}
 
       };
 	}
