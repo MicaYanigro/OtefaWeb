@@ -19,6 +19,7 @@
 				<th class="columnCenter">Fecha</th>
 				<th class="columnCenter">Cargar Resultado</th>
 				<th class="columnCenter">Editar</th>
+				<th class="columnCenter">Planilla</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,6 +31,7 @@
 				<td class="columnCenter">{{match.Date | date:'dd/MM/yyyy'}}</td>
 				<td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-upload" ng-click="loadResults(match)"></button></td>
 				<td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-pencil" ng-click="editMatch(match)"></button></td>
+				<td class="columnCenter"><input type="image" src="../img/excel-icon.png" ng-click="exportExcel(match)"/></td>
 			</tr>
 		</tbody>
 	</table>

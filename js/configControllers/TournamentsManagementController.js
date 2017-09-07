@@ -126,6 +126,14 @@ torneoFutbol.controller('TournamentsManagementCtrl', function ($scope, $rootScop
         });
 	}
 
+	$scope.postFixture = function(tournament){
+		DataService.postFixture(tournament.Id, function(response){
+			$scope.getTournaments();
+		}, function(response, status){
+			$scope.errorMsg = response.Message;
+		})
+	}
+
 });
 
 var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament) {
@@ -307,18 +315,8 @@ var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $mod
 			'TeamsPlayers' : $scope.playerTeamsSelection.values
 		}
 
-
-
 		DataService.manageTournament(method, url, data, function(response){
-			if(tournament){
-				DataService.postFixture(tournament.Id, function(response){
-					$modalInstance.close();	
-				}, function(response, status){
-					$scope.errorMsg = response.Message;
-				})
-			}else{
-				$modalInstance.close();
-			}
+			$modalInstance.close();
 		}, function(response, status){
 			$scope.errorMsg = response.Message;
 		});

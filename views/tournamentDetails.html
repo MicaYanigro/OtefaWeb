@@ -20,6 +20,7 @@
 			<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered">
 		        <thead>
 		            <tr>
+		            	<th>Fecha</th>
 		                <th>Local</th>
 		                <th class="columnCenter" width="35px"></th>
 		                <th class="columnCenter" width="35px"></th>
@@ -29,13 +30,14 @@
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr ng-repeat="data in dataList">
-		                <td>{{data.Local}}</td>
-		                <td class="columnCenter" width="35px">{{data.GoalsLocal}}</td>
-		                <td class="columnCenter" width="35px">{{data.GoalsVisitor}}</td>
-		                <td>{{data.Visitor}}</td>
+		            <tr ng-repeat="match in matches | orderBy:'Round'">
+		            	<td>{{match.Round}}</td>
+		                <td>{{match.MatchTeamList[0].Team.Name}}</td>
+		                <td class="columnCenter" width="35px">{{!match.MatchTeamList[0].Team.Goals ? 0 : match.MatchTeamList[0].Team.Goals}}</td>
+		                <td class="columnCenter" width="35px">{{!match.MatchTeamList[1].Team.Goals ? 0 : match.MatchTeamList[1].Team.Goals}}</td>
+		                <td>{{match.MatchTeamList[1].Team.Name}}</td>
 		                <!-- <td>{{data.Headquarter}}</td> -->
-		                <td width="70px">{{data.Date | date:'dd/MM/yyyy'}}</td>
+		                <td width="70px">{{match.Date | date:'dd/MM/yyyy'}}</td>
 		            </tr>
 		        </tbody>
 		    </table>

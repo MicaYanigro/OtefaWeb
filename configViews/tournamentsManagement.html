@@ -28,6 +28,7 @@
 	                <th class="columnCenter">Reglamento</th>
 	                <th class="columnCenter">Premios</th>
                     <th class="columnCenter">Editar</th>
+                    <th class="columnCenter">Crear Fixture</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -48,6 +49,7 @@
 	                <td class="columnCenter"><button ng-click="openRules(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
 	                <td class="columnCenter" style="white-space: pre;">{{tournament.Prices}}</td>
                     <td class="columnCenter"><button type="button" style="color: black" class="glyphicon glyphicon-pencil" ng-click="editTournament(tournament)"></button></td>
+                    <td class="columnCenter"><button type="button" class="botonReglamento glyphicon glyphicon-th-list" ng-click="postFixture(tournament)"></button></td>
 	            </tr>
 	        </tbody>
 	    </table>
