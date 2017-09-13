@@ -1,30 +1,34 @@
 <title>Equipos - OTEFA</title>
 
-<div class="row">
-	<h1 class="page-title page-title-font">{{team.Name}}</h1>
+<div>
+	<h1 style="width: 100%" class="page-title page-title-font">{{team.Name}}</h1>
 </div>
 
 <br/><br/>
 
 <div class="container containerMain">
 
-	<div class="col-md-8 col-xs-8">
+	<div class="col-md-7">
 		
-		<div class="row">
+		<div>
 			<div class="col-md-6 col-xs-6">
 				<img ng-show="team.ShieldImage" class="shieldImage" ng-src="{{path}}/{{team.ShieldImage}}"/>
 				<img ng-show="!team.ShieldImage" class="shieldImage" src="img/imageNotFound.png"/>
+				<br/><br/>
 			</div>
 			<div class="col-md-6 col-xs-6">
 				<img ng-show="team.TeamImage" class="shieldImage" ng-src="{{path}}/{{team.TeamImage}}"/>
 				<img ng-show="!team.TeamImage" class="shieldImage" src="img/imageNotFound.png"/>
+				<br/><br/>
 			</div>
 			
 		</div>
 
 		<br/><br/>
 
-		<div class="row">
+		<div>
+
+			<br/><br/>
 
 			<label>Historial</label>
 			
@@ -34,19 +38,21 @@
 						<th class="columnCenter">PJ</th>
 						<th class="columnCenter">PG</th>
 						<th class="columnCenter">PE</th>
+						<th class="columnCenter">PP</th>
 						<th class="columnCenter">GF</th>
 						<th class="columnCenter">GC</th>
-						<th class="columnCenter">GD</th>
+						<th class="columnCenter">DG</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="data in historial">
-						<td class="columnCenter">{{data.PJ}}</td>
-						<td class="columnCenter">{{data.PG}}</td>
-						<td class="columnCenter">{{data.PE}}</td>
-						<td class="columnCenter">{{data.GF}}</td>
-						<td class="columnCenter">{{data.GC}}</td>
-						<td class="columnCenter">{{data.GD}}</td>
+					<tr ng-repeat="data in historical">
+						<td class="columnCenter">{{data.PlayedGames}}</td>
+						<td class="columnCenter">{{data.WonGames}}</td>
+						<td class="columnCenter">{{data.LooseGames}}</td>
+						<td class="columnCenter">{{data.DrawGames}}</td>
+						<td class="columnCenter">{{!data.Goals ? 0 : data.Goals}}</td>
+						<td class="columnCenter">{{!data.AgainstGoals ? 0 : data.AgainstGoals}}</td>
+						<td class="columnCenter">{{!data.DifGoal ? 0 : data.DifGoal}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -55,7 +61,7 @@
 
 		<br/><br/>
 
-		<div class="row">
+		<div>
 
 			<label>Próximos Partidos</label>
 			
@@ -69,10 +75,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="match in nextMatches">
-						<td class="columnCenter">{{match.Local}}</td>
-						<td class="columnCenter">{{match.Visitor}}</td>
-						<td class="columnCenter">{{match.Headquarter}}</td>
+					<tr ng-repeat="match in upcomingMathes">
+						<td class="columnCenter">{{match.MatchTeamList[0].Team.Name}}</td>
+						<td class="columnCenter">{{match.MatchTeamList[1].Team.Name}}</td>
+						<td class="columnCenter">{{match.Headquarter.Name}}</td>
 						<td class="columnCenter">{{match.Date | date:'dd/MM/yyyy'}}</td>
 					</tr>
 				</tbody>
@@ -83,7 +89,7 @@
 	</div>
 
 	
-	<div class="col-md-4 col-xs-4 text-center">
+	<div class="col-md-offset-1 col-md-4 text-center">
 		
 		<b>Delegado:</b>
 		<span>
@@ -99,6 +105,9 @@
 					<b>Nombre</b>
 				</div>
 				<div class="col-md-1 col-xs-1 itemSize text-center">
+					PJ
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
 					<img src="img/pelota.png">
 				</div>
 				<div class="col-md-1 col-xs-1 itemSize text-center">
@@ -111,21 +120,24 @@
 					<img src="img/trofeo.png">
 				</div>
 			</li>
-			<li class="list-group-item text-left row" ng-repeat="player in team.PlayersList">
+			<li class="list-group-item text-left row" ng-repeat="player in stadistics">
 				<div class="col-md-6 col-xs-6 itemSize">
-					{{player.LastName}}, {{player.Name}}
+					{{player.Player}}
 				</div>
 				<div class="col-md-1 col-xs-1 itemSize text-center">
-					4
+					{{player.PlayedGames}}
 				</div>
 				<div class="col-md-1 col-xs-1 itemSize text-center">
-					1
+					{{player.Goals}}
 				</div>
 				<div class="col-md-1 col-xs-1 itemSize text-center">
-					1
+					{{player.YellowCards}}
 				</div>
 				<div class="col-md-1 col-xs-1 itemSize text-center">
-					1
+					{{player.RedCards}}
+				</div>
+				<div class="col-md-1 col-xs-1 itemSize text-center">
+					{{player.Figure}}
 				</div>
 			</li>
 		</ul>

@@ -264,6 +264,26 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 						'Content-Type': 'application/json'
 					},
 				}, fnSuccess, fnError, true);
+			},
+
+	        getHistoricalStadistics: function (teamID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'POST',
+					url: 'v1/teams/' + teamID + '/historicalStadistics',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+	        getUpcomingMatchesByTeam: function (teamID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'POST',
+					url: 'v1/teams/' + teamID + '/upcomingMatches',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
 			}
 
       };

@@ -80,7 +80,8 @@ body.modal-open {
 }
 
 .container{
-  width: 1300px;
+  /*width: 1300px;*/
+  width: 96%;
 }
 
 .containerHome {
@@ -149,7 +150,8 @@ body.modal-open {
   border-right: none;
   text-align: center;
   padding: 50px;
-  margin: 0px -25px;
+  /*margin: 0px -25px;*/
+  margin: 0px 0px;
   background-image: url(../img/soccer-banner.jpg);
   background-size: cover;
   background-repeat: no-repeat; 
@@ -231,8 +233,8 @@ body.modal-open {
 
 .shieldImage{
   /*height: 100%;*/
-  /*max-height: 200px;*/
-  max-height: 100%;
+  max-height: 150px;
+  /*max-height: 100%;*/
   max-width: 100%;
 }
 

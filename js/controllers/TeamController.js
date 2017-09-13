@@ -16,14 +16,7 @@ torneoFutbol.controller('TeamCtrl', function ($scope, $rootScope, $routeParams, 
     $scope.folderPathTeams = "Teams/";
     $scope.path = $scope.folderUploads + $scope.folderPathTeams;
 
-    $scope.historial = [{
-    	'PJ' : 25,
-		'PG' : 45,
-		'PE' : 21,
-		'GF' : 55,
-		'GC' : 40,
-		'GD' : 15
-    }]
+    $scope.historical = [];
 
 
 
@@ -37,7 +30,34 @@ torneoFutbol.controller('TeamCtrl', function ($scope, $rootScope, $routeParams, 
 		})
 	};
 
+	$scope.getTeamStadistics = function(){
+		DataService.getStadisticsByTeamId($routeParams.teamID, function(response){
+			$scope.stadistics = response;
+		}, function(response, status){
+
+		})
+	}
+
+	$scope.getHistoricalStadistics = function(){
+		DataService.getHistoricalStadistics($routeParams.teamID, function(response){
+			$scope.historical.push(response);
+		}, function(response, status){
+
+		});
+	}
+
+	$scope.getUpcomingMatches = function(){
+		DataService.getUpcomingMatchesByTeam($routeParams.teamID, function(response){
+			$scope.upcomingMathes = response;
+		}, function(response, status){
+
+		});
+	}
+
 	$scope.getTeam();
+	$scope.getTeamStadistics();
+	$scope.getHistoricalStadistics();
+	$scope.getUpcomingMatches();
 
 
 });
