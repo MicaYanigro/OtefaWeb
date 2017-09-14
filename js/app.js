@@ -20,7 +20,7 @@ var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSa
 	               	controller: 'ContactCtrl'
 	            })
 
-	            .when('/jugadores', {
+	            .when('/admin/jugadores', {
 	                templateUrl: './configViews/players.html',
 	               	controller: 'PlayersCtrl'
 	            })
@@ -50,27 +50,27 @@ var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSa
 	               	controller: 'TeamCtrl'
 	            })
 
-	            .when('/gestion-equipos', {
+	            .when('/admin/gestion-equipos', {
 	                templateUrl: './configViews/teamsManagement.html',
 	               	controller: 'TeamsManagementCtrl'
 	            })
 
-	            .when('/gestion-sedes', {
+	            .when('/admin/gestion-sedes', {
 	                templateUrl: './configViews/headquarterManagement.html',
 	               	controller: 'HeadquarterManagementCtrl'
 	            })
 
-	            .when('/gestion-torneos', {
+	            .when('/admin/gestion-torneos', {
 	                templateUrl: './configViews/tournamentsManagement.html',
 	               	controller: 'TournamentsManagementCtrl'
 	            })
 
-	            .when('/gestion-partidos', {
+	            .when('/admin/gestion-partidos', {
 	                templateUrl: './configViews/matchesManagement.html',
 	               	controller: 'MatchesManagementCtrl'
 	            })
 
-	            .when('/config-inicio', {
+	            .when('/admin', {
 	                templateUrl: './configViews/configuration.html',
 	               	controller: 'ConfigurationCtrl'
 	            })

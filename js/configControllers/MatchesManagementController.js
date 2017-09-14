@@ -1,5 +1,6 @@
 torneoFutbol.controller('MatchesManagementCtrl', function ($scope, $rootScope, $modal, $location, $cookieStore, $filter, $translate, DataService, DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder) {
 
+  $scope.getCurrentPath();
 	$scope.dtOptions = DTOptionsBuilder.newOptions()
                                             .withDOM('rltpi')
                                             .withOption('paging', false)

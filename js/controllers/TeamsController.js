@@ -1,5 +1,6 @@
 torneoFutbol.controller('TeamsCtrl', function ($scope, $rootScope, $location, $cookieStore, $filter, $translate, DataService) {
 	
+	$scope.getCurrentPath();
 	//Ruta base donde se suben los documentos para los tickets como las imagenes para las jurisdicciones
     $scope.folderUploads = $rootScope.urlApi + "/Files/Uploads/";
 

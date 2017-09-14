@@ -12,6 +12,18 @@
     $scope.home = function () {
         $location.path('/home');
     };
+
+    $scope.getCurrentPath = function(){
+        $scope.path = $location.path();
+        $scope.path = $scope.path.split('/');
+        $scope.path = $scope.path[1];
+        if($scope.path == 'admin'){
+            $scope.isConfig = true;
+        }else{
+            $scope.isConfig = false;
+        }
+    }
+    $scope.getCurrentPath();
   
     $scope.imprimir = function() {
         window.print();

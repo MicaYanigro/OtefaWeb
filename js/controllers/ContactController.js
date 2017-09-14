@@ -1,5 +1,6 @@
 torneoFutbol.controller('ContactCtrl', function ($scope, $rootScope, $location, $cookieStore, $filter, $translate, DataService) {
 
+	$scope.getCurrentPath();
 	$scope.sendMessage = function(){
 		
 		if($scope.name == '' || $scope.name == undefined){

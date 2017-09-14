@@ -122,23 +122,23 @@
                      
 
         			<ul class="nav navbar-nav text-center">
-        				<li class="active"><a href="#/">INICIO</a></li>
+        				<li ng-show="!isConfig" class="active"><a href="#/">INICIO</a></li>
         				<!-- <li><a href="#/jugadores">Jugadores</a></li> -->
-        				<li><a href="#/equipos">Equipos</a></li>
-        				<li><a href="#/torneos">Torneos</a></li>
-        				<li><a href="#/sedes">Sedes</a></li>
-                <li><a href="#/contacto">Contacto</a></li>
-        				<li class="dropdown">
+        				<li ng-show="!isConfig"><a href="#/equipos">Equipos</a></li>
+        				<li ng-show="!isConfig"><a href="#/torneos">Torneos</a></li>
+        				<li ng-show="!isConfig"><a href="#/sedes">Sedes</a></li>
+                <li ng-show="!isConfig"><a href="#/contacto">Contacto</a></li>
+        				<li ng-show="isConfig" class="dropdown">
         					<a class="dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Configuración
         						<span class="caret"></span>
         					</a>
         					<ul class="dropdown-menu">
-        						<li><a href="#/config-inicio">Inicio</a></li>
-                    <li><a href="#/gestion-equipos">Equipos</a></li>
-                    <li><a href="#/jugadores">Jugadores</a></li>
-                    <li><a href="#/gestion-sedes">Sedes</a></li>
-        						<li><a href="#/gestion-torneos">Torneos</a></li>
-                    <li><a href="#/gestion-partidos">Partidos</a></li>
+        						<li><a href="#/admin">Inicio</a></li>
+                    <li><a href="#/admin/gestion-equipos">Equipos</a></li>
+                    <li><a href="#/admin/jugadores">Jugadores</a></li>
+                    <li><a href="#/admin/gestion-sedes">Sedes</a></li>
+        						<li><a href="#/admin/gestion-torneos">Torneos</a></li>
+                    <li><a href="#/admin/gestion-partidos">Partidos</a></li>
         					</ul>
         				</li>
         			</ul>
