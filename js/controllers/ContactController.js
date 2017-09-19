@@ -1,7 +1,7 @@
 torneoFutbol.controller('ContactCtrl', function ($scope, $rootScope, $location, $cookieStore, $filter, $translate, DataService) {
 
 	$scope.getCurrentPath();
-	$scope.sendMessage = function(){
+	$scope.sendEmail = function(){
 		
 		if($scope.name == '' || $scope.name == undefined){
 			$scope.openTempMessage("Contacto - OTEFA", "Ingrese el nombre para ponerse en contacto con nosotros", true, null, null, null);
@@ -28,16 +28,20 @@ torneoFutbol.controller('ContactCtrl', function ($scope, $rootScope, $location, 
 			return;
 		}
 
+		var message = "Nombre: " + $scope.name + ' ' + $scope.lastName + '\n';
+		message += "Teléfono: " + $scope.phoneNumber + '\n\n';
+		message += $scope.message;
+
+		message = message.replace(/\n/g, '<br/>');
+		var email = [];
+		email.push($scope.email);
 		var data = {
-			"Name" : $scope.name,
-			"LastName" : $scope.lastName,
-			"PhoneNumber" : $scope.phoneNumber,
-			"Email" : $scope.email,
-			"Message" : $scope.message
+			"Body" : message,
+			"ReplyTo" : email
 		}
 
-		DataService.sendMessage(data, function(response){
-			$scope.openTempMessage("Contacto - OTEFA", "Mensaje enviado correctamente. En breve nos pondremos en contacto con usted. Muchas gracias!")
+		DataService.sendEmail(data, function(response){
+			$scope.openTempMessage("Contacto - OTEFA", "Mensaje enviado correctamente. En breve nos pondremos en contacto con usted. Muchas gracias!", true, null, null, null);
 		}, function(response, status){
 
 		})

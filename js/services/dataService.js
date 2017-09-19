@@ -284,6 +284,17 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 						'Content-Type': 'application/json'
 					},
 				}, fnSuccess, fnError, true);
+			},
+
+	        sendEmail: function (data, fnSuccess, fnError) {
+				restApi.call({
+					method: 'POST',
+					url: 'v1/emails/',
+					data: data,
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
 			}
 
       };

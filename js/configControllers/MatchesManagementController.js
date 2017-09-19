@@ -161,20 +161,19 @@ torneoFutbol.controller('MatchesManagementCtrl', function ($scope, $rootScope, $
         + '</tr>';
 
         table += '<tr>'
-            + '<th width=262 colspan=3 class=align-left-header>' + round + '° Fecha</th>'
-            + '<th width=267 colspan=3 class=align-center-header>Horario: ' + ' <span class=noStyle>       </span>' + ' </th>'
+            + '<th width=262 colspan=3 class=align-left-header>' + round + '° Fecha: ' + team1 + ' vs ' + team2 + '</th>'
+            + '<th width=267 colspan=3 class=align-center-header>Horario: ' + ' <span class=noStyle>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>' + ' </th>'
         + '</tr>';
 
         table += '<tr>'
             + '<th colspan=4 class=teamTitle>Equipo</th>'
             + '<th width=85 class=resultTitle>Abonado:</th>'
-            + '<td width=118 class=resultTitle>'+ 'ABONADO' +'</td>'
+            + '<td width=118 class=resultTitle>'+'</td>'
           + '</tr>';
 
         table += '<tr>'
         	+ '<td colspan=4 class=border>' + team1 + '</td>'
-        	+ '<th class=header>Resultado:</th>'
-        	+ '<td class=border></td>'
+        	+ '<th colspan=2 class=header>Resultado:</th>'
           + '</tr>';
 
      	table += '<tr>'
