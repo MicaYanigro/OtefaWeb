@@ -86,7 +86,7 @@
     <script type="text/ng-template" id="generic-popup.html">
       <div class="modal-content">
         <div class="modal-header">
-          <span class="modal-title" ng-bind-html="title"></span>
+          <span class="modal-title" style="color:white" ng-bind-html="title"></span>
         </div>
         <div class="modal-body">
           <table>
@@ -95,7 +95,7 @@
                 <img ng-src="../img/spinner.gif" width="48" height="48" ng-if="showSpinner" />
               </td>
               <td>
-                <p ng-bind-html="message"></p>
+                <p style="color:white" ng-bind-html="message"></p>
               </td>
             </tr>
           </table>
