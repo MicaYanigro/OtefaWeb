@@ -295,6 +295,17 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 						'Content-Type': 'application/json'
 					},
 				}, fnSuccess, fnError, true);
+			},
+
+	        postGroups: function (data, tournamentID,  fnSuccess, fnError) {
+				restApi.call({
+					method: 'POST',
+					url: 'v1/tournaments/' + tournamentID + '/groups',
+					data: data,
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
 			}
 
       };

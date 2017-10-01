@@ -59,7 +59,34 @@
 
 
 <script type="text/ng-template" id="manageTournament.html">
-    <form>
+
+    <style type="text/css">
+            ul[dnd-list] {
+          min-height: 42px;
+          padding: 0;
+        }
+
+        ul[dnd-list] > li {
+          border-bottom: 1px solid #ddd;
+          display: block;
+          padding: 10px 15px;
+        }
+
+        ul[dnd-list] > li.dndDraggingSource {
+          display: none;
+        }
+
+        ul[dnd-list] > li.dndPlaceholder {
+          background-color: #ddd;
+          min-height: 42px;
+        }
+
+        .panel .panel-body {
+          padding: 0;
+        }
+
+        </style>
+    <form ng-show="!showGroups">
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
@@ -176,6 +203,20 @@
 
                 <br />
 
+                 <div class="text-left">
+                    <div class="row">
+                      
+                        <div class="col-md-3 text-left">
+                            <label style="padding-top: 1%;"><span class="redColor">*</span>Cantidad de Grupos</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" min="0" ng-model="groups" class="form-control input-sm"/>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
                 <div class="text-left">
                     <div class="row">
                       
@@ -226,6 +267,80 @@
                     <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Agregar</button>
 
                     <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+
+
+
+    <form ng-show="showGroups">
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span>Grupos</span>
+                </div>
+                <br />
+                
+                <div class="simpleDemo row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div ng-repeat="(listName, list) in models.lists" class="col-md-6">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Grupo {{listName}}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                            <!-- The dnd-list directive allows to drop elements into it.
+                                             The dropped data will be added to the referenced list -->
+                                        <ul dnd-list="list">
+                                            <!-- The dnd-draggable directive makes an element draggable and will
+                                                 transfer the object that was assigned to it. If an element was
+                                                 dragged away, you have to remove it from the original list
+                                                 yourself using the dnd-moved attribute -->
+                                            <li ng-repeat="item in list"
+                                                dnd-draggable="item"
+                                                dnd-moved="list.splice($index, 1)"
+                                                dnd-effect-allowed="move"
+                                                dnd-selected="models.selected = item"
+                                                ng-class="{'selected': models.selected === item}"
+                                                >
+                                                {{item.Team.Name}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                
+                <br />
+
+                <div ng-repeat="list in models.lists" class="">
+                    Grupo {{$index + 1}}: <input type="text" class="form-control input-sm" ng-model="groupName[$index]">
+                </div>
+                
+                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br />
+                <div class="modal-footer">
+                    <div ng-show="!showGroups">
+                        <button type="submit" class="btn btn-success" ng-click="manageTournament()" ng-show="!saving">Agregar</button>
+                        <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Agregar</button>
+
+                        <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                    </div>
+
+
+                    <div ng-show="showGroups">
+                        <button type="submit" class="btn btn-success" ng-click="confirmGroups()" ng-show="!saving">Aceptar</button>
+                        <button type="button" class="btn btn-success disabled state-loading" ng-show="saving">Aceptar</button>
+                    </div>
+
                 </div>
             </div>
             <div class="row error">

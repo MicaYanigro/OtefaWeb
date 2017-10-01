@@ -138,10 +138,12 @@ torneoFutbol.controller('TournamentsManagementCtrl', function ($scope, $rootScop
 });
 
 var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament) {
-	
+    
 	$scope.saving = false;
 	$scope.errorMsg = null;
 	$scope.selectedTeam = null;
+	$scope.showGroups = false;
+	$scope.groups = 0;
 	$scope.tournament = tournament;
 	var method = 'POST';
 	var url = 'v1/tournaments/'
@@ -303,7 +305,11 @@ var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $mod
 			teams[i]
 		}
 		
-		
+		$scope.models = {
+	        selected: null,
+	        lists: {}
+	    };
+
 
 		var data = {
 			'Name' : $scope.name,
@@ -317,6 +323,39 @@ var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $mod
 		}
 
 		DataService.manageTournament(method, url, data, function(response){
+			// Generate initial model
+			$scope.tournamentId = response.id
+		 	$scope.tournamentTeams = response.teams;
+		    for (var i = 0; i < $scope.groups; ++i) {
+		    	if(i == 0){
+		        	$scope.models.lists[i] = $scope.tournamentTeams;
+		    	}
+		        else{
+		        	$scope.models.lists[i] = [];
+		        }
+		    }
+			$scope.showGroups = true;
+			$scope.groupName = {};
+		}, function(response, status){
+			$scope.errorMsg = response.Message;
+		});
+	}
+
+	$scope.confirmGroups = function(){
+		var groups = [];
+		var teams = [];
+		
+		var length = Object.keys($scope.models.lists).length;
+		for (var i = 0; i < length; i++) {
+			groups.push({"Name": $scope.groupName[i], "TeamsId" : []})
+			var list = $scope.models.lists[i];
+
+			for (var j = 0; j < list.length; j++) {
+				groups[i].TeamsId.push(list[j].Team.Id);
+			}
+		}
+
+		DataService.postGroups(groups, $scope.tournamentId, function(response){
 			$modalInstance.close();
 		}, function(response, status){
 			$scope.errorMsg = response.Message;

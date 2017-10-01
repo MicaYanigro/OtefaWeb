@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Authentication', []);
 
-var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSanitize', 'ui.bootstrap', 'oc.lazyLoad', 'datatables', 'datatables.bootstrap', 'datatables.columnfilter', 'datatables.tabletools','pascalprecht.translate', 'Authentication', 'highcharts-ng'])
+var torneoFutbol = angular.module('torneoFutbol', ['dndLists', 'ngRoute', 'ngCookies', 'ngSanitize', 'ui.bootstrap', 'oc.lazyLoad', 'datatables', 'datatables.bootstrap', 'datatables.columnfilter', 'datatables.tabletools','pascalprecht.translate', 'Authentication', 'highcharts-ng'])
 		.config(['$routeProvider','$translateProvider', function($routeProvider, $translateProvider, $ocLazyLoadProvider) {
 		  $routeProvider
 	            
@@ -47,7 +47,8 @@ var torneoFutbol = angular.module('torneoFutbol', ['ngRoute', 'ngCookies', 'ngSa
 
 	            .when('/equipo/:teamID/:teamName*', {
 	                templateUrl: './views/team.html',
-	               	controller: 'TeamCtrl'
+	               	controller: 'TeamCtrl',
+	               	params:{idEquipo: 222}
 	            })
 
 	            .when('/admin/gestion-equipos', {
