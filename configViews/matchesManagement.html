@@ -46,14 +46,14 @@
 		<div class="modal-body" style="margin: 0 auto; padding: 5%">
 			<div>
 				<div class="modal-header text-center">
-					<span>Partidos</span>
+					<span style="color: white">Partidos</span>
 				</div>
 				<br />
 				<div class="text-left">
 					<div class="row">
 
 						<div class="col-md-3 text-left">
-							<label style="padding-top: 1%;"><span class="redColor">*</span>Equipo 1</label>
+							<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Equipo 1</label>
 						</div>
 						<div class="col-md-6">
 							<select ng-model="team1" class="form-control input-sm" ng-options="team.Id as team.Name for team in teams"></select>
@@ -65,7 +65,7 @@
 					<div class="row">
 
 						<div class="col-md-3 text-left">
-							<label style="padding-top: 1%;"><span class="redColor">*</span>Equipo 2</label>
+							<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Equipo 2</label>
 						</div>
 						<div class="col-md-6">
 							<select ng-model="team2" class="form-control input-sm" ng-options="team.Id as team.Name for team in teams"></select>
@@ -77,7 +77,7 @@
 					<div class="row">
 
 						<div class="col-md-3 text-left">
-							<label style="padding-top: 1%;"><span class="redColor">*</span>Sede</label>
+							<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Sede</label>
 						</div>
 						<div class="col-md-6">
 							<select ng-model="headquarter" class="form-control input-sm" ng-options="headquarter.Id as headquarter.Name for headquarter in headquarters"></select>
@@ -89,7 +89,7 @@
 					<div class="row">
 
 						<div class="col-md-3 text-left">
-						<label style="padding-top: 1%;"><span class="redColor">*</span>Fecha</label>
+						<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Fecha</label>
 						</div>
 						<div class="col-md-6">
 							<input type="date" ng-model="date" class="form-control input-sm"/>
@@ -102,7 +102,7 @@
 					<div class="row">
 
 						<div class="col-md-3 text-left">
-							<label style="padding-top: 1%;"><span class="redColor">*</span>Torneo</label>
+							<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Torneo</label>
 						</div>
 						<div class="col-md-6">
 							<select class="form-control input-sm" ng-model="tournament" ng-options="tournament.Id as tournament.Name for tournament in tournaments"/></select>
@@ -112,7 +112,7 @@
 
 				<br />
 
-				<div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+				<div style="color: white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
 				<br />
 				<div class="modal-footer">
@@ -135,7 +135,7 @@
 		<div class="modal-body" style="margin: 0 auto; padding: 5%">
 			<div>
 				<div class="modal-header text-center">
-					<span>Resultados del Partido</span>
+					<span style="color: white">Resultados del Partido</span>
 				</div>
 				<br />
 
@@ -143,7 +143,7 @@
 					<div class="row">
 
 						<div class="col-md-3 col-xs-3 text-left">
-							<label style="padding-top: 1%;">Jugador del Partido</label>
+							<label style="padding-top: 1%; color: white">Jugador del Partido</label>
 						</div>
 						<div class="col-md-6 col-xs-6">
 							<select class="form-control input-sm" ng-model="figure" ng-options="player.Id as player.LastName + ' ' + player.Name for player in playersList"></select>
@@ -160,7 +160,7 @@
 						<div class="text-left">
 							<div class="row">
 								<div class="text-center">
-									<label style="padding-top: 1%; font-size: 25px;">{{team1.Name}}</label>
+									<label style="padding-top: 1%; font-size: 25px; color: white">{{team1.Name}}</label>
 								</div>
 							</div>
 						</div>
@@ -171,7 +171,7 @@
 							<div class="row">
 
 								<div class="col-md-3 text-left">
-									<label style="padding-top: 1%;">Goles</label>
+									<label style="padding-top: 1%; color: white">Goles</label>
 								</div>
 								<div class="col-md-3">
 									<input class="input-sm form-control" type="number" min="0" ng-model="goalsTeam1">
@@ -185,7 +185,7 @@
 							<div class="row">
 
 								<div class="col-md-3 col-xs-3 text-left">
-									<label style="padding-top: 1%;">Punto Bonus</label>
+									<label style="padding-top: 1%; color: white">Punto Bonus</label>
 								</div>
 								<div class="col-md-3 col-xs-3">
 									<input type="checkbox" ng-model="hasBonusTeam1"/>
@@ -200,7 +200,7 @@
 						<div class="text-left">
 							<div class="row">
 								<div class="text-center">
-									<label style="padding-top: 1%; font-size: 25px;">{{team2.Name}}</label>
+									<label style="padding-top: 1%; font-size: 25px; color: white">{{team2.Name}}</label>
 								</div>
 							</div>
 						</div>
@@ -211,7 +211,7 @@
 							<div class="row">
 
 								<div class="col-md-3 col-xs-3 text-left">
-									<label style="padding-top: 1%;">Goles</label>
+									<label style="padding-top: 1%; color: white">Goles</label>
 								</div>
 								<div class="col-md-3 col-xs-3">
 									<input class="input-sm form-control" type="number" min="0" ng-model="goalsTeam2">
@@ -225,7 +225,7 @@
 							<div class="row">
 
 								<div class="col-md-3 col-xs-3 text-left">
-									<label style="padding-top: 1%;">Punto Bonus</label>
+									<label style="padding-top: 1%; color: white">Punto Bonus</label>
 								</div>
 								<div class="col-md-3 col-xs-3">
 									<input type="checkbox" ng-model="hasBonusTeam2"/>

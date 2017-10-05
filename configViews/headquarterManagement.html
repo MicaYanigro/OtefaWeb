@@ -44,7 +44,7 @@
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
-                    <span>Editar Sede</span>
+                    <span style="color: white">Editar Sede</span>
                 </div>
 
                 <br />
@@ -53,7 +53,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Nombre</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="name" type="text" class="form-control input-sm"  />
@@ -67,7 +67,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Dirección</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Dirección</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="address" type="text" class="form-control input-sm"  />
@@ -81,7 +81,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Localidad</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Localidad</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="city" type="text" class="form-control input-sm"  />
@@ -96,7 +96,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Imágenes</label>
+                            <label style="padding-top: 1%; color: white">Imágenes</label>
                         </div>
                         <div class="col-md-6">
                             <ul class="list-group scroll-list">
@@ -120,6 +120,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <input 
+                                style="color: white" 
                                 type="file"
                                 onchange="angular.element(this).scope().fileNameChanged(this)" multiple/>
                         </div>
@@ -128,7 +129,7 @@
 
                 <br/>
                 
-                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+                <div style="color: white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
                 <br />
 

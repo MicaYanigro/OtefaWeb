@@ -90,14 +90,14 @@
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
-                    <span>Agregar Torneo</span>
+                    <span style="color:white">Agregar Torneo</span>
                 </div>
                 <br />
                 <div class="text-left">
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                            <label style="padding-top: 1%; color: white;"><span class="redColor">*</span>Nombre</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="name" type="text" class="form-control input-sm"  />
@@ -109,7 +109,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Formato</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Formato</label>
                         </div>
                         <div class="col-md-6">
                             <select class="form-control input-sm" ng-model="tournamentFormat">
@@ -128,7 +128,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Formato de Clasificación</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Formato de Clasificación</label>
                         </div>
                         <div class="col-md-6">
                             <select class="form-control input-sm" ng-model="clasificationFormat">
@@ -145,7 +145,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Reglamento</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Reglamento</label>
                         </div>
                         <div class="col-md-6">
                             <textarea ng-model="rules" style="resize: none" class="form-control input-sm" rows="4"></textarea>
@@ -157,7 +157,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Premios</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Premios</label>
                         </div>
                         <div class="col-md-6">
                             <textarea ng-model="prices" style="resize: none" class="form-control input-sm" rows="4"></textarea>
@@ -193,7 +193,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Fechas</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Fechas</label>
                         </div>
                         <div class="col-md-6">
                             <input type="date" ng-model="dates" class="form-control input-sm"/>
@@ -207,7 +207,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Cantidad de Grupos</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Cantidad de Grupos</label>
                         </div>
                         <div class="col-md-2">
                             <input type="number" min="0" ng-model="groups" class="form-control input-sm"/>
@@ -221,7 +221,7 @@
                     <div class="row">
                       
                         <div class="col-md-6 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Equipos</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Equipos</label>
                             <br/>
                              <ul class="list-group scroll-list">
                                 <li class="list-group-item" ng-repeat="team in teams | orderBy: 'Name'">
@@ -238,7 +238,7 @@
                             </ul>
                         </div>
                         <div class="col-md-6 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Jugadores</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Jugadores</label>
                             <br/>
                             <ul class="list-group scroll-list">
                                 <li class="list-group-item" ng-repeat="player in players | orderBy: 'Name'">
@@ -259,7 +259,7 @@
 
                 <br />
                 
-                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+                <div style="color: white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
                 <br />
                 <div class="modal-footer">
@@ -281,7 +281,7 @@
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
-                    <span>Grupos</span>
+                    <span style="color: white">Grupos</span>
                 </div>
                 <br />
                 
@@ -324,7 +324,7 @@
                     Grupo {{$index + 1}}: <input type="text" class="form-control input-sm" ng-model="groupName[$index]">
                 </div>
                 
-                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+                <div style="color: white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
                 <br />
                 <div class="modal-footer">
@@ -355,7 +355,7 @@
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
-                    <span>Reglamento del Torneo</span>
+                    <span style="color: white">Reglamento del Torneo</span>
                 </div>
                 
                 <br />
@@ -364,7 +364,7 @@
 
                 <br />
                 
-                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+                <div style="color: white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
                 <br />
                 <div class="modal-footer">

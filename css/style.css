@@ -314,3 +314,8 @@ table{
     transform: rotate(360deg);
   }
 }
+
+.borderSides{
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+}

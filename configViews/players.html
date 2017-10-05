@@ -44,14 +44,14 @@
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
-                    <span>Agregar Jugador</span>
+                    <span style="color: white">Agregar Jugador</span>
                 </div>
                 <br />
                 <div class="text-left">
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Nombre</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="name" type="text" class="form-control input-sm"  />
@@ -63,7 +63,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Apellido</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Apellido</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="lastName" type="text" class="form-control input-sm"  />
@@ -75,7 +75,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>DNI</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>DNI</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="dni" maxlength="8" type="text" class="form-control input-sm"  />
@@ -87,7 +87,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Fecha de Nacimiento</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Fecha de Nacimiento</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="birthDate" type="date" class="form-control input-sm"  />
@@ -99,7 +99,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Email</label>
+                            <label style="padding-top: 1%; color: white">Email</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="email" type="email" class="form-control input-sm"  />
@@ -111,7 +111,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Celular</label>
+                            <label style="padding-top: 1%; color: white">Celular</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="celNumber" type="text" class="form-control input-sm"  />
@@ -123,7 +123,7 @@
                     <div class="row">
                       
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Obra Social</label>
+                            <label style="padding-top: 1%; color: white">Obra Social</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="medicalInsurance" type="text" class="form-control input-sm"  />
@@ -133,7 +133,7 @@
 
                 <br/>
 
-                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+                <div style="color: white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
                 <br />
                 <div class="modal-footer">

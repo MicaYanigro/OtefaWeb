@@ -7,6 +7,10 @@ torneoFutbol.controller('HomeCtrl', function ($scope, $rootScope, $location, $co
     //Ruta donde se almacenan los adjuntos para los tickets
     $scope.folderPathImages = "HomeImages";
 
+    $scope.folderPathNews = "News/";
+
+    $scope.newsImagesPath = $scope.folderUploads + $scope.folderPathNews + "/";
+
     $scope.getFilesByFolder = function() {
         //Obtengo los archivos asociados al ticket
         var path = $scope.folderPathImages;
@@ -18,7 +22,16 @@ torneoFutbol.controller('HomeCtrl', function ($scope, $rootScope, $location, $co
         });
     };
 
+    $scope.getNews = function(){
+        DataService.getNews(function(response){
+            $scope.news = response;
+        }, function(response, status){
+
+        });
+    }
+
     $scope.getFilesByFolder();
+    $scope.getNews();
 	
 	
 });

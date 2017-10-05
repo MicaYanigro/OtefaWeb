@@ -20,42 +20,52 @@
   </carousel>
 
   <div>
-  	<div class="col-md-9 m-top20" ">
-  		<label>asdasdsad</label>
-  		<br/>
-  		<label>asdasdsad</label>
-  		<br/>
-  		<label>asdasdsad</label>
-  		<br/>
-  		<label>asdasdsad</label>
-  		<br/>
-  		<label>asdasdsad</label>
-  		<br/>
-  		<label>asdasdsad</label>
-  		<br/>
-  	</div>
 
-  	<div class="col-md-3 text-center">
-  		<div class="filet-bottom7">
-  			<h2 class="m-bottom10">Visionner vos émissions et films favoris sur illico.tv!</h2>
-  			 <p>Grâce à Illico.tv ou à illico Mobile, reprenez votre émission ou film sur demande sur votre ordinateur ou votre cellulaire exactement là où vous l'avez laissé sur le 900!</p> 
-  		</div>
-  		<div class="filet-bottom7">
-  			<h2 class="m-bottom10">Visionner vos émissions et films favoris sur illico.tv!</h2>
-  			 <p>Grâce à Illico.tv ou à illico Mobile, reprenez votre émission ou film sur demande sur votre ordinateur ou votre cellulaire exactement là où vous l'avez laissé sur le 900!</p> 
-  		</div>
-  		<div class="filet-bottom7">
-  			<h2 class="m-bottom10">Visionner vos émissions et films favoris sur illico.tv!</h2>
-  			 <p>Grâce à Illico.tv ou à illico Mobile, reprenez votre émission ou film sur demande sur votre ordinateur ou votre cellulaire exactement là où vous l'avez laissé sur le 900!</p> 
-  		</div>
-  		<div class="filet-bottom7">
-  			<h2 class="m-bottom10">Visionner vos émissions et films favoris sur illico.tv!</h2>
-  			 <p>Grâce à Illico.tv ou à illico Mobile, reprenez votre émission ou film sur demande sur votre ordinateur ou votre cellulaire exactement là où vous l'avez laissé sur le 900!</p> 
-  		</div>
-  		<div class="filet-bottom7">
-  			<h2 class="m-bottom10">Visionner vos émissions et films favoris sur illico.tv!</h2>
-  			 <p>Grâce à Illico.tv ou à illico Mobile, reprenez votre émission ou film sur demande sur votre ordinateur ou votre cellulaire exactement là où vous l'avez laissé sur le 900!</p> 
-  		</div>
-  	</div>
+      <div>
+      
+        <div class="col-md-3 col-xs-3 text-center" ng-repeat="newsItem in news">
+          
+          <div class="row borderSides">
+            
+            <div class="col-md-9 col-xs-9">
+              <div class="newsTitle">
+                {{newsItem.Title}}
+              </div>
+              
+              <br>
+
+              <div class="newsBody">
+                {{newsItem.Body}}
+              </div>
+              <br>
+            </div>
+
+            <div class="col-md-3 col-xs-3 newsImage" ng-show="newsItem.Image">
+              <img ng-src="{{newsImagesPath}}{{newsItem.Image}}" width="100%">
+            </div>
+            <br>
+              
+          </div>
+          <br><br><br>
+        
+        </div>
+      
+      </div>
+
+      <br><br>
+
+      <div>
+        <div class="col-md-6 text-center">
+          <!-- SnapWidget -->
+          <script src="https://snapwidget.com/js/snapwidget.js"></script>
+          <iframe src="https://snapwidget.com/embed/449974" class="snapwidget-widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:500px; height: 500px "></iframe>
+        </div>
+
+        
+        <div class="col-md-6 text-center">
+          <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffutbolotefa&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=true&appId" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>  
+        </div>
+      </div>
+
   </div>
 </div>

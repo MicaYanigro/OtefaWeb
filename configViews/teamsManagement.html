@@ -60,14 +60,14 @@
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
-                    <span>Gestionar Equipo</span>
+                    <span style="color: white">Gestionar Equipo</span>
                 </div>
                 <br />
                 <div class="text-left">
                     <div class="row">
 
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;"><span class="redColor">*</span>Nombre</label>
+                            <label style="padding-top: 1%; color: white"><span class="redColor">*</span>Nombre</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="name" type="text" class="form-control input-sm"  />
@@ -79,10 +79,10 @@
                     <div class="row">
 
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Foto de Equipo</label>
+                            <label style="padding-top: 1%; color: white">Foto de Equipo</label>
                         </div>
                         <div ng-show="!filePath" class="col-md-6">
-                            <input type="file" onchange="angular.element(this).scope().fileNameChanged(this)">
+                            <input style="color: white" type="file" onchange="angular.element(this).scope().fileNameChanged(this)">
                         </div>
                         <div ng-show="filePath" class="col-md-5 text-left">
                             <img ng-src="{{filePath}}" title="{{teamImageName}}" width="250px" />
@@ -100,10 +100,10 @@
                     <div class="row">
 
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Foto de Escudo</label>
+                            <label style="padding-top: 1%; color: white">Foto de Escudo</label>
                         </div>
                         <div ng-show="!imagePath" class="col-md-6">
-                            <input type="file" onchange="angular.element(this).scope().shieldFileNameChanged(this)">
+                            <input style="color: white" type="file" onchange="angular.element(this).scope().shieldFileNameChanged(this)">
                         </div>
                         <div ng-show="imagePath" class="col-md-5 text-left">
                             <img ng-src="{{imagePath}}" title="{{shieldImageName}}" width="250px" />
@@ -121,7 +121,7 @@
                     <div class="row">
 
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Jugadores</label>
+                            <label style="padding-top: 1%; color: white">Jugadores</label>
                         </div>
                         <div class="col-md-6">
                             <ul class="list-group scroll-list">
@@ -154,7 +154,7 @@
                     <div class="row">
 
                         <div class="col-md-3 text-left">
-                            <label style="padding-top: 1%;">Delegado</label>
+                            <label style="padding-top: 1%; color: white">Delegado</label>
                         </div>
                         <div class="col-md-6">
                             <input ng-model="teamDelegate" type="text" class="form-control input-sm"  />
@@ -164,7 +164,7 @@
                 
                 <br/>
 
-                <div class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+                <div style="color: white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
 
                 <br />
                 <div class="modal-footer">

@@ -306,6 +306,27 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 						'Content-Type': 'application/json'
 					},
 				}, fnSuccess, fnError, true);
+			},
+
+	        getNews: function (fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/news/',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+	        manageNews: function (method, url, data, newsID, fnSuccess, fnError) {
+				restApi.call({
+					method: method,
+					url: url,
+					data: data,
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
 			}
 
       };
