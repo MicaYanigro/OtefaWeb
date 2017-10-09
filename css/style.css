@@ -329,7 +329,9 @@ table{
 
 .redes{
   text-decoration: underline;
-  font-size: 15px;
+  font-size: 25px;
+  font-family: 'USN_Stencil';
+  color: white;
 }
 
 button[disabled], html input[disabled] {
