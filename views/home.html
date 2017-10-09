@@ -21,9 +21,9 @@
 
   <div>
 
-      <div>
+      <div class="row">
       
-        <div class="col-md-3 col-xs-3 text-center" ng-repeat="newsItem in news">
+        <div class="col-md-4 col-xs-4 text-center" ng-repeat="newsItem in news">
           
           <div class="row borderSides">
             
@@ -35,7 +35,7 @@
               <br>
 
               <div class="newsBody">
-                {{newsItem.Body}}
+                <span>{{newsItem.Body}}</span>
               </div>
               <br>
             </div>
@@ -54,7 +54,7 @@
 
       <br><br>
 
-      <div>
+      <div class="row">
         <div class="col-md-6 text-center">
           <!-- SnapWidget -->
           <script src="https://snapwidget.com/js/snapwidget.js"></script>
