@@ -36,8 +36,8 @@
 			            <tr ng-repeat="match in groups">
 			            	<td class="columnCenter" width="80px">{{match.Round}}</td>
 			                <td>{{match.MatchTeamList[0].Team.Name}}</td>
-			                <td class="columnCenter" width="35px">{{!match.MatchTeamList[0].Team.Goals ? 0 : match.MatchTeamList[0].Team.Goals}}</td>
-			                <td class="columnCenter" width="35px">{{!match.MatchTeamList[1].Team.Goals ? 0 : match.MatchTeamList[1].Team.Goals}}</td>
+			                <td class="columnCenter" width="35px">{{!match.MatchTeamList[0].Goals ? 0 : match.MatchTeamList[0].Goals}}</td>
+			                <td class="columnCenter" width="35px">{{!match.MatchTeamList[1].Goals ? 0 : match.MatchTeamList[1].Goals}}</td>
 			                <td>{{match.MatchTeamList[1].Team.Name}}</td>
 			                <!-- <td>{{data.Headquarter}}</td> -->
 			                <td width="70px">{{match.Date | date:'dd/MM/yyyy'}}</td>
