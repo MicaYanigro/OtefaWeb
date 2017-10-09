@@ -331,3 +331,8 @@ table{
   text-decoration: underline;
   font-size: 15px;
 }
+
+button[disabled], html input[disabled] {
+    cursor: default;
+    color: darkgray;
+}

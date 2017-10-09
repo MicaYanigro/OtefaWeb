@@ -62,6 +62,8 @@
                     <a href="" data-toggle="collapse" data-parent="#accordion" data-target="#child{{$index}}">
                         {{newsItem.Title}} - {{newsItem.Date | date:'dd/MM/yyyy'}}
                     </a>
+                    <button ng-show="newsItem.IsActive" type="button" class="pull-right glyphicon glyphicon-remove" ng-click="removeNews(newsItem)"></button>
+                    <button ng-show="!newsItem.IsActive" type="button" class="pull-right glyphicon glyphicon-ok" ng-click="activateNews(newsItem)"></button>
                     <button type="button" class="pull-right glyphicon glyphicon-pencil" ng-click="editNews(newsItem)"></button>
                 </h4>
             </div>

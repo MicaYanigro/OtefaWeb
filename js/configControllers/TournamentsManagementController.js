@@ -135,6 +135,27 @@ torneoFutbol.controller('TournamentsManagementCtrl', function ($scope, $rootScop
 		})
 	}
 
+	$scope.postFixtureByGroups = function(tournament){
+		var modalInstance = $modal.open ({
+
+			templateUrl: 'groupFixture.html',
+			controller: GroupFixtureCtrl,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+				tournament : function(){
+					return tournament;
+				}
+	        }
+      	});
+
+	    modalInstance.result.then(function () {
+      		$scope.getTournaments();
+        },function(){
+
+        });
+	}
+
 });
 
 var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament) {
@@ -375,6 +396,33 @@ var RulesCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 	$scope.selectedTeam = null;
 	$scope.tournament = tournament;
 	
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+
+
+var GroupFixtureCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament) {
+    
+	$scope.saving = false;
+	$scope.errorMsg = null;
+	$scope.tournament = tournament;
+	$scope.groups = tournament.GroupList
+
+	$scope.postFixture = function(){
+		if(!$scope.group){
+			$scope.errorMsg = 'POR FAVOR, SELECCIONE UN GRUPO PARA GENERAR EL FIXTURE.'
+			return;
+		}
+
+		DataService.postGroupFixture($scope.tournament.Id, $scope.group.Id, function(response){
+			$modalInstance.close();
+		}, function(response, status){
+			$scope.errorMsg = response.Message;
+		})
+	}
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

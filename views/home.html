@@ -21,7 +21,7 @@
 
       <div class="row">
       
-        <div class="col-md-3 col-xs-6 text-center" ng-repeat="newsItem in news">
+        <div class="col-md-3 col-xs-6 text-center" ng-repeat="newsItem in news | filter:{IsActive: true}">
           
           <div class="row borderSides">
             

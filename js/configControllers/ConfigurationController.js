@@ -87,6 +87,24 @@ torneoFutbol.controller('ConfigurationCtrl', function ($scope, $rootScope, $loca
     $scope.getFilesByFolder();
     $scope.getNews();
 
+    $scope.removeNews = function(news){
+        $scope.openTempMessage('Deshabilitar Noticia', '¿Desea deshabilitar la noticia? Puede volver a habilitarla editandola', true, true, function(){
+            DataService.removeNews(news.Id, function(response){
+                $scope.getNews();
+            }, function(response, status){
+
+            });
+        }, null);
+    }
+
+    $scope.activateNews = function(news){
+        DataService.activateNews(news.Id, function(response){
+            $scope.getNews();
+        }, function(response, status){
+
+        });
+    }
+
     $scope.postNews = function(){
         $scope.editNews();
     }

@@ -318,11 +318,41 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 				}, fnSuccess, fnError, true);
 			},
 
+	        removeNews: function (newsID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'DELETE',
+					url: 'v1/news/' + newsID,
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+	        activateNews: function (newsID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'PUT',
+					url: 'v1/news/' + newsID + '/activate',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
 	        manageNews: function (method, url, data, newsID, fnSuccess, fnError) {
 				restApi.call({
 					method: method,
 					url: url,
 					data: data,
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
+
+	        postGroupFixture: function (tournamentID, groupID,  fnSuccess, fnError) {
+				restApi.call({
+					method: 'POST',
+					url: 'v1/tournaments/' + tournamentID + '/' + groupID + '/fixture',
 					headers: { 
 						'Content-Type': 'application/json'
 					},
