@@ -235,6 +235,16 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 					},
 				}, fnSuccess, fnError, true);
 			},
+			
+	        getPositionsByGroups: function (tournamentID, fnSuccess, fnError) {
+				restApi.call({
+					method: 'GET',
+					url: 'v1/tournaments/' + tournamentID + '/positionsByGroups',
+					headers: { 
+						'Content-Type': 'application/json'
+					},
+				}, fnSuccess, fnError, true);
+			},
 
 	        getStadisticsByTeamId: function (teamID, fnSuccess, fnError) {
 				restApi.call({

@@ -92,7 +92,7 @@
 						<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Fecha</label>
 						</div>
 						<div class="col-md-6">
-							<input type="date" ng-model="date" class="form-control input-sm"/>
+							<input type="datetime-local" ng-model="date" class="form-control input-sm"/>
 						</div>
 					</div>
 				</div>
@@ -105,7 +105,43 @@
 							<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Torneo</label>
 						</div>
 						<div class="col-md-6">
-							<select class="form-control input-sm" ng-model="tournament" ng-options="tournament.Id as tournament.Name for tournament in tournaments"/></select>
+							<select class="form-control input-sm" ng-model="tournament" ng-options="tournament as tournament.Name for tournament in tournaments"/></select>
+						</div>
+					</div>
+				</div>
+
+				<br />
+				<div class="text-left">
+					<div class="row">
+
+						<div class="col-md-3 text-left">
+							<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Grupo</label>
+						</div>
+						<div class="col-md-6">
+							<select ng-disabled="!tournament" class="form-control input-sm" ng-model="group" ng-options="group.Id as group.Name for group in tournament.GroupList"/></select>
+						</div>
+					</div>
+				</div>
+
+				<br />
+				<div class="text-left">
+					<div class="row">
+
+						<div class="col-md-3 text-left">
+							<label style="padding-top: 1%; color: white"><span class="redColor">*</span>Ronda</label>
+						</div>
+						<div class="col-md-6">
+							<select ng-disabled="!group" class="form-control input-sm" ng-model="round">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+							</select>
 						</div>
 					</div>
 				</div>

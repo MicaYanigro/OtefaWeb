@@ -8,7 +8,12 @@
 
 <div class="container containerMain">
 
-	<div class="col-md-6 col-xs-6">
+	<ul class="list-inline nav nav-pills">
+	  <li><a href="" ng-click="toggleTabs(true)">Fixture</a></li>
+	  <li><a href="" ng-click="toggleTabs(false)">Posiciones</a></li>
+	</ul>
+
+	<div ng-show="showFixture">
 		
 		<div class="row" ng-repeat="groups in matches">
 			
@@ -50,7 +55,7 @@
 		</div>
 
 	</div>
-	<div class="m-left80 col-md-5 col-xs-5">
+	<div ng-show="!showFixture">
 		
 		<div class="row text-center">
 			<label>POSICIONES</label>
@@ -58,38 +63,48 @@
 
 		<br/>
 		
-		<div class="row">
+		<div class="row" ng-repeat="group in groupsPosition">
 			
-			<table datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered">
-		        <thead>
-		            <tr>
-		                <th class="columnCenter" width="35px">Pos</th>
-		                <th>Equipo</th>
-		                <th class="columnCenter" width="35px">Pts</th>
-		                <th class="columnCenter" width="35px">PJ</th>
-		                <th class="columnCenter" width="35px">PG</th>
-		                <th class="columnCenter" width="35px">PE</th>
-		                <th class="columnCenter" width="35px">PP</th>
-		                <th class="columnCenter" width="35px">GF</th>
-		                <th class="columnCenter" width="35px">GC</th>
-		                <th class="columnCenter" width="35px">GD</th>
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <tr ng-repeat="position in positions | orderBy: '-FinalPoints'">
-		                <td class="columnCenter" width="35px">{{$index + 1}}</td>
-		                <td>{{position.Team}}</td>
-		                <td class="columnCenter" width="35px">{{position.FinalPoints}}</td>
-		                <td class="columnCenter" width="35px">{{position.PlayedGames}}</td>
-		                <td class="columnCenter" width="35px">{{position.WonGames}}</td>
-		                <td class="columnCenter" width="35px">{{position.DrawGames}}</td>
-		                <td class="columnCenter" width="35px">{{position.LooseGames}}</td>
-		                <td class="columnCenter" width="35px">{{!position.Favor ? 0 : position.Favor}}</td>
-		                <td class="columnCenter" width="35px">{{!position.Contra ? 0 : position.Contra}}</td>
-		                <td class="columnCenter" width="35px">{{position.Favor - position.Contra}}</td>
-		            </tr>
-		        </tbody>
-		    </table>
+			<div class="row text-center">
+				<label>{{group.Group}}</label>
+			</div>
+
+			<br>
+
+			<div class="text-center">
+				
+				<table datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered" width="100%">
+			        <thead>
+			            <tr>
+			                <th class="columnCenter">Pos</th>
+			                <th>Equipo</th>
+			                <th class="columnCenter">Pts</th>
+			                <th class="columnCenter">PJ</th>
+			                <th class="columnCenter">PG</th>
+			                <th class="columnCenter">PE</th>
+			                <th class="columnCenter">PP</th>
+			                <th class="columnCenter">GF</th>
+			                <th class="columnCenter">GC</th>
+			                <th class="columnCenter">GD</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr ng-repeat="position in group.Positions | orderBy: '-FinalPoints'">
+			                <td class="columnCenter">{{$index + 1}}</td>
+			                <td>{{position.Team}}</td>
+			                <td class="columnCenter">{{position.FinalPoints}}</td>
+			                <td class="columnCenter">{{position.PlayedGames}}</td>
+			                <td class="columnCenter">{{position.WonGames}}</td>
+			                <td class="columnCenter">{{position.DrawGames}}</td>
+			                <td class="columnCenter">{{position.LooseGames}}</td>
+			                <td class="columnCenter">{{!position.Favor ? 0 : position.Favor}}</td>
+			                <td class="columnCenter">{{!position.Contra ? 0 : position.Contra}}</td>
+			                <td class="columnCenter">{{position.Favor - position.Contra}}</td>
+			            </tr>
+			        </tbody>
+			    </table>
+
+			</div>
 		
 		</div>
 

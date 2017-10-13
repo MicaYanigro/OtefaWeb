@@ -364,10 +364,12 @@ var MatchCtrl = function ($scope, $window, $filter, DataService, $modalInstance,
 		
 
 		var data = {
-			"Tournament" : $scope.tournament,
+			"Tournament" : $scope.tournament.Id,
 			'Date' : new Date($scope.date),
 			'Headquarter' : $scope.headquarter,
-			'Teams' : $scope.teamsSelected
+			'Teams' : $scope.teamsSelected,
+      'Group' : $scope.group,
+      'Round' : $scope.round
 		}
 
 

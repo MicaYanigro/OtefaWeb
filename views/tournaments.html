@@ -48,8 +48,8 @@
                                     </td>
                                     <td class="columnCenter">{{showFormatName(tournament.TournamentFormat)}}</td>
                                     <td class="columnCenter">{{showClasificationFormatName(tournament.ClasificationFormat)}}</td>
+                                    <td class="columnCenter"><button ng-click="openRules(tournament, tournament.Prices)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
                                     <td class="columnCenter"><button ng-click="openRules(tournament)" class="botonReglamento glyphicon glyphicon-list-alt"></button></td>
-                                    <td class="columnCenter" style="white-space: pre;">{{tournament.Prices}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -147,17 +147,19 @@
 
 </div>
 
-<script type="text/ng-template" id="rules.html">
+<script type="text/ng-template" id="details.html">
     <form>
         <div class="modal-body" style="margin: 0 auto; padding: 5%">
             <div>
                 <div class="modal-header text-center">
-                    <span style="color: white">Reglamento del Torneo</span>
+                    <span ng-show="rules" style="color: white">Reglamento del Torneo</span>
+                    <span ng-show="!rules" style="color: white">Premios</span>
                 </div>
                 
                 <br />
                 
-                <pre>{{tournament.Rules}}</pre>
+                <pre ng-show="rules" class="tournamentDetails">{{tournament.Rules}}</pre>
+                <pre ng-show="!rules" class="tournamentDetails">{{tournament.Prices}}</pre>
 
                 <br />
                 

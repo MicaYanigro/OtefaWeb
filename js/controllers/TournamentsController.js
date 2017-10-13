@@ -64,17 +64,20 @@ torneoFutbol.controller('TournamentsCtrl', function ($scope, $rootScope, $locati
     	}
     };
 
-    $scope.openRules = function(tournament){
+    $scope.openRules = function(tournament, rules){
 		var modalInstance = $modal.open ({
 
-			templateUrl: 'rules.html',
-			controller: RulesCtrl,
+			templateUrl: 'details.html',
+			controller: DetailsCtrl,
 			size: 'lg',
 			backdrop: 'static',
 			resolve: {
 				tournament : function(){
 					return tournament;
-				}
+				},
+                rules: function(){
+                    return rules;
+                }
 	        }
       	});
 
@@ -87,11 +90,17 @@ torneoFutbol.controller('TournamentsCtrl', function ($scope, $rootScope, $locati
 
 });
 
-var RulesCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament) {
+var DetailsCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament, rules) {
 	
 	$scope.saving = false;
 	$scope.errorMsg = null;
 	$scope.selectedTeam = null;
+    if(rules){
+        $scope.rules = true;
+    }else{
+        $scope.rules = false;
+    }
+
 	$scope.tournament = tournament;
 	
 
