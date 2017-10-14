@@ -8,24 +8,25 @@
 
 <div class="container containerMain">
 
-	<ul class="list-inline nav nav-pills">
-	  <li><a href="" ng-click="toggleTabs(true)">Fixture</a></li>
-	  <li><a href="" ng-click="toggleTabs(false)">Posiciones</a></li>
-	</ul>
-
-	<div ng-show="showFixture">
+	<!-- <div ng-show="showFixture"> -->
 		
-		<div class="row" ng-repeat="groups in matches">
-			
-			<div ng-repeat="match in groups">
-				
-				<div class="row text-center">
-					<label>{{match.Group.Name}}</label>
-				</div>
+		<div class="row text-center">
+			<label>FIXTURE</label>
+		</div>
 
+		<br/>
+
+		<div class="col-md-12 col-xs-12" ng-repeat="group in matches">
+
+			<div ng-repeat="match in group.Matches">
+
+				<div>
+					<label>{{group.Group}}</label>
+				</div>
+				
 				<br/>
 
-				<table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered" width="100%">
+				<table id="fixture" datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered" width="100%">
 			        <thead>
 			            <tr>
 			            	<th class="columnCenter" width="80px">Fecha N°</th>
@@ -35,17 +36,19 @@
 			                <th>Visitante</th>
 			                <!-- <th>Sede</th> -->
 			                <th width="70px">Fecha</th>
+		                	<th class="columnCenter" width="35px" >Ficha</th>
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr ng-repeat="match in groups">
+			            <tr ng-repeat="match in group.Matches">
 			            	<td class="columnCenter" width="80px">{{match.Round}}</td>
-			                <td>{{match.MatchTeamList[0].Team.Name}}</td>
-			                <td class="columnCenter" width="35px">{{!match.MatchTeamList[0].Goals ? 0 : match.MatchTeamList[0].Goals}}</td>
-			                <td class="columnCenter" width="35px">{{!match.MatchTeamList[1].Goals ? 0 : match.MatchTeamList[1].Goals}}</td>
-			                <td>{{match.MatchTeamList[1].Team.Name}}</td>
+			                <td>{{match.Team1}}</td>
+			                <td class="columnCenter" width="35px">{{!match.Goals1 ? 0 : match.Goals1}}</td>
+			                <td class="columnCenter" width="35px">{{!match.Goals2 ? 0 : match.Goals2}}</td>
+			                <td>{{match.Team2}}</td>
 			                <!-- <td>{{data.Headquarter}}</td> -->
 			                <td width="70px">{{match.Date | date:'dd/MM/yyyy'}}</td>
+			                <td class="columnCenter"><button type="button" style="color: black" class="botonReglamento glyphicon glyphicon-folder-open" ng-disabled="!match.Goals1 || !match.Goals2" ng-click="openDetails(match)"></button></td>
 			            </tr>
 			        </tbody>
 			    </table>
@@ -54,8 +57,8 @@
 			</div>
 		</div>
 
-	</div>
-	<div ng-show="!showFixture">
+	<!-- </div> -->
+	<!-- <div ng-show="!showFixture"> -->
 		
 		<div class="row text-center">
 			<label>POSICIONES</label>
@@ -63,51 +66,175 @@
 
 		<br/>
 		
-		<div class="row" ng-repeat="group in groupsPosition">
+		<div class="col-md-6 col-xs-6" ng-repeat="group in groupsPosition">
 			
-			<div class="row text-center">
+			<div>
 				<label>{{group.Group}}</label>
 			</div>
 
 			<br>
-
-			<div class="text-center">
 				
-				<table datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered" width="100%">
-			        <thead>
-			            <tr>
-			                <th class="columnCenter">Pos</th>
-			                <th>Equipo</th>
-			                <th class="columnCenter">Pts</th>
-			                <th class="columnCenter">PJ</th>
-			                <th class="columnCenter">PG</th>
-			                <th class="columnCenter">PE</th>
-			                <th class="columnCenter">PP</th>
-			                <th class="columnCenter">GF</th>
-			                <th class="columnCenter">GC</th>
-			                <th class="columnCenter">GD</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <tr ng-repeat="position in group.Positions | orderBy: '-FinalPoints'">
-			                <td class="columnCenter">{{$index + 1}}</td>
-			                <td>{{position.Team}}</td>
-			                <td class="columnCenter">{{position.FinalPoints}}</td>
-			                <td class="columnCenter">{{position.PlayedGames}}</td>
-			                <td class="columnCenter">{{position.WonGames}}</td>
-			                <td class="columnCenter">{{position.DrawGames}}</td>
-			                <td class="columnCenter">{{position.LooseGames}}</td>
-			                <td class="columnCenter">{{!position.Favor ? 0 : position.Favor}}</td>
-			                <td class="columnCenter">{{!position.Contra ? 0 : position.Contra}}</td>
-			                <td class="columnCenter">{{position.Favor - position.Contra}}</td>
-			            </tr>
-			        </tbody>
-			    </table>
+			<table id="positions" datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered" width="100%">
+		        <thead>
+		            <tr>
+		                <th class="columnCenter">Pos</th>
+		                <th class="teamColumn">Equipo</th>
+		                <th class="columnCenter" width="40px" >Pts</th>
+		                <th class="columnCenter" width="35px" >PJ</th>
+		                <th class="columnCenter" width="35px" >PG</th>
+		                <th class="columnCenter" width="35px" >PE</th>
+		                <th class="columnCenter" width="35px" >PP</th>
+		                <th class="columnCenter" width="35px" >GF</th>
+		                <th class="columnCenter" width="35px" >GC</th>
+		                <th class="columnCenter" width="35px" >GD</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="position in group.Positions | orderBy: '-FinalPoints'">
+		                <td class="columnCenter" width="40px">{{$index + 1}}</td>
+		                <td class="teamColumn">{{position.Team}}</td>
+		                <td class="columnCenter" width="35px">{{position.FinalPoints}}</td>
+		                <td class="columnCenter" width="35px">{{position.PlayedGames}}</td>
+		                <td class="columnCenter" width="35px">{{position.WonGames}}</td>
+		                <td class="columnCenter" width="35px">{{position.DrawGames}}</td>
+		                <td class="columnCenter" width="35px">{{position.LooseGames}}</td>
+		                <td class="columnCenter" width="35px">{{!position.Favor ? 0 : position.Favor}}</td>
+		                <td class="columnCenter" width="35px">{{!position.Contra ? 0 : position.Contra}}</td>
+		                <td class="columnCenter" width="35px">{{position.Favor - position.Contra}}</td>
 
-			</div>
+		            </tr>
+		        </tbody>
+		    </table>
+
 		
 		</div>
 
-	</div>
+	<!-- </div> -->
 
 </div>
+
+<script type="text/ng-template" id="matchDetail.html">
+   
+
+
+    <form>
+        <div class="modal-body" style="margin: 0 auto; padding: 5%">
+            <div>
+                <div class="modal-header text-center">
+                    <span style="color:white">Ficha del Partido</span>
+                </div>
+
+                <br />
+
+                <div class="text-center">
+                	<div class="col-md-5 col-xs-5">
+                		<label class="whiteText">{{team1.Team.Name}}</label>
+                	</div>
+
+                	<div class="col-md-2 col-xs-2">
+                		<label class="whiteText">{{team1.Goals}} - {{team2.Goals}}</label>
+                	</div>
+
+                	<div class="col-md-5 col-xs-5">
+                		<label class="whiteText">{{team2.Team.Name}}</label>
+                	</div>
+                </div>
+
+                <br><br>
+
+                <div class="text-center">
+                	<label class="whiteText">Figura del Partido: {{match.Figure.Name}} {{match.Figure.LastName}}</label>
+                </div>
+
+                <br><br>
+                
+             	<div>
+             		
+             		<div class="col-md-6 col-xs-6">
+         				<ul class="list-group">
+							<li class="list-group-item text-left row">
+								<div class="col-md-6 col-xs-6 itemSize">
+									<b>Nombre</b>
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									<img src="img/pelota.png">
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									<img src="img/tarjeta-amarilla.png">
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									<img src="img/tarjeta-roja.png">
+								</div>
+							</li>
+							<li class="list-group-item text-left row" ng-repeat="player in team1.PlayersDetails">
+								<div class="col-md-6 col-xs-6 itemSize">
+									{{player.Player.Name}} {{player.Player.LastName}}
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									{{player.Goals}}
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									{{player.Card == 1 ? 1 : 0}}
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									{{player.Card == 2 ? 1 : 0}}
+								</div>
+							</li>
+						</ul>
+             		</div>
+
+             		<div class="col-md-6 col-xs-6">
+             			<ul class="list-group">
+							<li class="list-group-item text-left row">
+								<div class="col-md-6 col-xs-6 itemSize">
+									<b>Nombre</b>
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									<img src="img/pelota.png">
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									<img src="img/tarjeta-amarilla.png">
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									<img src="img/tarjeta-roja.png">
+								</div>
+							</li>
+							<li class="list-group-item text-left row" ng-repeat="player in team2.PlayersDetails">
+								<div class="col-md-6 col-xs-6 itemSize">
+									{{player.Player.Name}} {{player.Player.LastName}}
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									{{player.Goals}}
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									{{player.Card == 1 ? 1 : 0}}
+								</div>
+								<div class="col-md-1 col-xs-1 itemSize text-center">
+									{{player.Card == 2 ? 1 : 0}}
+								</div>
+							</li>
+						</ul>
+             		</div>
+
+             	</div>
+                	
+                <br/><br/>
+
+                <div style="color:white" class="row alert alert-danger" ng-if="errorMsg">{{ errorMsg | translate}} </div>
+
+                <br /><br/>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" ng-click="cancel()">Salir</button>
+                </div>
+            </div>
+            <div class="row error">
+                <div class="row alert alert-danger" ng-if="error">{{ error | translate}} </div>
+            </div>
+        </div>
+    </form>
+    
+
+  
+   
+</script>

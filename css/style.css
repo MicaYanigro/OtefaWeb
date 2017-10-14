@@ -336,7 +336,7 @@ table{
 
 button[disabled], html input[disabled] {
     cursor: default;
-    color: darkgray;
+    color: darkgray !important;
 }
 
 .tournamentDetails{
@@ -347,4 +347,8 @@ button[disabled], html input[disabled] {
 
 .form-control[disabled]{
   background-color: #ccc;
+}
+
+.whiteText{
+  color: white;
 }

@@ -68,6 +68,43 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 	$scope.getPositionsByGroups();
 	$scope.getMatches();
 
+	$scope.openDetails = function(match){
+		var modalInstance = $modal.open ({
 
+			templateUrl: 'matchDetail.html',
+			controller: MatchDetailCtrl,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+				match : function(){
+					return match;
+				}
+	        }
+      	});
+
+	    modalInstance.result.then(function () {
+      		
+        },function(){
+
+        });
+	}
 
 });
+
+
+var MatchDetailCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, match) {
+	
+    DataService.getMatchById(match.Id, function(response){
+    	$scope.match = response;
+    	$scope.team1 = $scope.match.MatchTeamList[0];
+    	$scope.team2 = $scope.match.MatchTeamList[1];
+    	console.log(response);
+    }, function(response, status){
+
+    });
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};

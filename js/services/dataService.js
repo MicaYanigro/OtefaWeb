@@ -127,6 +127,16 @@ angular.module('torneoFutbol').factory('DataService', ['restApi',
 	            }, fnSuccess, fnError, true);
 	        },
 
+	        getMatchById: function (matchID, fnSuccess, fnError) {
+	            restApi.call({
+	                method: 'GET',
+	                url: 'v1/matches/' + matchID,
+	               	headers: { 
+	                	'Content-Type': 'application/json'
+	                },
+	            }, fnSuccess, fnError, true);
+	        },
+
 	        getSedes: function (fnSuccess, fnError) {
 	            restApi.call({
 	                method: 'GET',
