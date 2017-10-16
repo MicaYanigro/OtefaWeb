@@ -442,11 +442,11 @@ var LoadResultsCtrl = function ($scope, $window, $filter, DataService, $modalIns
 		}
 
 		for (var i = 0; i < playersTeam2.length; i++) {
-			if(results[0].PlayersDetails[i].Card == 1){
+			if(results[1].PlayersDetails[i].Card == 1){
        $scope.team2.PlayersList[i].yellowCard = true;
        $scope.team2.PlayersList[i].redCard = false;
       }else{
-        if(results[0].PlayersDetails[i].Card == 2){
+        if(results[1].PlayersDetails[i].Card == 2){
          $scope.team2.PlayersList[i].yellowCard = false;
          $scope.team2.PlayersList[i].redCard = true;
         }else{
