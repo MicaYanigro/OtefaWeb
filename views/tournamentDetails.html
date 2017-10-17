@@ -18,7 +18,7 @@
 
 		<div class="col-md-12 col-xs-12" ng-repeat="group in matches">
 
-			<div ng-repeat="match in group.Matches">
+			<!--<div ng-repeat="match in group.Matches">-->
 
 				<div>
 					<label>{{group.Group}}</label>
@@ -40,7 +40,7 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr ng-repeat="match in group.Matches">
+			            <tr ng-repeat="match in group.Matches | orderBy: 'Round'">
 			            	<td class="columnCenter" width="80px">{{match.Round}}</td>
 			                <td>{{match.Team1}}</td>
 			                <td class="columnCenter" width="35px">{{!match.Goals1 ? 0 : match.Goals1}}</td>
@@ -48,13 +48,13 @@
 			                <td>{{match.Team2}}</td>
 			                <!-- <td>{{data.Headquarter}}</td> -->
 			                <td width="70px">{{match.Date | date:'dd/MM/yyyy'}}</td>
-			                <td class="columnCenter"><button type="button" style="color: black" class="botonReglamento glyphicon glyphicon-folder-open" ng-disabled="!match.Goals1 || !match.Goals2" ng-click="openDetails(match)"></button></td>
+			                <td class="columnCenter"><button type="button" style="color: black" class="botonReglamento glyphicon glyphicon-folder-open" ng-disabled="match.Goals1 == null|| match.Goals2 == null" ng-click="openDetails(match)"></button></td>
 			            </tr>
 			        </tbody>
 			    </table>
 			
 				<br><br>
-			</div>
+			<!--</div>-->
 		</div>
 
 	<!-- </div> -->
