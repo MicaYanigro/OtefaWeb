@@ -227,6 +227,13 @@ body.modal-open {
     font-size: 25px;
 }
 
+.botonFicha{
+    background: none;
+    border: none;
+    font-size: 15px;
+    color: green;
+}
+
 .teamImage{
   width: 400px;
 }

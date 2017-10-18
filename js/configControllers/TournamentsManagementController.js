@@ -154,6 +154,27 @@ torneoFutbol.controller('TournamentsManagementCtrl', function ($scope, $rootScop
         },function(){
 
         });
+	};
+
+	$scope.addGroups = function(tournament){
+		var modalInstance = $modal.open ({
+
+			templateUrl: 'addGroups.html',
+			controller: AddGroupsCtrl,
+			size: 'lg',
+			backdrop: 'static',
+			resolve: {
+				tournament : function(){
+					return tournament;
+				}
+	        }
+      	});
+
+	    modalInstance.result.then(function () {
+      		$scope.getTournaments();
+        },function(){
+
+        });
 	}
 
 });
@@ -365,6 +386,20 @@ var ManageTournamentCtrl = function ($scope, $window, $filter, DataService, $mod
 	$scope.confirmGroups = function(){
 		var groups = [];
 		var teams = [];
+
+		var length = Object.keys($scope.groupName).length;
+
+		if(length == undefined || length == 0){
+			$scope.errorMsg = "Ingrese el nombre de el/los grupos"
+			return;
+		}else{
+			for (var i = 0; i < $scope.groupName.length; i++) {
+				if($scope.groupName[i] == "" || $scope.groupName[i] == undefined){
+					$scope.errorMsg = "Ingrese el nombre de el/los grupos"
+					return;
+				}
+			}
+		}
 		
 		var length = Object.keys($scope.models.lists).length;
 		for (var i = 0; i < length; i++) {
@@ -422,6 +457,77 @@ var GroupFixtureCtrl = function ($scope, $window, $filter, DataService, $modalIn
 		}, function(response, status){
 			$scope.errorMsg = response.Message;
 		})
+	}
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+
+var AddGroupsCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, tournament) {
+    
+	$scope.saving = false;
+	$scope.errorMsg = null;
+	$scope.tournament = tournament;
+	$scope.groups = tournament.GroupList
+	$scope.tournamentTeams = tournament.TeamPlayersList;
+	$scope.models = {
+        selected: null,
+        lists: {}
+    };
+
+	$scope.numberSelected = function(){
+		$scope.models = {
+	        selected: null,
+	        lists: {}
+	    };
+
+		for (var i = 0; i < $scope.cantidad; ++i) {
+		    	if(i == 0){
+		        	$scope.models.lists[i] = $scope.tournamentTeams;
+		    	}
+		        else{
+		        	$scope.models.lists[i] = [];
+		        }
+		    
+			$scope.groupName = {};
+		}
+	}
+
+	$scope.confirmGroups = function(){
+		var groups = [];
+		var teams = [];
+
+		var length = Object.keys($scope.groupName).length;
+
+		if(length == undefined || length == 0){
+			$scope.errorMsg = "Ingrese el nombre de el/los grupos"
+			return;
+		}else{
+			for (var i = 0; i < $scope.groupName.length; i++) {
+				if($scope.groupName[i] == "" || $scope.groupName[i] == undefined){
+					$scope.errorMsg = "Ingrese el nombre de el/los grupos"
+					return;
+				}
+			}
+		}
+		
+		var length = Object.keys($scope.models.lists).length;
+		for (var i = 0; i < length; i++) {
+			groups.push({"Name": $scope.groupName[i], "TeamsId" : []})
+			var list = $scope.models.lists[i];
+
+			for (var j = 0; j < list.length; j++) {
+				groups[i].TeamsId.push(list[j].Team.Id);
+			}
+		}
+
+		DataService.postGroups(groups, $scope.tournament.Id, function(response){
+			$modalInstance.close();
+		}, function(response, status){
+			$scope.errorMsg = response.Message;
+		});
 	}
 
     $scope.cancel = function () {
