@@ -92,7 +92,7 @@ var torneoFutbol = angular.module('torneoFutbol', ['dndLists', 'ngRoute', 'ngCoo
 		.run(['$rootScope', '$location', '$cookieStore', '$http', '$templateCache', function ($rootScope, $location, $cookieStore, $http, $templateCache) {
 	        	// keep user logged in after page refresh
 
-	        	$rootScope.urlApi = 'http://otefafutbol.com/api2';
+	        	$rootScope.urlApi = 'http://localhost:1111';
 
 		        $rootScope.globals = $cookieStore.get('globals') || {};
 		        if ($rootScope.globals.currentUser) {

@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    var SERVER_URL = 'http://otefafutbol.com/api2';
+    var SERVER_URL = 'http://localhost:1111';
     
     angular.module('torneoFutbol').factory('restApi', ['$http', '$location', '$rootScope', '$cookieStore',
         function ($http, $location, $rootScope, $cookieStore) {
