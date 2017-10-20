@@ -47,7 +47,7 @@
 			                <td class="columnCenter" width="35px">{{!match.Goals2 ? 0 : match.Goals2}}</td>
 			                <td>{{match.Team2}}</td>
 			                <!-- <td>{{data.Headquarter}}</td> -->
-			                <td width="70px">{{match.Date | date:'dd/MM/yyyy'}}</td>
+			                <td width="70px">{{match.Date | date:'dd/MM/yyyy HH:mm'}}</td>
 			                <td class="columnCenter"><button type="button" class="botonFicha glyphicon glyphicon-folder-open" ng-disabled="match.Goals1 == null|| match.Goals2 == null" ng-click="openDetails(match)"></button></td>
 			            </tr>
 			        </tbody>
