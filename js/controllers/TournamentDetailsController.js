@@ -47,6 +47,7 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 	$scope.getPositionsByGroups = function(){
 		DataService.getPositionsByGroups($routeParams.tournamentID, function(response){
 			$scope.groupsPosition = response;
+			$scope.getMatches();
 		}, function(response, status){
 
 		});
@@ -55,9 +56,15 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 	$scope.getMatches = function(){
 		DataService.getMatchesByTournamentId($routeParams.tournamentID, function(response){
 			$scope.matches = response;
+			$scope.groupsData = [];
+			for (var i = 0; i < $scope.matches.length; i++) {
+				$scope.groupsData.push($scope.matches[i]);
+				$scope.groupsData.push($scope.groupsPosition[i]);
+			}
+			
 		}, function(response, status){
 
-		})		
+		})
 	}
 
 	$scope.toggleTabs = function(status){
@@ -66,7 +73,7 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 
 	$scope.getTournament();
 	$scope.getPositionsByGroups();
-	$scope.getMatches();
+
 
 	$scope.openDetails = function(match){
 		var modalInstance = $modal.open ({
@@ -83,7 +90,7 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
       	});
 
 	    modalInstance.result.then(function () {
-      		
+
         },function(){
 
         });
@@ -93,7 +100,7 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 
 
 var MatchDetailCtrl = function ($scope, $window, $filter, DataService, $modalInstance, $translate, match) {
-	
+
     DataService.getMatchById(match.Id, function(response){
     	$scope.match = response;
     	$scope.team1 = $scope.match.MatchTeamList[0];
