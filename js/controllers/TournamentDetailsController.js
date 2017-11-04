@@ -59,9 +59,17 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 			$scope.groupsData = [];
 			for (var i = 0; i < $scope.matches.length; i++) {
 				$scope.groupsData.push($scope.matches[i]);
-				$scope.groupsData.push($scope.groupsPosition[i]);
+				$scope.groupsData.push(($filter('filter')($scope.groupsPosition, {Group:$scope.matches[i].GroupName}))[0]);
 			}
-			
+
+		}, function(response, status){
+
+		})
+	}
+
+	$scope.getScorers = function(){
+		DataService.getScorers($routeParams.tournamentID, function(response){
+			$scope.scorers = response;
 		}, function(response, status){
 
 		})
@@ -73,6 +81,7 @@ torneoFutbol.controller('TournamentDetailsCtrl', function ($scope, $rootScope, $
 
 	$scope.getTournament();
 	$scope.getPositionsByGroups();
+	$scope.getScorers();
 
 
 	$scope.openDetails = function(match){

@@ -10,99 +10,128 @@
 
 	<!-- <div ng-show="showFixture"> -->
 
-		<div class="row text-center">
-			<label>FIXTURE Y POSICIONES</label>
-		</div>
 
-		<br/>
 
-		<div class="col-md-12 col-xs-12" ng-repeat="group in groupsData">
-			<!-- <div class="col-md-12 col-xs-12" ng-repeat="group in groupsPosition"> -->
+		<div class="col-md-8 col-xs-8">
+			<div class="row text-center">
+				<label>FIXTURE Y POSICIONES</label>
+			</div>
 
-			<!--<div ng-repeat="match in group.Matches">-->
+			<br/>
+			<div ng-repeat="group in groupsData">
 
-				<div ng-if="group.Matches">
-					<label>{{group.Group}}</label>
-				</div>
+				<!-- <div class="col-md-12 col-xs-12" ng-repeat="group in groupsPosition"> -->
 
-				<br/>
+				<!--<div ng-repeat="match in group.Matches">-->
 
-				<table id="fixture" datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered" width="100%" ng-if="group.Matches">
-			        <thead>
-			            <tr>
-			            	<th class="columnCenter" width="80px">Fecha N°</th>
-			                <th>Local</th>
-			                <th class="columnCenter" width="35px"></th>
-			                <th class="columnCenter" width="35px"></th>
-			                <th>Visitante</th>
-			                <!-- <th>Sede</th> -->
-			                <th width="150px">Fecha</th>
-		                	<th class="columnCenter" width="35px" >Ficha</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <tr ng-repeat="match in group.Matches | orderBy: 'Round'">
-			            	<td class="columnCenter" width="80px">{{match.Round}}</td>
-			                <td>{{match.Team1}}</td>
-			                <td class="columnCenter" width="35px">{{!match.Goals1 ? 0 : match.Goals1}}</td>
-			                <td class="columnCenter" width="35px">{{!match.Goals2 ? 0 : match.Goals2}}</td>
-			                <td>{{match.Team2}}</td>
-			                <!-- <td>{{data.Headquarter}}</td> -->
-			                <td width="70px">{{match.Date | date:'dd/MM/yyyy HH:mm'}}</td>
-			                <td class="columnCenter"><button type="button" class="botonFicha glyphicon glyphicon-folder-open" ng-disabled="match.Goals1 == null|| match.Goals2 == null" ng-click="openDetails(match)"></button></td>
-			            </tr>
-			        </tbody>
-			    </table>
+					<div ng-if="group.GroupMatches">
+						<label>{{group.GroupName}}</label>
+					</div>
 
-				<table id="positions" datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered" ng-if="group.Positions">
-			        <thead>
-			            <tr>
-			                <th class="columnCenter" width="20px">Pos</th>
-			                <th class="teamColumn">Equipo</th>
-			                <th class="columnCenter" width="40px" >Pts</th>
-			                <th class="columnCenter" width="35px" >PJ</th>
-			                <th class="columnCenter" width="35px" >PG</th>
-			                <th class="columnCenter" width="35px" >PE</th>
-			                <th class="columnCenter" width="35px" >PP</th>
-			                <th class="columnCenter" width="35px" >GF</th>
-			                <th class="columnCenter" width="35px" >GC</th>
-			                <th class="columnCenter" width="35px" >DG</th>
-											<th class="columnCenter" width="35px" >PB</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <tr ng-repeat="position in group.Positions | orderBy: '-FinalPoints'">
-			                <td class="columnCenter" width="40px">{{$index + 1}}</td>
-			                <td class="teamColumn">{{position.Team}}</td>
-			                <td class="columnCenter" width="35px">{{position.FinalPoints}}</td>
-			                <td class="columnCenter" width="35px">{{position.PlayedGames}}</td>
-			                <td class="columnCenter" width="35px">{{position.WonGames}}</td>
-			                <td class="columnCenter" width="35px">{{position.DrawGames}}</td>
-			                <td class="columnCenter" width="35px">{{position.LooseGames}}</td>
-			                <td class="columnCenter" width="35px">{{!position.Goals ? 0 : position.Goals}}</td>
-			                <td class="columnCenter" width="35px">{{!position.AgainstGoals ? 0 : position.AgainstGoals}}</td>
-			                <td class="columnCenter" width="35px">{{!position.DifGoal ? 0 : position.DifGoal}}</td>
-							<td class="columnCenter" width="35px">{{!position.Bonus ? 0 : position.Bonus}}</td>
+					<br/>
 
-			            </tr>
-			        </tbody>
-			    </table>
-			<!--</div>-->
+					<table id="fixture" datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered" width="100%" ng-if="group.GroupMatches">
+				        <thead>
+				            <tr>
+				            	<th class="columnCenter" width="80px">Fecha N°</th>
+				                <th>Local</th>
+				                <th class="columnCenter" width="35px"></th>
+				                <th class="columnCenter" width="35px"></th>
+				                <th>Visitante</th>
+				                <!-- <th>Sede</th> -->
+				                <th width="150px">Fecha</th>
+			                	<th class="columnCenter" width="35px" >Ficha</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr ng-repeat="match in group.GroupMatches | orderBy: 'Round'">
+				            	<td class="columnCenter" width="80px">{{match.Round}}</td>
+				                <td>{{match.Team1}}</td>
+				                <td class="columnCenter" width="35px">{{!match.Goals1 ? 0 : match.Goals1}}</td>
+				                <td class="columnCenter" width="35px">{{!match.Goals2 ? 0 : match.Goals2}}</td>
+				                <td>{{match.Team2}}</td>
+				                <!-- <td>{{data.Headquarter}}</td> -->
+				                <td width="70px">{{match.Date | date:'dd/MM/yyyy HH:mm'}}</td>
+				                <td class="columnCenter"><button type="button" class="botonFicha glyphicon glyphicon-folder-open" ng-disabled="match.Goals1 == null|| match.Goals2 == null" ng-click="openDetails(match)"></button></td>
+				            </tr>
+				        </tbody>
+				    </table>
+
+					<table id="positions" datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered" ng-if="group.Positions">
+				        <thead>
+				            <tr>
+				                <th class="columnCenter" width="20px">Pos</th>
+				                <th class="teamColumn">Equipo</th>
+				                <th class="columnCenter" width="40px" >Pts</th>
+				                <th class="columnCenter" width="35px" >PJ</th>
+				                <th class="columnCenter" width="35px" >PG</th>
+				                <th class="columnCenter" width="35px" >PE</th>
+				                <th class="columnCenter" width="35px" >PP</th>
+				                <th class="columnCenter" width="35px" >GF</th>
+				                <th class="columnCenter" width="35px" >GC</th>
+				                <th class="columnCenter" width="35px" >DG</th>
+												<th class="columnCenter" width="35px" >PB</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr ng-repeat="position in group.Positions | orderBy: '-FinalPoints'">
+				                <td class="columnCenter" width="40px">{{$index + 1}}</td>
+				                <td class="teamColumn">{{position.Team}}</td>
+				                <td class="columnCenter" width="35px">{{position.FinalPoints}}</td>
+				                <td class="columnCenter" width="35px">{{position.PlayedGames}}</td>
+				                <td class="columnCenter" width="35px">{{position.WonGames}}</td>
+				                <td class="columnCenter" width="35px">{{position.DrawGames}}</td>
+				                <td class="columnCenter" width="35px">{{position.LooseGames}}</td>
+				                <td class="columnCenter" width="35px">{{!position.Goals ? 0 : position.Goals}}</td>
+				                <td class="columnCenter" width="35px">{{!position.AgainstGoals ? 0 : position.AgainstGoals}}</td>
+				                <td class="columnCenter" width="35px">{{!position.DifGoal ? 0 : position.DifGoal}}</td>
+								<td class="columnCenter" width="35px">{{!position.Bonus ? 0 : position.Bonus}}</td>
+
+				            </tr>
+				        </tbody>
+				    </table>
+				<!--</div>-->
+			<!-- </div> -->
+
 		<!-- </div> -->
-
-	<!-- </div> -->
-	<!-- <div ng-show="!showFixture"> -->
-	<br><br>
+		<!-- <div ng-show="!showFixture"> -->
+		<br><br>
 
 
 
 
 
 		</div>
+		</div>
+		<div class="col-md-4 col-xs-4">
 
-	<!-- </div> -->
+			<div class="row text-center">
+				<label>GOLEADORES DEL TORNEO</label>
+			</div>
+			<div style="margin-top:70px">
+				<table id="positions" datatable="ng" dt-options="dtOptions2" class="table table-striped table-bordered">
+						<thead>
+								<tr>
+										<th class="columnCenter" width="20px">Jugador</th>
+										<th class="teamColumn">Equipo</th>
+										<th class="columnCenter" width="40px" >Goles</th>
+								</tr>
+						</thead>
+						<tbody>
+								<tr ng-repeat="data in scorers">
+										<td class="columnCenter" width="40px">{{data.Player}}</td>
+										<td class="teamColumn">{{data.Team}}</td>
+										<td class="columnCenter" width="35px">{{data.Goals}}</td>
+								</tr>
+						</tbody>
+				</table>
+		</div>
+		</div>
+
+	</div>
 
 </div>
+
 
 <script type="text/ng-template" id="matchDetail.html">
 
